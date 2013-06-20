@@ -1,0 +1,57 @@
+// Place all the styles related to the Jobs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com
+
+#job_class_type{
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    width: 430px;
+}
+
+#job_assigned_to{
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    width: 430px;
+}
+
+#job_status{
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    width: 430px;
+}
+
+#job_contact_id{
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    width: 430px;
+}
+
+#job_sales_person{
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    width: 430px;
+}
+
+#note_type{
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    width: 430px;
+}
+
+#contact34{
+    display:none;
+    border: 1px solid #CCC;
+    padding: 5px;
+    width: 207px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background: #F0F0F0;
+}
+
+div.scrollWrapper{
+
+  height:250px;
+
+  overflow:scroll;
+}

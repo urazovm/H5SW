@@ -1,0 +1,33 @@
+<%= form_for(@document, :url => documents_path(:type => params[:type]),:remote => true, :html => {:multipart => true }) do |f| %>
+  <table width="100%">
+    <tr>
+      <td>
+         <%= f.hidden_field :documentable_type, :value => params[:type] %>
+      </td>
+
+     </tr>
+
+     
+     <tr>
+      <td>
+       <%= f.file_field :document %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.submit "Add document", :class => "btn-success" %></td>
+    </tr>
+
+    
+
+  </table>
+<% end %>
+<style>
+  td, th {
+    text-align: left;
+  }
+</style>
+
+<hr />
+
+
+

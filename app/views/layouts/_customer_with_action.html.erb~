@@ -1,0 +1,27 @@
+<%= form_for "form2" do |f| %>
+
+  Customer :
+  <%= f.select :customers, options_for_select(current_company.customers.map{|customer| [customer.company_name, customer.id]}), {} %>
+
+  <%= f.select :actions, options_for_select([["Actions", ""], ["Add Customer", "/customers/new"],
+      ["Add Job Site", "/jobsites/new"] ,["Add Job", "/jobs/new"] , ["Add Note", "#"], ["Add Contact", "/contacts/new"],
+      ["Add Document", "#"]]), :placeholder => "Actions"
+  %>
+
+  <br />
+
+
+  Job Site &nbsp; :  <%= f.select :jobsite, options_for_select(current_company.jobsites.map{|jobsite|[jobsite.name]}),{} %>
+
+<% end %>
+
+
+<script>
+  $(document).ready(function(){
+    $('#form2_actions').change(function(){
+      location.href = $(this).val();
+    });
+  });
+</script>
+
+

@@ -1,0 +1,28 @@
+<%= form_for "form2" do |f| %>
+
+  Customer :
+  <%= f.select :customers, options_for_select(current_company.customers.map{|customer| [customer.company_name, customer.id]}), {}, :onchange => "getJobsite(this);" %>
+
+  <%= f.select :actions, options_for_select([["Actions", ""], ["Add Customer", "/customers/new"],
+      ["Add Job Site", "/jobsites/new"] ,["Add Job", "/jobs/new"] , ["Add Note", "#"], ["Add Contact", "/contacts/new"],
+      ["Add Document", documents_path(:type => "Customer")]]), :placeholder => "Actions"
+%>
+
+  <br />
+
+  <div id="jobsite">
+    Job Site &nbsp; :  <%= f.select :jobsite, "" %>
+  </div>
+<% end %>
+
+
+
+<script>
+  $(document).ready(function(){
+    $('#form2_actions').change(function(){
+      location.href = $(this).val();
+    });
+  });
+</script>
+
+

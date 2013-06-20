@@ -1,0 +1,10 @@
+<% notes.each do |note| %>
+  <table width="100%">
+    <tr>
+      <td><%= note.created_at %></td>
+      <td><%= note.note_type %></td>
+      <td><%= note.description %></td>
+      <td>Edit|DELETE</td>
+    </tr>
+  </table>
+<% end %>

@@ -1,0 +1,29 @@
+<%= form_for "search" do |f| %>
+    
+
+<div>
+<div class="add-on" style="margin-center:20px;"></div>
+<%= f.select :actions, options_for_select([["Actions", ""], ["Add Customer", "customers/new"],
+            ["Add Job Site", "/jobsites/new"] ,["Add Job", "jobs/new"] , ["Add Note", "#"], ["Add Contact", "#"],
+            ["Add Document", "#"]]), :placeholder => "Actions"
+            %><br />
+
+</div>
+
+<%  end %>
+
+<script>
+  $(document).ready(function(){
+    $('#search_actions').change(function(){
+      location.href = $(this).val();
+    });
+  });
+</script>
+
+<%= render '/layouts/tab_panel_for_customer' %>
+
+<div>
+ <%= form_tag :customers, :method => 'get', :class => "form-search" do |f|  %>
+ <%= text_field_tag :search, params[:search], :placeholder => "search", :class => "input-large search-query" %> &nbsp;
+ <% end %>
+</div>

@@ -1,0 +1,102 @@
+
+<%= form_for(@job) do |f| %>
+  <% if @job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
+
+      <ul>
+        <% @job.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= select_tag :select_action, options_for_select([['Actions', ' '], ['Convert to Invoice', 'convert_to_invoice'], ['Invoice & Pay', 'invoice_pay'], ['Email', 'email'], ['Print', 'print']], :selected => params[:select_action]) %>
+  <!--
+    - job_id is auto_increment
+    - Customer details will automatically comes
+  -->
+  <br /><span style = "color:#0044cc; font-weight: bold;"> Job # : <%= @job_number  %>  </span>
+
+  <div style="width:435px; font-weight: bold;">
+    <%= f.text_field :customer_id, :value => @customer_id %>
+    <%= f.hidden_field :jobsite_id, :value => "" %>
+    
+    <% if @customer == nil %>
+      <%= "No customer details found!" %>
+    <% else %>
+      <%= @customer.company_name + ", " + @customer.address1 + ", " + @customer.city + ", " + @customer.state + ", " + @customer.zip.to_s %>
+    <% end %>
+  </div>
+  <hr />
+
+  <div class="field">
+    <%= f.label :reference_no %>
+    <%= f.text_field :reference_no %>
+  </div>
+  <div class="field">
+    <%= f.label :due_date %>
+    <%= f.datetime_select :due_date, :class => "fix" %>
+  </div>
+  <div class="field">
+    <%= f.label :class_type %>
+    <%= f.select :class_type, options_for_select([["Installation", "installation"]]) %>
+  </div>
+  <div class="field">
+    <%= f.label :assigned_to %>
+    <%= f.select :assigned_to, options_for_select([["Bob Field guy", "Bob"]]) %>
+  </div>
+  <div class="field">
+    <%= f.label :status %>
+    <%= f.select :status, options_for_select([["Waiting for parts", "Waiting"]]) %>
+  </div>
+  <div class="field">
+    <%= label_tag :select_contact %>
+    <% if current_company.contacts.empty? %>
+      <span style="color: red;">NO CONTACTS</span>
+    <% else %>
+      <%= f.select :contact_id, options_for_select(current_company.contacts.map{|contact| [contact.name, contact.id]}),{},:onchange => "GetContact(this)" %>
+    <% end %>
+    <div id="contact34">
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :sales_person %>
+    <%= f.select :sales_person, options_for_select([["Fred Salse guy", "Fred"]]) %>
+  </div>
+  <div class="field">
+    <%= f.label :summary %>
+    <%= f.text_field :summary %>
+  </div>
+  <div class="field">
+    <%= f.label :sub_total %>
+    <%= f.text_field :sub_total %>
+  </div>
+  <div class="field">
+    <%= f.label :add_items %>
+    <%= f.text_field :add_items %>
+  </div>
+  <div class="actions">
+    <%= f.submit :class => "btn btn-success" %>
+  </div>
+<% end %>
+<!-- For Job Notes -->
+<div style="width:420px;">
+  <h4 style="background:#CCC; padding:5px; border:1px solid #999; width:auto;">Job Notes</h4>
+  <%= render 'notes/form', :style => "table{ border:none; }" %>
+  <table class="table">
+    <table class="table table-striped">
+      <% @notes.each do |notes| %>
+        <tr class="<%= cycle('even', 'odd') %> ">
+          <td><%= notes.note_type  %></td>
+          <td><%= notes.description %></td>
+          <td><%= notes.created_at %></td>
+          <td>
+            <%= link_to "Edit"  %> |
+            <%= link_to "Delete" %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </table>
+</div>

@@ -1,0 +1,37 @@
+<%= form_for(@note, :url => notes_path(:type => params[:type]), :remote => true) do |f| %>
+  <table width="100%">
+    <tr>
+      <td>
+        <% if params[:type] == "Customer" %>
+          <%= f.select :notable_id, options_for_select(current_company.customers.map{|customer| [customer.company_name, customer.id]})%>
+          <%= f.hidden_field :notable_type, :value => params[:type] %>
+        <% end %>
+        <% if params[:controller] == "jobs" %>
+          <%= f.select :notable_id, options_for_select(current_company.jobs.map{|job| [job.reference_no, job.id]}) %>
+          <%= f.hidden_field :notable_type, :value => "Job" %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.select :note_type, [["Note Type", ""],["Site Notes", "Site Notes"],["Service Request", "Service Request"], ["Service Performed", "Service Performed"], ["Private", "Private"], ["Customer", "Customer"], ["System Notes", "System Notes"]] %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= f.text_area :description, :cols => 30, :rows => 4 %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.submit "Add Note" %></td>
+    </tr>
+  </table>
+<% end %>
+<style>
+  td, th {
+    text-align: left;
+  }
+</style>
+
+<hr />
+

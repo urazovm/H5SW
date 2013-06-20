@@ -1,0 +1,55 @@
+<%= render '/layouts/customer_with_action' %>
+
+<ul class="nav nav-tabs" id="myTab">
+  <li class = <%= params[:controller] == "customers" || params[:action] == "new" ? 'active' : ''  %> >
+    <%= link_to 'Contact', new_contact_path %>
+  </li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="customer"></div>
+  <div class="tab-pane" id="job"></div>
+</div>
+<script>
+  $(function () {
+  $('#myTab a:last').tab('show');
+  })
+</script>
+
+<%= form_for(@contact, :remote => true) do |f| %>
+    <div id="error_explanation" style="display:none;">
+      
+    </div>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :role %>
+    <%= f.text_field :role %>
+  </div>
+  <div class="field">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :mobile %>
+    <%= f.text_field :mobile %>
+  </div>
+  <div class="field">
+    <%= f.label :business %>
+    <%= f.text_field :business %>
+  </div>
+  <div class="field">
+    <%= f.label :twitter %>
+    <%= f.text_field :twitter %>
+  </div>
+  <div class="actions">
+    <%= f.submit :class => "btn btn-success" %>
+  </div>
+<% end %>
+
+<hr />
+<div id="contacts">
+<%= render :partial => "contacts", :locals => {:contacts => @contacts} %>
+</div>

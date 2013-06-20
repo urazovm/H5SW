@@ -1,0 +1,20 @@
+<table>
+  <tr>
+    <th>Name</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+
+  <% @jobsites.each do |jobsite| %>
+  <tr>
+    <td><%= jobsite.name %></td>
+    <td><%= jobsite.city %></td>
+    <td><%= jobsite.state %></td>
+    <td><%= jobsite.zip %></td>
+  </tr>
+  <% end %>
+</table>

@@ -1,0 +1,21 @@
+
+<table width="100%"> 
+    <tr>
+      <th>Description</th>
+      <th>FileType</th>
+      <th>DateAdded</th>
+      <th>Action</th>
+    </tr>
+
+<% documents.each do |document| %>
+     <tr>
+      <td><%= document.document_file_name %></td>
+      <td><%= document.document_content_type %></td>
+      <td><%= document.created_at%></td>
+      <td><%= link_to 'Delete', document, :confirm => 'Are you sure?',
+            :method => :delete %></td>
+    </tr>
+  
+<% end %>
+
+ </table>

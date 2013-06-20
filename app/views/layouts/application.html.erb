@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SMO</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application", "jquery-1.3.2.min"  %>
+    <%= javascript_include_tag :defaults %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="nav-collapse">
+            <% if signed_in? %>
+              <ul class="nav pull-left">
+                <li>
+                 <%= link_to "Home",  dashboards_index_path %>
+                </li>
+                <li>
+                  <%= link_to "Customers", customers_path %>
+                </li>
+                 <li>
+                  <%= link_to "Jobs", jobs_path %>
+                </li>
+                 <li>
+                  <%= link_to "Contacts", contacts_path %>
+                </li>
+              </ul>
+              <ul class="nav pull-right">
+                <li>
+                 <%= link_to_function "Settings","alert('coming soon!'); return false;" %>
+                </li>
+                <li>
+                    <%= link_to "Logout", destroy_company_session_path, :method => "DELETE" %>
+                </li>
+              </ul>
+            <% end %>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <br/> <br/> <br/>
+      <% if notice %>
+        <div class="alert alert-info" style="margin-top: 0px;">
+          <a class="close" data-dismiss="alert">×</a>
+          <strong><%= notice %></strong>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-error">
+          <a class="close" data-dismiss="alert">×</a>
+          <strong><%= alert %></strong>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+  </body>
+</html>
