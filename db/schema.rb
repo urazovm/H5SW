@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130620064602) do
+ActiveRecord::Schema.define(:version => 20130621071310) do
 
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -103,6 +103,7 @@ ActiveRecord::Schema.define(:version => 20130620064602) do
     t.datetime "created_at",                                                  :null => false
     t.datetime "updated_at",                                                  :null => false
     t.integer  "contact_id"
+    t.integer  "jobsite_id"
   end
 
   add_index "jobs", ["reference_no"], :name => "index_jobs_on_reference_no", :unique => true

@@ -23,6 +23,7 @@ class JobsController < ApplicationController
     @job = Job.new
     @customer_id = session[:customer_id]
     @jobsite_id = session[:jobsite_id]
+
     @note = current_company.notes.new
 
     @customer_id ? @customer = Customer.find(@customer_id) : nil

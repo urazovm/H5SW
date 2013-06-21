@@ -1,6 +1,6 @@
 class Job < ActiveRecord::Base
 
-  attr_accessible :add_items, :assigned_to, :class_type, :due_date, :reference_no, :sales_person, :status, :sub_total, :summary, :job_number, :customer_id, :company_id, :contact_id
+  attr_accessible :add_items, :assigned_to, :class_type, :due_date, :reference_no, :sales_person, :status, :sub_total, :summary, :job_number, :customer_id, :company_id, :contact_id, :jobsite_id
   # Data validations
   validates :reference_no, :class_type, :status,  :sales_person, :assigned_to, :due_date, :sub_total, :presence => true
   validates :reference_no, :uniqueness => true

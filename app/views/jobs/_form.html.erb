@@ -19,14 +19,14 @@
   <br /><span style = "color:#0044cc; font-weight: bold;"> Job # : <%= @job_number  %>  </span>
 
   <div style="width:435px; font-weight: bold;">
-    <%= f.text_field :customer_id, :value => @customer_id %>
-    <%= f.text_field :jobsite_id, :value => @jobsite_id %>
-    <%= f.hidden_field :jobsite_id, :value => "" %>
+    <%= f.hidden_field :customer_id, :value => @customer_id %>
+    <%= f.hidden_field :jobsite_id, :value => @jobsite_id %>
     
     <% if @customer == nil %>
       <%= "No customer details found!" %>
     <% else %>
-      <%= @customer.company_name + ", " + @customer.address1 + ", " + @customer.city + ", " + @customer.state + ", " + @customer.zip.to_s %>
+      <%=  "Customer : " + @customer.company_name + ", " + @customer.address1 + ", " + @customer.city + ", " + @customer.state + ", " + @customer.zip.to_s %>
+      <%= "Job Site : " + @jobsite.name + ", " + @jobsite.city + ", " + @jobsite.state + ", " + @jobsite.zip %>
     <% end %>
   </div>
   <hr />
