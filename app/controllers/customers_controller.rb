@@ -16,17 +16,19 @@ class CustomersController < ApplicationController
     @customer = Customer.new
 
     @jobsites = Jobsite.all.find(params[:customer_id])
- end
+ 	end
 
   # GET /customers/1/edit
   def edit
     @customer = Customer.find(params[:id])
+    session[:customer_id] = params[:id]
   end
 
   # POST /customers
   def create
     @customer = Customer.new(params[:customer])
     @customer.company_id = current_company.id
+    @customer.
     
     if @customer.save
       flash[:notice] = "Customer was successfully created."
@@ -57,5 +59,4 @@ class CustomersController < ApplicationController
       flash[:error] = "Customer deletion is failed. please try again."
     end
     redirect_to customers_url 
-  end  
-end
+  end

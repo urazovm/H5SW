@@ -1,20 +1,18 @@
-<%= form_for "form2" do |f| %>
-
-  Customer :
-  <%= f.select :customers, options_for_select(current_company.customers.map{|customer| [customer.company_name, customer.id]}), {}, :onchange => "getJobsite(this);" %>
-
-  <%= f.select :actions, options_for_select([["Actions", ""], ["Add Customer", "/customers/new"],
-      ["Add Job Site", "/jobsites/new"] ,["Add Job", "/jobs/new"] , ["Add Note", "#"], ["Add Contact", "/contacts/new"],
-      ["Add Document", documents_path(:type => "Customer")]]), :placeholder => "Actions"
+<%= form_for "form2" do |f|%>
+Customer :
+<%= f.select :customers, options_for_select(["All"]+current_company.customers.map{|customer| [customer.company_name, customer.id]}, :selected => session[:customer_id]), {}, :onchange => "getJobsite(this);" %>
+<%= f.select :actions, options_for_select([["Actions", ""], ["Add Customer", "/customers/new"],
+    ["Add Job Site", "/jobsites/new"] ,["Add Job", "/jobs/new"] , ["Add Note", "#"], ["Add Contact", "/contacts/new"],
+    ["Add Document", "#"]]), :placeholder => "Actions"
 %>
 
-  <br />
+<br />
 
-  <div id="jobsite">
-    Job Site &nbsp; :  <%= f.select :jobsite, "" %>
-  </div>
-<% end %>
-
+<div id="jobsite">
+  <% @jobsites = Jobsite.find_all_by_customer_id(session[:customer_id]) %>
+ Job Site &nbsp; : <%= select_tag :jobsite_id, options_for_select(["All"]+@jobsites.map{|job| [job.name,job.id]}, :selected => session[:jobsite_id]), :onchange => "getJobsiteId(this)" %>
+</div>
+<%  end %>
 
 
 <script>

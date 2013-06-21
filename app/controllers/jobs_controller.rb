@@ -21,8 +21,13 @@ class JobsController < ApplicationController
   # GET /jobs/new
   def new
     @job = Job.new
-    @customer_id = session[:jobsite_id]
+    @customer_id = session[:customer_id]
+    @jobsite_id = session[:jobsite_id]
     @note = current_company.notes.new
+
+    @customer_id ? @customer = Customer.find(@customer_id) : nil
+    @jobsite_id ? @jobsite = Jobsite.find(@jobsite_id) : nil
+
     @notes = current_company.notes.where("notable_type='Job'").order("created_at desc")
     @document = current_company.documents.new
     @documents = current_company.documents.where("documentable_type='Job'").order("created_at desc")

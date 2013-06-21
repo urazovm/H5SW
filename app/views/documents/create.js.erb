@@ -1,5 +1,5 @@
 <% if !@document.new_record? %>
   $('#documents').replaceWith("<%= escape_javascript(render(:partial => 'documents', :locals => {:documents => @documents})) %> ");
-  $('#document_document').val(' ')
+  $('#document_document').val(' ');
   <% else %>
 <% end %>

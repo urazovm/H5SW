@@ -24,7 +24,7 @@ class JobsitesController < ApplicationController
     
     @jobsite = Jobsite.new(params[:jobsite])
     
-      if @jobsite.save
+    if @jobsite.save
       flash[:notice] = "Jobsite was successfully created."
       redirect_to jobsites_path
     else
@@ -35,7 +35,7 @@ class JobsitesController < ApplicationController
   # PUT /customers/1
   def update
     @jobsite = Jobsite.find(params[:id])
-        if @jobsite.update_attributes(params[:jobsite])
+    if @jobsite.update_attributes(params[:jobsite])
       flash[:notice] = "Jobsite was successfully updated."
       redirect_to jobsites_path
     else
@@ -52,12 +52,20 @@ class JobsitesController < ApplicationController
     end
     redirect_to jobsites_url
   end
-  
+
+  # action for displaying dynamic select options
   def ajax_show
-    @jobsites = Jobsite.find_all_by_customer_id(params[:id])
-    session[:jobsite_id] = params[:id];
+    @jobsites = Jobsite.find_all_by_customer_id(session[:customer_id])
+    session[:customer_id] = params[:id]
     respond_to do |format|
       format.js{render :partial =>'jobsites'}
     end
+  end
+
+  #action for storing the selected id to session
+  def get_id
+    session[:jobsite_id] = params[:id]
+    #puts params[:id],session[:jobsite_id]
+    render :nothing => true
   end
 end

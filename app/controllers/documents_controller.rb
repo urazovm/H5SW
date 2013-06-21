@@ -3,7 +3,7 @@ class DocumentsController < ApplicationController
   before_filter :get_documents
  
   def index
-    @document = current_company.documents.new
+    @document = current_company.documents.new()
   end
 
  def create

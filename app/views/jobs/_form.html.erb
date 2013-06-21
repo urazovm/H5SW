@@ -20,6 +20,7 @@
 
   <div style="width:435px; font-weight: bold;">
     <%= f.text_field :customer_id, :value => @customer_id %>
+    <%= f.text_field :jobsite_id, :value => @jobsite_id %>
     <%= f.hidden_field :jobsite_id, :value => "" %>
     
     <% if @customer == nil %>

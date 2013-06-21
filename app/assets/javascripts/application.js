@@ -16,22 +16,29 @@
 //= require twitter/bootstrap
 //= require_tree .
 
- function GetContact(s){
+function GetContact(s){
     $.ajax({
-      url :'/contacts/'+jQuery(s).val()+'/ajax_show',
-      dataType: 'script',
-      success :function(data){
-      }
+        url :'/contacts/'+jQuery(s).val()+'/ajax_show',
+        dataType: 'script',
+        success :function(data){
+        }
     })
-  }
+}
 
-  function getJobsite(s){
+function getJobsite(s){
     $.ajax({
         url: '/jobsites/'+ jQuery(s).val() + '/ajax_show',
         dataType: 'script',
         success: function(data){
-            $("#jobsite").html(data);
-            
+            $("#jobsite").html(data);            
         }
-    })
-  }
+    });
+}
+
+function getJobsiteId(s){
+    $.ajax({
+        url: '/jobsites/'+ jQuery(s).val() + '/get_id',
+        dataType: 'script',
+        success: function(data){}
+    });
+}

@@ -4,6 +4,7 @@ SMO::Application.routes.draw do
   resources :jobsites do
     member do
       get :ajax_show
+      get :get_id
     end
   end
    

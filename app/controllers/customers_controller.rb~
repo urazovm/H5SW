@@ -13,19 +13,23 @@ class CustomersController < ApplicationController
 
   # GET /customers/new
   def new
-    @customer = Customer.new  
-  end
+    @customer = Customer.new
+
+    @jobsites = Jobsite.all.find(params[:customer_id])
+ 	end
 
   # GET /customers/1/edit
   def edit
     @customer = Customer.find(params[:id])
+    session[:customer_id] = params[:id]
   end
 
   # POST /customers
   def create
     @customer = Customer.new(params[:customer])
     @customer.company_id = current_company.id
-
+    @customer.
+    
     if @customer.save
       flash[:notice] = "Customer was successfully created."
       redirect_to customers_path
@@ -56,4 +60,3 @@ class CustomersController < ApplicationController
     end
     redirect_to customers_url 
   end
-end

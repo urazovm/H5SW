@@ -11,20 +11,17 @@
       <th>St</th>
       <th>Zip</th>
       <th>Phone</th>
-      <th>Action</th>
     </tr>
     <% @customers.each do |customer| %>
       <tr>
-        <td><%= link_to  customer.company_name, customer_path(customer) %></td>
+        <td><%= link_to  customer.company_name, edit_customer_path(customer) %></td>
         <td><%= customer.account %></td>
         <td><%= customer.address1 %></td>
         <td><%= customer.city %></td>
         <td><%= customer.state %></td>
         <td><%= customer.zip %></td>
         <td><%= customer.phone %></td>
-        <td><%= link_to 'Edit', edit_customer_path(customer) %>|
-          <%= link_to 'Delete', customer, :confirm => 'Are you sure?',
-            :method => :delete %></td>
+        
       </tr>
     <% end %>
   </table>
