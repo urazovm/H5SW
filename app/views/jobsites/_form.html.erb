@@ -13,7 +13,7 @@
     </div>
   <% end %>
 
-<%= f.select :customer_id, Customer.all.collect {|p| [ p.company_name, p.id ] } %>
+<%= f.select :customer_id, options_for_select(["All"]+current_company.customers.map{|customer| [customer.company_name, customer.id]}, :selected => session[:customer_id]), {}, :onchange => "getJobsite(this);" %>
 
 <div class ="field">
   <%= f.label :name %>

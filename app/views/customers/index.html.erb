@@ -4,24 +4,37 @@
 <table class="table">
   <table class="table table-striped" >
     <tr>
-      <th>Name</th>
-      <th>Account#</th>
-      <th>Address</th>
-      <th>City</th>
-      <th>St</th>
-      <th>Zip</th>
-      <th>Phone</th>
+      <th colspan="9">
+        <%= link_to "Add New", new_customer_path %>
+      </th>
+    </tr>
+    <tr>
+      <th>Customer Name</th>
+      <th>Created By</th>
+      <th>Created On</th>
+      <th>Primary Contact</th>
+      <th>Email</th>
+      <th>No. of Job Sites</th>
+      <th>Job Executed</th>
+      <th>Options</th>
+      <th>Actions</th>      
     </tr>
     <% @customers.each do |customer| %>
       <tr>
         <td><%= link_to  customer.company_name, edit_customer_path(customer) %></td>
-        <td><%= customer.account %></td>
-        <td><%= customer.address1 %></td>
-        <td><%= customer.city %></td>
-        <td><%= customer.state %></td>
-        <td><%= customer.zip %></td>
-        <td><%= customer.phone %></td>
-        
+        <td>created_by</td>
+        <td><%= customer.created_at %> </td>        
+        <td><%= "Primary Contact" %> </td>
+        <td><%= "Email" %> </td>
+        <td><%= "No. of job sites" %> </td>
+        <td><%= "Job executed" %> </td>
+        <td>
+          <%= link_to "Add Contact" %>
+          <%= link_to "Add Job Site" %>
+        </td>
+        <td>
+          <%= link_to "Edit", edit_customer_path(customer) %>
+        </td>
       </tr>
     <% end %>
   </table>

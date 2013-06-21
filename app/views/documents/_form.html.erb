@@ -2,22 +2,28 @@
   <table width="100%">
     <tr>
       <td>
-         <%= f.hidden_field :documentable_type, :value => params[:type] %>
+        <%= f.hidden_field :documentable_type, :value => params[:type] %>
+        <%= f.hidden_field :documentable_id, :value => session[:customer_id] %>
+        <%= f.hidden_field :jobsite_id, :value => session[:jobsite_id] %>
       </td>
 
-     </tr>
+    </tr>
+    <tr>
+      <td>
+        <%= render '/layouts/error' %>
+      </td>
+    </tr>
 
-     
-     <tr>
+    <tr>
       <td id="file_field">
-       <%= f.file_field :document %>
+        <%= f.file_field :document %>
       </td>
     </tr>
     <tr>
       <td><%= f.submit "Add document", :class => "btn-success" %></td>
     </tr>
 
-    
+
 
   </table>
 <% end %>

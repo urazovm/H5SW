@@ -6,6 +6,7 @@ class Job < ActiveRecord::Base
   validates :reference_no, :uniqueness => true
   validates_numericality_of :sub_total, :greater_than => 0, :message => "must be greater than 0"
   validates :sub_total, :format => { :with => /^[0-9]{1,5}((\.[0-9]{1,5})?)$/, :message => "should be a valid price less than 6 digit number" }
+  validates :customer_id, :jobsite_id, :presence => true
 
   belongs_to :customer
   belongs_to :company

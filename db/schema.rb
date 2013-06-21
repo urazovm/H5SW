@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130621071310) do
+ActiveRecord::Schema.define(:version => 20130621105016) do
 
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -46,8 +46,10 @@ ActiveRecord::Schema.define(:version => 20130621071310) do
     t.string   "role"
     t.string   "twitter"
     t.integer  "company_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "jobsite_id"
+    t.integer  "customer_id"
   end
 
   create_table "customers", :force => true do |t|
@@ -85,6 +87,7 @@ ActiveRecord::Schema.define(:version => 20130621071310) do
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
     t.integer  "company_id"
+    t.integer  "jobsite_id"
   end
 
   create_table "jobs", :force => true do |t|
@@ -126,6 +129,7 @@ ActiveRecord::Schema.define(:version => 20130621071310) do
     t.integer  "company_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "jobsite_id"
   end
 
 end

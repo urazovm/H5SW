@@ -3,11 +3,12 @@ class JobsitesController < ApplicationController
   
 
   def index
-    @jobsites = Jobsite.all
+    @jobsites = Jobsite.all.where("customer_id=?", session[:customer_id])
   end
 
   def new
     @jobsite = Jobsite.new
+    @customer_id = session[:customer_id]
   end
 
 

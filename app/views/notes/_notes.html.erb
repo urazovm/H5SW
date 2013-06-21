@@ -1,10 +1,13 @@
-<% notes.each do |note| %>
-  <table width="100%">
-    <tr>
+<table width="100%">
+  <% notes.each do |note| %>
+    <tr class="<%= cycle('odd', 'even')  %> ">
       <td><%= note.created_at %></td>
       <td><%= note.note_type %></td>
       <td><%= note.description %></td>
-      <td>Edit|DELETE</td>
+      <td>
+        <%#= link_to "Edit", edit_note_path(note) %>
+      </td>
     </tr>
-  </table>
-<% end %>
+  <% end %>
+</table>
+<hr />

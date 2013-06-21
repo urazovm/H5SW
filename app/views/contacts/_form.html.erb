@@ -11,15 +11,19 @@
 </div>
 <script>
   $(function () {
-  $('#myTab a:last').tab('show');
+    $('#myTab a:last').tab('show');
   })
 </script>
 
 <%= form_for(@contact, :remote => true) do |f| %>
-    <div id="error_explanation" style="display:none;">
-      
-    </div>
+  <div id="error_explanation" style="display:none;">
 
+  </div>
+
+  <span>
+     <%= f.hidden_field :customer_id, :value => session[:customer_id] %>
+    <%= f.hidden_field :jobsite_id, :value => session[:jobsite_id] %>
+  </span>
   <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name %>
@@ -51,5 +55,5 @@
 
 <hr />
 <div id="contacts">
-<%= render :partial => "contacts", :locals => {:contacts => @contacts} %>
+  <%= render :partial => "contacts", :locals => {:contacts => @contacts} %>
 </div>

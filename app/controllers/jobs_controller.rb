@@ -24,14 +24,12 @@ class JobsController < ApplicationController
     @customer_id = session[:customer_id]
     @jobsite_id = session[:jobsite_id]
 
-    @note = current_company.notes.new
+    
 
     @customer_id ? @customer = Customer.find(@customer_id) : nil
     @jobsite_id ? @jobsite = Jobsite.find(@jobsite_id) : nil
-
+@note = current_company.notes.new
     @notes = current_company.notes.where("notable_type='Job'").order("created_at desc")
-    @document = current_company.documents.new
-    @documents = current_company.documents.where("documentable_type='Job'").order("created_at desc")
     @job_number = Job.count + 1
   end
 
@@ -45,13 +43,8 @@ class JobsController < ApplicationController
     @job = Job.new(params[:job])
     @job.job_number = Job.count + 1
     @job.company_id = current_company.id
-    
-    @note = current_company.notes.new(params[:note])
-    @note.save
-    respond_to do |format|
-      format.js
-    end
-    
+    @note = current_company.notes.new
+    @notes = current_company.notes.where("notable_type='Job'").order("created_at desc")
     #@job.customer_id = current_customer.id
     if @job.save
       if params[:select_action] == "print"

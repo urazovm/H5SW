@@ -20,15 +20,14 @@ class CustomersController < ApplicationController
 
   # GET /customers/1/edit
   def edit
-    @customer = Customer.find(params[:id])
     session[:customer_id] = params[:id]
+    @customer = Customer.find(params[:id])    
   end
 
   # POST /customers
   def create
     @customer = Customer.new(params[:customer])
     @customer.company_id = current_company.id
-    @customer.
     
     if @customer.save
       flash[:notice] = "Customer was successfully created."
@@ -60,3 +59,4 @@ class CustomersController < ApplicationController
     end
     redirect_to customers_url 
   end
+end
