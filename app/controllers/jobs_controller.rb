@@ -10,7 +10,7 @@ class JobsController < ApplicationController
   # GET /jobs/1
   def show
     @job = Job.find(params[:id])
-    @documents = @job.documents
+    
     
     respond_to do |format|
       format.html

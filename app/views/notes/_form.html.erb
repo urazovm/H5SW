@@ -5,6 +5,7 @@
         <% if params[:type] == "Customer" %>
           <%= f.select :notable_id, options_for_select(current_company.customers.map{|customer| [customer.company_name, customer.id]})%>
           <%= f.hidden_field :notable_type, :value => params[:type] %>
+         <%= f.hidden_field :jobsite_id, :value => session[:jobsite_id] %>
         <% end %>
         <% if params[:controller] == "jobs" %>
           <%= f.select :notable_id, options_for_select(current_company.jobs.map{|job| [job.reference_no, job.id]}) %>

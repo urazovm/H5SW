@@ -15,8 +15,8 @@
       <%= link_to "Contact", contacts_path%>
     </li>
 
-    <li>
-      <%= link_to "Documents", documents_path(:type => "Customer") %>
+    <li class = <%= params[:controller] == "documents" && params[:action] == "index" ? 'active' : ''  %>>
+      <%= link_to "Documents", documents_path(:type => Customer)%>
     </li>
 
     <li>

@@ -1,8 +1,16 @@
 <%= render '/layouts/customer_with_action' %>
 <%= render '/layouts/tab_panel_for_customer' %>
 <%= render 'form' %>
+<%= render 'search' %>
 <hr />
+
 <h2>DOCUMENTS</h2>
 <div id="documents">
   <%= render :partial => "documents", :locals => {:documents => @documents} %>
 </div>
+
+<tr>
+    <td colspan="8">
+      <%= will_paginate @documents %>
+    </td>
+  </tr>

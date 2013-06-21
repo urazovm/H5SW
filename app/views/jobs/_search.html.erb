@@ -17,8 +17,8 @@
     Actions :
     <%= f.select :actions, options_for_select([["Actions", "#"], ["Add Customer", "#"],
     <div class="add-on" style="margin-left:20px;">Actions</div>
-            ["Add Job Site", "#"] ,["Add Job", "jobs/new"] , ["Add Note", "#"], ["Add Contact", "#"],
-            ["Add Document", "#"]]), :placeholder => "Actions"
+            ["Add Job Site", "new_jobsite_path"] ,["Add Job", "jobs/new"] , ["Add Note", "#"], ["Add Contact", "#"],
+            ["Add Document", "new_document_path"]]), :placeholder => "Actions"
     %>
 
     <br />
