@@ -1,4 +1,5 @@
 <%= form_for(@document, :url => documents_path(:type => params[:type]),:remote => true, :html => {:multipart => true }) do |f| %>
+
   <table width="100%">
     <tr>
       <td>
@@ -13,7 +14,6 @@
         <%= render '/layouts/error' %>
       </td>
     </tr>
-
     <tr>
       <td id="file_field">
         <%= f.file_field :document %>
@@ -22,9 +22,6 @@
     <tr>
       <td><%= f.submit "Add document", :class => "btn-success" %></td>
     </tr>
-
-
-
   </table>
 <% end %>
 <style>
@@ -34,6 +31,5 @@
 </style>
 
 <hr />
-
 
 

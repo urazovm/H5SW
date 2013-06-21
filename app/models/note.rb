@@ -4,6 +4,7 @@ class Note < ActiveRecord::Base
   belongs_to :job,  :polymorphic => true
   belongs_to :company
 
+
   attr_accessible :notable_id, :jobsite_id, :presence => true
   attr_accessible :description, :note_type, :presence => true
 end

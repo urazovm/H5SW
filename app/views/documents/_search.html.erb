@@ -1,0 +1,10 @@
+<%= form_for "search" do |f| %>
+
+<% end %>
+
+
+<div>
+ <%= form_tag :documents, :method => 'get', :class => "form-search" do |f|  %>
+ <%= text_field_tag :search, params[:search], :placeholder => "search", :class => "input-large search-query" %> &nbsp;
+ <% end %>
+</div>
