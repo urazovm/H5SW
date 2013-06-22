@@ -2,12 +2,25 @@
 <%= render '/layouts/tab_panel_for_customer' %>
 <%= render 'form' %><br/>
 <%= render 'search' %>
+
+<% form_tag documents_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+<hr />
+
 <div id="documents">
   <%= render :partial => "documents", :locals => {:documents => @documents} %>
 </div>
 
 <tr>
-    <td colspan="8">
-      <%= will_paginate @documents %>
-    </td>
-  </tr>
+<div class="pagination">
+  <%= will_paginate @documents %>
+</div>
+
+</tr>
+
+
+
