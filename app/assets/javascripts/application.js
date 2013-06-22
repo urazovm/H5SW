@@ -31,7 +31,7 @@ function getJobsite(s){
         dataType: 'script',
         success: function(data){
             $("#jobsite").html(data);
-            window.location.reload(true);
+            window.location.reload(true)
         }
     });
     
@@ -42,7 +42,7 @@ function getJobsiteId(s){
         url: '/jobsites/'+ jQuery(s).val() + '/get_id',
         dataType: 'script',
         success: function(data){
-            window.location.reload(true);
+           window.location.reload(true)
         }
     });   
 }
