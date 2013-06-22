@@ -11,6 +11,8 @@ SMO::Application.routes.draw do
   end
 
   resources :settings
+
+  resources :roles
   
   resources :contacts do
     member do
@@ -28,6 +30,8 @@ SMO::Application.routes.draw do
   resources :documents
 
   resources :notes
+
+  resources :users
 
   get "dashboards/index"
   devise_for :companies

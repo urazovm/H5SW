@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130621105016) do
+ActiveRecord::Schema.define(:version => 20130622071659) do
+
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -133,6 +134,33 @@ ActiveRecord::Schema.define(:version => 20130621105016) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.integer  "jobsite_id"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "roll"
+    t.boolean  "module"
+    t.string   "customer"
+    t.string   "jobs"
+    t.string   "contacts"
+    t.string   "reports"
+    t.string   "settings_admin"
+    t.integer  "company_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "users", :force => true do |t|
+    t.integer  "role_id"
+    t.string   "name"
+    t.string   "accounting_type"
+    t.string   "accounting_name"
+    t.string   "email"
+    t.boolean  "smo_user",        :default => true
+    t.string   "language"
+    t.string   "time_zone"
+    t.integer  "company_id"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
 end

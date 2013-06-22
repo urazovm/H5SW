@@ -1,0 +1,13 @@
+<% if !@user.new_record? %>
+  $('#users').replaceWith("<%= escape_javascript(render(:partial => 'users', :locals => {:users => @users})) %> ");
+  $("#user_role_id").val(' ')
+  $("#user_name").val(' ')
+  $("#user_accounting_type").val(' ')
+  $("#user_accounting_name").val(' ')
+  $("#user_email").val(' ')
+  $("#user_language").val(' ')
+   $("#user_time_zone").val(' ')
+  $("#error_explanation").hide();
+<% else %>
+  $("#user_form").html("<%= escape_javascript(render(:partial => 'form')) %>")
+<% end %>

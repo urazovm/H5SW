@@ -1,0 +1,71 @@
+<%= form_for(@user,  :remote => true) do |f| %>
+  <table width="100%;">
+    <tr>
+      <td>
+       <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Role <br/>
+        <% if current_company.roles.empty? %>
+          <span style="color: red;">No Roles First create roles on role tab.</span>
+        <% else %>
+          <%= f.select :role_id, options_for_select(current_company.roles.map{|cr| [cr.roll, cr.id]}) %>
+        <% end %>
+      </td>
+      <td>
+        Name <br/>
+        <%= f.text_field :name %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Accounting Type <br/>
+        <%= f.select :accounting_type, ["Employee", "Vendor", "Customer"] %>
+      </td>
+      <td>
+        Accounting Name <br/>
+        <%= f.text_field :accounting_name %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Email <br/>
+        <%= f.email_field :email %>
+      </td>
+      <td>
+        <%= f.check_box :smo_user %> SMO User
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Language <br/>
+        <%= f.text_field :language %>
+      </td>
+      <td>
+        Time Zone <br/>
+        <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones,{},:id=>"time-zone" %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.submit "SAVE" %></td>
+    </tr>
+  </table>
+<% end %>
+
+<style>
+  td, th {
+    text-align: left;
+  }
+</style>

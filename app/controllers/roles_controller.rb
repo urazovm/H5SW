@@ -1,5 +1,9 @@
 class RolesController < ApplicationController
-
+  before_filter :get_roles, :only => ["create", "edit", "update", "index"]
+  
+  def index
+    @role = Role.new
+  end
   
   def new
     @role = Role.new
@@ -7,27 +11,29 @@ class RolesController < ApplicationController
 
   def edit
     @role = Role.find(params[:id])
+    render
   end
 
   def create
-    @role = Role.new(params[:role])
-
-    if @role.save
-      flash[:notice] = "Role was successfully created"
-      redirect_to roles_path
-    else
-      render :action => "new"
-    end
+    @role = current_company.roles.new(params[:role])
+    @roles = current_company.roles.all
+    @role.save
+    respond_to do |format|
+      format.js
+    end  
   end
 
   def update
     @role = Role.find(params[:id])
+    @update_status = false
 
-    if @customer.update_attributes(params[:role])
-      flash[:notice] = "Role was successfully updated."
-      redirect_to roles_path
+    if @role.update_attributes(params[:role])
+      @update_status = true
     else
-      render :action => "edit"
+      @update_status = false
+    end
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -35,11 +41,14 @@ class RolesController < ApplicationController
   def destroy
     @role = Role.find(params[:id])
 
-    if @role.destroy
-      flash[:notice] = "Role was deleted successfully"
-    else
-      flash[:error] = "Role deletion failed"
+    @role.destroy
+    respond_to do |format|
+      format.js
     end
-    redirect_to roles_url
+  end
+
+  private
+  def get_roles
+    @roles = current_company.roles.order("created_at desc")
   end
 end

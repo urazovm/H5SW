@@ -1,2 +1,60 @@
-<%= form_for(@role) do |f| %>
-  
+<%= form_for(@role, :remote => true) do |f| %>
+  <% if @role.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@role.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+        <% @role.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <table>
+    <tr><td>&nbsp;</td></tr>
+    <tr>
+      <td><%=  f.label :roll,"Role" %></td>
+      <td><%= f.text_field :roll %></td>
+    </tr>
+
+    <tr style="font-weight: bold;">
+      <td><%= "Module" %></td>
+      <td><%= "Access"%></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :customer,"Customer" %></td>
+      <td><%= f.select :customer, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]]) %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :jobs,"Jobs" %></td>
+      <td><%= f.select :jobs, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]]) %></td>
+    </tr>
+
+
+    <tr>
+      <td><%= f.label :contacts,"Contacts" %></td>
+      <td><%= f.select :contacts, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]]) %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :reports,"Reports" %></td>
+      <td><%= f.select :reports, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]]) %></td>
+    </tr>
+
+    <tr>
+      <td><%= f.label :settings_admin,"Settings/Admin" %></td>
+      <td><%= f.select :settings_admin, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]]) %></td>
+    </tr>
+
+    <tr>
+      <td colspan="2"><%= f.submit "Save", :class =>  "btn-success" %></td>
+    </tr>
+    <tr><td>&nbsp;</td></tr>
+  </table>
+
+<% end %>
+

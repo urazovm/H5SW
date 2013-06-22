@@ -1,0 +1,5 @@
+<% if @update_status == true %>
+  $('#users').html("<%= escape_javascript(render(:partial => 'users', :locals => {:users => @users})) %> ");
+<% else %>
+  $("#user_form").html("<%= escape_javascript(render(:partial => 'form')) %>")
+<% end %>
