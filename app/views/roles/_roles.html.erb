@@ -2,7 +2,6 @@
 <table class ="table table-striped">
   <tr>
     <th>Role</th>
-    <th>Module</th>
     <th>Customer</th>
     <th>Jobs</th>
     <th>Contacts</th>
@@ -13,8 +12,7 @@
 
   <% roles.each do |role| %>
     <tr id="role_<%= role.id %>">
-      <td><%= role.roll %></td>
-      <td><%= role.module %></td>
+      <td><%= role.roll %></td>      
       <td><%= role.customer %></td>
       <td><%= role.jobs %></td>
       <td><%= role.contacts %></td>
