@@ -1,0 +1,18 @@
+<% if !@user.new_record? %>
+  $('#contacts').replaceWith("<%= escape_javascript(render(:partial => 'users', :locals => {:users => @users})) %> ");
+  $("#user_role_id").val(' ')
+  $("#user_name").val(' ')
+  $("#user_accounting_type").val(' ')
+  $("#user_accounting_name").val(' ')
+  $("#user_email").val(' ')
+  $("#user_language").val(' ')
+   $("#user_time_zone").val(' ')
+  $("#error_explanation").hide();
+<% else %>
+  <%  errors = [] %>
+  <% @user.errors.each do |field, error| %>
+    <% errors  << "#{field}"+' '+"#{error}" %>
+  <%  end %>
+  $("#error_explanation").html("<h2><%= pluralize(@user.errors.count, "error") %> prohibited this contact from being saved:</h2><ul><li style='list-style: none;'><%=  "#{errors.join('<br/>')}".html_safe %></li></ul>")
+  $("#error_explanation").show();
+<% end %>

@@ -1,0 +1,23 @@
+<% if !users.blank? %>
+<% role = Role.find_by_id(params[:role_id]) %>
+  <table width="100%">
+    <tr>
+      <th>User</th>
+      <th>Emp/Vendor</th>
+      <th>Accounting Name</th>
+      <th>Role</th>
+      <th>Options</th>
+    </tr>
+
+    <% users.each do |user| %>
+      <tr id="user_<%= user.id %>">
+        <td><%= user.name %></td>
+        <td><%= user.accounting_type %></td>
+        <td><%= user.accounting_name %></td>
+        <td><%= role.present? ? role.name : "" %></td>
+        <td><%#= link_to "Edit", edit_user_path(user) %> | <%= link_to 'Remove', user, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+      </tr>
+    <% end %>
+
+  </table>
+<% end %>

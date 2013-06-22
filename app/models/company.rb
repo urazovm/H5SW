@@ -3,7 +3,7 @@ class Company < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+    :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :phone_number
@@ -15,5 +15,6 @@ class Company < ActiveRecord::Base
   has_many :contacts
   has_many :notes
   has_many :documents
- 
+  has_many :users, :dependent => :destroy
+
 end

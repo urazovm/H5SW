@@ -29,6 +29,8 @@ SMO::Application.routes.draw do
 
   resources :notes
 
+  resources :users
+
   get "dashboards/index"
   devise_for :companies
 
