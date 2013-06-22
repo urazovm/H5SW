@@ -3,8 +3,7 @@ class DocumentsController < ApplicationController
   before_filter :get_documents
  
   def index
-    @document = current_company.documents.new()
-    
+    @document = current_company.documents.new()    
   end
 
   def create
@@ -24,7 +23,6 @@ class DocumentsController < ApplicationController
   end
 
   def get_documents    
-      @documents = current_company.documents.where("documentable_type=?", params[:type].to_s).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
+      @documents = search_by_session_type("document", current_company.documents, params[:type].to_s).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
   end
 end
-

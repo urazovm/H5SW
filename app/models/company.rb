@@ -16,5 +16,6 @@ class Company < ActiveRecord::Base
   has_many :notes
   has_many :documents
   has_many :users, :dependent => :destroy
-
+  has_many :roles, :dependent => :destroy
+ 
 end

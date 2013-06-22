@@ -10,31 +10,7 @@ class Contact < ActiveRecord::Base
 
   def self.search(search)
     if search
-      if session[:customer_id] && session[:jobsite_id]
-        if session[:customer_id]=="All" && session[:jobsite_id] == "All"
-          where('name LIKE?', "%#{search}%")
-        elsif session[:customer_id]!="All" && session[:jobsite_id] == "All"
-          where('name LIKE? AND customer_id=?', "%#{search}%", session[:customer_id])
-        elsif session[:customer_id]=="All" && session[:jobsite_id] != "All"
-          where('name LIKE? AND jobsite_id=?', "%#{search}%", session[:jobsite_id])
-        else
-          where('name LIKE? AND customer_id=? AND jobsite_id=?', "%#{search}%", session[:customer_id], session[:jobsite_id])
-        end
-      elsif session[:customer_id] && !session[:jobsite_id]
-        if session[:customer_id]=="All"
-          where('name LIKE? AND jobsite_id=?', "%#{search}%", session[:jobsite_id])
-        else
-          where('name LIKE? AND customer_id=? AND jobsite_id=?', "%#{search}%", session[:customer_id], session[:jobsite_id])
-        end
-      elsif !session[:customer_id] && session[:jobsite_id]
-        if session[:jobsite_id]=="All"
-          where('name LIKE? AND customer_id', "%#{search}%", session[:customer_id])
-        else
-          where('name LIKE? AND jobsite_id=? AND customer_id=?', "%#{search}%", session[:jobsite_id], session[:customer_id])
-        end
-      else
-        where('name LIKE? AND customer_id=? AND jobsite_id=?', "%#{search}%", session[:customer_id], session[:jobsite_id])
-      end
+      where('name LIKE?', "%#{search}%")
     else
       scoped
     end

@@ -1,20 +1,28 @@
-<%= form_for(@user, :url => users_path,:remote => true) do |f| %>
+<%= form_for(@user,  :remote => true) do |f| %>
   <table width="100%;">
     <tr>
       <td>
-        <div id="error_explanation" style="display:none;">
+       <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this customer from being saved:</h2>
 
-        </div>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
       </td>
     </tr>
     <tr>
       <td>
         Role <br/>
-        <%# if current_company.roles.empty? %>
-        <span style="color: red;">No Roles First create roles on role tab.</span>
-        <%# else %>
-          <%#= f.select :role_id, options_for_select(current_company.roles.map{|cr| [cr.role, cr.id]}) %>
-        <%# end %>
+        <% if current_company.roles.empty? %>
+          <span style="color: red;">No Roles First create roles on role tab.</span>
+        <% else %>
+          <%= f.select :role_id, options_for_select(current_company.roles.map{|cr| [cr.roll, cr.id]}) %>
+        <% end %>
       </td>
       <td>
         Name <br/>

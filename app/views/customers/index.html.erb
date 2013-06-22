@@ -16,8 +16,7 @@
       <th>Email</th>
       <th>No. of Job Sites</th>
       <th>Job Executed</th>
-      <th>Options</th>
-      <th>Actions</th>      
+      <th>Options</th> 
     </tr>
     <% @customers.each do |customer| %>
       <tr>
@@ -29,11 +28,8 @@
         <td><%= "No. of job sites" %> </td>
         <td><%= "Job executed" %> </td>
         <td>
-          <%= link_to "Add Contact" %>
-          <%= link_to "Add Job Site" %>
-        </td>
-        <td>
-          <%= link_to "Edit", edit_customer_path(customer) %>
+          [<%= link_to "Add Contact" %>]
+          [<%= link_to "Add Job Site" %>]
         </td>
       </tr>
     <% end %>

@@ -137,8 +137,8 @@ ActiveRecord::Schema.define(:version => 20130622071659) do
   end
 
   create_table "roles", :force => true do |t|
-    t.string   "role"
-    t.string   "module"
+    t.string   "roll"
+    t.boolean  "module"
     t.string   "customer"
     t.string   "jobs"
     t.string   "contacts"

@@ -1,8 +1,6 @@
 <div id="search_data">
-   <%= form_tag (params[:controller] == "contacts" && params[:action] == "index" ? :contacts : :new_contact), :method => 'get', :class => "form-search" do |f|  %>
-    <div style="visibility: hidden;">
-      <%= submit_tag "Search", :name => nil, :class => "btn btn-info", :visible => false %>
-    </div>
+  <%= form_tag (params[:controller] == "contacts" && params[:action] == "index" ? :contacts : :new_contact), :method => 'get', :class => "form-search" do |f|  %>
     <%= text_field_tag :search, params[:search], :placeholder => "Search by Name", :class => "input-large search-query" %> &nbsp;
-   <% end %>
+    <%= button_tag :button, :style => "height:40px; width: 80px;"%>
+  <% end %>
 </div>

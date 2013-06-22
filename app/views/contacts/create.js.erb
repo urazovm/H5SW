@@ -1,5 +1,5 @@
 <% if !@contact.new_record? %>
-  $('#contacts').replaceWith("<%= escape_javascript(render(:partial => 'contacts', :locals => {:contacts => @contacts})) %> ");
+  $('#contacts').html("<%= escape_javascript(render(:partial => 'contacts', :locals => {:contacts => @contacts})) %> ");
   $("#contact_name").val(' ')
   $("#contact_role").val(' ')
   $("#contact_email").val(' ')

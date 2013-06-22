@@ -4,18 +4,12 @@ class JobsController < ApplicationController
   
   # GET /jobs
   def index
-    @jobs = current_company.jobs.search(params[:search]).paginate(:per_page => 5, :page => params[:page])
+    @jobs = search_by_session(current_company.jobs.search(params[:search])).paginate(:per_page => 5, :page => params[:page])
   end
 
   # GET /jobs/1
   def show
     @job = Job.find(params[:id])
-    
-    
-    respond_to do |format|
-      format.html
-      format.json { render json: @job}
-    end
   end
 
   # GET /jobs/new
@@ -24,12 +18,12 @@ class JobsController < ApplicationController
     @customer_id = session[:customer_id]
     @jobsite_id = session[:jobsite_id]
 
+    @customer_id ? @customer_id=="All" ? nil : @customer = Customer.find(@customer_id) : nil
+    @jobsite_id ? @jobsite_id == "All" ? nil : @jobsite = Jobsite.find(@jobsite_id) : nil
     
+    @note = current_company.notes.new
+    @notes = search_by_session_type("note",current_company.notes,"Job").order("created_at desc")
 
-    @customer_id ? @customer = Customer.find(@customer_id) : nil
-    @jobsite_id ? @jobsite = Jobsite.find(@jobsite_id) : nil
-@note = current_company.notes.new
-    @notes = current_company.notes.where("notable_type='Job'").order("created_at desc")
     @job_number = Job.count + 1
   end
 
@@ -43,8 +37,10 @@ class JobsController < ApplicationController
     @job = Job.new(params[:job])
     @job.job_number = Job.count + 1
     @job.company_id = current_company.id
+    
     @note = current_company.notes.new
-    @notes = current_company.notes.where("notable_type='Job'").order("created_at desc")
+    @notes = search_by_session_type("note",current_company.notes,"Job").order("created_at desc")
+
     #@job.customer_id = current_customer.id
     if @job.save
       if params[:select_action] == "print"
