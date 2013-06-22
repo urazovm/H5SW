@@ -1,7 +1,7 @@
 <%= render '/layouts/customer_with_action' %>
 <%= render '/layouts/tab_panel_for_customer' %>
-<%= render 'form' %>
-
+<%= render 'form' %><br/>
+<%= render 'search' %>
 
 <% form_tag documents_path, :method => 'get' do %>
   <p>
@@ -9,22 +9,18 @@
     <%= submit_tag "Search", :name => nil %>
   </p>
 <% end %>
-
-
-</div>
 <hr />
 
-<h2>DOCUMENTS</h2>
 <div id="documents">
   <%= render :partial => "documents", :locals => {:documents => @documents} %>
 </div>
 
 <tr>
-    <div class="pagination">
-      <%= will_paginate @documents %>
-    </div>
-    </td>
-  </tr>
+<div class="pagination">
+  <%= will_paginate @documents %>
+</div>
+
+</tr>
 
 
-     
+

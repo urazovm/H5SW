@@ -23,13 +23,13 @@
     <%= f.hidden_field :jobsite_id, :value => @jobsite_id %>
 
     <% if @customer == nil %>
-      <span style="color:red">Please select customer for this job</span>
+      <span style="color:red">Please select customer for this job !</span><br/>
     <% else %>
       <%=  "Customer : " + @customer.company_name + ", " + @customer.address1 + ", " + @customer.city + ", " + @customer.state + ", " + @customer.zip.to_s %>
     <% end %>
 
     <% if @jobsite == nil %>
-      <span style="color:red">Please select Jobsite and continue</span>
+      <span style="color:red">Please select Jobsite for this job !</span>
     <% else %>
       <%= "Job Site : " + @jobsite.name + ", " + @jobsite.city + ", " + @jobsite.state + ", " + @jobsite.zip %>
     <% end %>

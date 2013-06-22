@@ -30,15 +30,19 @@ function getJobsite(s){
         url: '/jobsites/'+ jQuery(s).val() + '/ajax_show',
         dataType: 'script',
         success: function(data){
-            $("#jobsite").html(data);            
+            $("#jobsite").html(data);
+            window.location.reload(true);
         }
     });
+    
 }
 
 function getJobsiteId(s){
     $.ajax({
         url: '/jobsites/'+ jQuery(s).val() + '/get_id',
         dataType: 'script',
-        success: function(data){}
-    });
+        success: function(data){
+            window.location.reload(true);
+        }
+    });   
 }
