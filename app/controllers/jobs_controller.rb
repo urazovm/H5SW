@@ -10,12 +10,6 @@ class JobsController < ApplicationController
   # GET /jobs/1
   def show
     @job = Job.find(params[:id])
-    
-    
-    respond_to do |format|
-      format.html
-      format.json { render json: @job}
-    end
   end
 
   # GET /jobs/new
