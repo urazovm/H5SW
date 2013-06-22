@@ -11,6 +11,8 @@ SMO::Application.routes.draw do
   end
 
   resources :settings
+
+  resources :roles
   
   resources :contacts do
     member do

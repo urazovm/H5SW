@@ -1,12 +1,8 @@
 class RolesController < ApplicationController
 
-  def index
-    @roles = current_company.roles.all
-    @role = current_company.roles.new
-  end
   
   def new
-    @role = current_company.roles.new
+    @role = Role.new
   end
 
   def edit
@@ -14,17 +10,16 @@ class RolesController < ApplicationController
   end
 
   def create
-    @role = current_company.roles.new(params[:role])
+    @role = Role.new(params[:role])
+    @role.company_id = current_company.id
     @role.save
-    
-    respond_to do |format|
+     respond_to do |format|
       format.js
     end  
   end
 
   def update
     @role = Role.find(params[:id])
-    @roles = current_company.roles.all
     @update_status = false
 
     if @role.update_attributes(params[:role])
@@ -42,13 +37,12 @@ class RolesController < ApplicationController
     @role = Role.find(params[:id])
 
     @role.destroy
-    respond_to do |format|
+     respond_to do |format|
       format.js
     end
   end
 
-  private
+ private
   def get_roles
-    @roles = current_company.roles.order("created_at desc")     
-  end
+    @roles = current_company.roles.order("created_at desc")  end
 end

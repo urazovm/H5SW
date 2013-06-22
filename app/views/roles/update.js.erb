@@ -1,0 +1,11 @@
+<% if @update_status == true %>
+  $('#roles').replaceWith("<%= escape_javascript(render(:partial => 'roles', :locals => {:roles => @roles})) %> ");
+  $("#error_explanation").hide();
+<% else %>
+  <%  errors = [] %>
+  <% @role.errors.each do |field, error| %>
+    <% errors  << "#{field}"+' '+"#{error}" %>
+  <%  end %>
+  $("#error_explanation").html("<h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2><ul><li style='list-style: none;'><%=  "#{errors.join('<br/>')}".html_safe %></li></ul>")
+  $("#error_explanation").show();
+<% end %>

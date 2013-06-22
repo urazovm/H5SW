@@ -1,8 +1,8 @@
 class CreateRoles < ActiveRecord::Migration
   def change
     create_table :roles do |t|
-      t.string :role
-      t.string :module
+      t.string :roll
+      t.boolean :module
       t.string :customer
       t.string :jobs
       t.string :contacts
