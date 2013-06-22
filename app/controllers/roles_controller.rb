@@ -15,8 +15,8 @@ class RolesController < ApplicationController
 
   def create
     @role = current_company.roles.new(params[:role])
+    @roles = current_company.roles.all
     @role.save
-    
     respond_to do |format|
       format.js
     end  
