@@ -1,4 +1,6 @@
 SMO::Application.routes.draw do  
+  get "settings/index"
+
   resources :jobs  
   resources :customers
   resources :jobsites do
@@ -7,7 +9,8 @@ SMO::Application.routes.draw do
       get :get_id
     end
   end
-   
+
+  resources :settings
   
   resources :contacts do
     member do

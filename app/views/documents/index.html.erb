@@ -1,7 +1,17 @@
 <%= render '/layouts/customer_with_action' %>
 <%= render '/layouts/tab_panel_for_customer' %>
 <%= render 'form' %>
-<%= render 'search' %>
+
+
+<% form_tag documents_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
+
+</div>
 <hr />
 
 <h2>DOCUMENTS</h2>
@@ -10,7 +20,11 @@
 </div>
 
 <tr>
-    <td colspan="8">
+    <div class="pagination">
       <%= will_paginate @documents %>
+    </div>
     </td>
   </tr>
+
+
+     

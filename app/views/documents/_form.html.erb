@@ -1,6 +1,12 @@
 <%= form_for(@document, :url => documents_path(:type => params[:type]),:remote => true, :html => {:multipart => true }) do |f| %>
 
   <table width="100%">
+
+    <tr>
+      <td><div id="error_explanation" style="display:none;">
+
+  </div></td>
+    </tr>
     <tr>
       <td>
         <%= f.hidden_field :documentable_type, :value => params[:type] %>

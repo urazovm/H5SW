@@ -7,7 +7,7 @@
   <% end %>
   <%= f.select :actions, options_for_select([["Actions", ""], ["Add Customer", "/customers/new"],
       ["Add Job Site", "/jobsites/new"] ,["Add Job", "/jobs/new"] , ["Add Note", "#"], ["Add Contact", "/contacts/new"],
-      ["Add Document", "#"]]), :placeholder => "Actions"
+      ["Add Document", documents_path(:type => "Customer")]]), :placeholder => "Actions"
 %>
 
   <br />
