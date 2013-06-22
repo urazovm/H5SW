@@ -25,7 +25,6 @@ class DocumentsController < ApplicationController
   end
 
   def get_documents    
-      @documents = current_company.documents.where("documentable_type=?", params[:type].to_s).order("created_at desc")    
+      @documents = search_by_session_type("document", current_company.documents, params[:type].to_s).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
   end
 end
-
