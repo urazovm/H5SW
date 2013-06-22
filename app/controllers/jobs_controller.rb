@@ -4,7 +4,7 @@ class JobsController < ApplicationController
   
   # GET /jobs
   def index
-    @jobs = search_by_session(current_company.jobs.search(params[:search])).paginate(:per_page => 5, :page => params[:page])
+    @jobs = search_by_session(current_company.jobs.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
   end
 
   # GET /jobs/1
@@ -22,7 +22,7 @@ class JobsController < ApplicationController
     @jobsite_id ? @jobsite_id == "All" ? nil : @jobsite = Jobsite.find(@jobsite_id) : nil
     
     @note = current_company.notes.new
-    @notes = search_by_session_type("note",current_company.notes,"Job").order("created_at desc")
+    @notes = search_by_session_type("note",current_company.notes,"Job")
 
     @job_number = Job.count + 1
   end
