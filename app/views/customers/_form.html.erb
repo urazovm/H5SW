@@ -51,7 +51,7 @@
     <% if current_company.contacts.empty? %>
     <span style="color: red;">NO CONTACTS</span>
     <% else %>
-      <%= f.select :contact_id, options_for_select(current_company.contacts.map{|contact| [contact.name, contact.id]}),{},:onchange => "GetContact(this)" %>
+      <%= f.select :contact_id, options_for_select(current_company.contacts.map{|contact| [contact.name, contact.id]}),{}, :onchange => "GetContact(this)" %>
     <% end %>
     <div id="contact34">
     </div>
