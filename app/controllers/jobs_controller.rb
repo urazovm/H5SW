@@ -16,8 +16,6 @@ class JobsController < ApplicationController
   def new
     @job = Job.new
     session_types
-    @note = current_company.notes.new
-    @notes = search_by_session_type("note",current_company.notes,"Job")
 
     @job_number = Job.count + 1
   end

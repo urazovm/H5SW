@@ -14,6 +14,6 @@ class NotesController < ApplicationController
   end
 
   def get_notes
-    @notes = search_by_session_type("note",current_company.notes,params[:type].present? ? params[:type].to_s : "Job" ).order("created_at desc")
+    @notes = search_by_session_type("note",current_company.notes, params[:type].to_s).order("created_at desc")
   end
 end
