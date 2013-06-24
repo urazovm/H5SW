@@ -8,10 +8,10 @@ class Document < ActiveRecord::Base
 
 def self.search(search)
   if search
-    find(:all, :conditions => ['document_file_name LIKE ?', "%#{search}%"])
-  else
-    find(:all)
-  end
+      where('document_file_name LIKE?', "%#{search}%")
+    else
+      scoped
+    end
 end
 
 
