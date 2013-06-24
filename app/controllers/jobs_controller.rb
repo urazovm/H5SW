@@ -15,17 +15,13 @@ class JobsController < ApplicationController
   # GET /jobs/new
   def new
     @job = Job.new
-    @customer_id = session[:customer_id]
-    @jobsite_id = session[:jobsite_id]
-
-    @customer_id ? @customer_id=="All" ? nil : @customer = Customer.find(@customer_id) : nil
-    @jobsite_id ? @jobsite_id == "All" ? nil : @jobsite = Jobsite.find(@jobsite_id) : nil
-
+    session_types
     @job_number = Job.count + 1
   end
 
   # GET /jobs/1/edit
   def edit
+    session_types
     @job = Job.find(params[:id])
   end
 
@@ -34,6 +30,12 @@ class JobsController < ApplicationController
     @job = Job.new(params[:job])
     @job.job_number = Job.count + 1
     @job.company_id = current_company.id
+
+    session_types
+
+    @note = current_company.notes.new
+    @notes = search_by_session_type("note",current_company.notes,"Job").order("created_at desc")
+
 
     #@job.customer_id = current_customer.id
     if @job.save
@@ -59,7 +61,7 @@ class JobsController < ApplicationController
   # PUT /jobs/1
   def update
     @job = Job.find(params[:id])
-
+    session_types
     if @job.update_attributes(params[:job])
       redirect_to jobs_path(@job), :notice => "Job was successfully updated."
     else
@@ -76,5 +78,13 @@ class JobsController < ApplicationController
       flash[:error] =  "Job deletion failed."
     end
     redirect_to jobs_url
+  end
+
+  def session_types
+    @customer_id = session[:customer_id]
+    @jobsite_id = session[:jobsite_id]
+
+    @customer_id ? @customer_id=="All" ? nil : @customer = Customer.find(@customer_id) : nil
+    @jobsite_id ? @jobsite_id == "All" ? nil : @jobsite = Jobsite.find(@jobsite_id) : nil
   end
 end
