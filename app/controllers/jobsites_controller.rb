@@ -3,7 +3,7 @@ class JobsitesController < ApplicationController
   
 
   def index
-    @jobsites = Jobsite.where("customer_id=?", session[:customer_id])
+    session[:customer_id] ? session[:customer_id] == "All" ? @jobsites = Jobsite.all : @jobsites = Jobsite.where("customer_id=?", session[:customer_id]) : @jobsites = Jobsite.all
   end
 
   def new

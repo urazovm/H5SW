@@ -1,5 +1,5 @@
 <% if !@note.new_record? %>
-  $('#notes').replaceWith("<%= escape_javascript(render(:partial => 'notes', :locals => {:notes => @notes})) %> ");
+  $('#notes').html("<%= escape_javascript(render(:partial => 'notes', :locals => {:notes => @notes})) %> ");
   $('#note_description').val(' ')
   $('#note_note_type').val(' ')
 <% else %>

@@ -11,6 +11,7 @@ gem "wkhtmltopdf-heroku"
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem "remotipart", "~> 1.0.2"
 gem "dynamic_form"
+
 # Gems used only for assets and not required
 # in production environments by default.
 
