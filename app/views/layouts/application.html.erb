@@ -4,6 +4,7 @@
     <title>SMO</title>
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application", "jquery-1.3.2.min"  %>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <%= javascript_include_tag :defaults %>
     <%= csrf_meta_tags %>
   </head>
@@ -15,24 +16,24 @@
             <% if signed_in? %>
               <ul class="nav pull-left">
                 <li>
-                 <%= link_to "Home",  dashboards_index_path %>
+                  <%= link_to "Home",  dashboards_index_path %>
                 </li>
                 <li>
                   <%= link_to "Customers", customers_path %>
                 </li>
-                 <li>
+                <li>
                   <%= link_to "Jobs", jobs_path %>
                 </li>
-                 <li>
+                <li>
                   <%= link_to "Contacts", contacts_path %>
                 </li>
               </ul>
               <ul class="nav pull-right">
                 <li>
-                 <%= link_to "Settings", settings_path %>
+                  <%= link_to "Settings", settings_path %>
                 </li>
                 <li>
-                    <%= link_to "Logout", destroy_company_session_path, :method => "DELETE" %>
+                  <%= link_to "Logout", destroy_company_session_path, :method => "DELETE" %>
                 </li>
               </ul>
             <% end %>

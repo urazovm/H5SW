@@ -2,14 +2,8 @@
   <table width="100%">
     <tr>
       <td>
+        <%= f.hidden_field :notable_type, :value => params[:type] %>
         <%= f.hidden_field :notable_id, :value => session[:customer_id] %>
-        <% if params[:type] == "Customer" %>          
-          <%= f.hidden_field :notable_type, :value => params[:type] %>
-         <%= f.hidden_field :jobsite_id, :value => session[:jobsite_id] %>
-        <% end %>
-        <% if params[:controller] == "jobs" %>
-          <%= f.hidden_field :notable_type, :value => "Job" %>
-        <% end %>
         <%= f.hidden_field :jobsite_id, :value => session[:jobsite_id] %>
       </td>
     </tr>

@@ -1,13 +1,34 @@
-<table width="100%">
+<div id="comment">
+  <h4>
+    <span>Comment</span>
+    <span id="close">X</span>
+  </h4>
   <% notes.each do |note| %>
-    <tr class="<%= cycle('odd', 'even')  %> ">
-      <td><%= note.created_at %></td>
-      <td><%= note.note_type %></td>
-      <td><%= note.description %></td>
-      <td>
-        <%#= link_to "Edit", edit_note_path(note) %>
-      </td>
-    </tr>
+    <div id="box">
+      <!-- image section -->
+      <div id="image">
+        <div id="img">
+
+        </div>
+        <div id="desc">
+          Bob fieldGuy
+        </div>
+      </div>
+
+      <!-- notes section -->
+      <div id="notes">
+        <p style="font-weight: bold;">
+          Note :
+          <%= note.note_type %>
+        </p>
+        <p>
+          <%= note.description %>
+        </p>
+      </div>
+
+      <div id="created_at">
+        <%= note.created_at %>
+      </div>
+    </div>
   <% end %>
-</table>
-<hr />
+</div>
