@@ -2,7 +2,7 @@ class NotesController < ApplicationController
   before_filter :get_notes
 
   def index
-    @note = current_company.notes.new
+    @note = current_company.notes.new()
   end
 
   def create

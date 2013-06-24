@@ -24,12 +24,7 @@
     <%= f.text_field :company_name %>
   </div>
 
-  <div class="field">
-    <%= f.label :parent_billing,"parent/billing"%>
-    <%= f.select :parent_billing, options_for_select(["starbucks corporate"])%>
-  </div>
-
-  <div class="field">
+   <div class="field">
     <%= f.label :address1,"Address1" %>
     <%= f.text_field :address1 %>
   </div>
@@ -57,7 +52,7 @@
     </div>
   </div>
 
-  <div class="filed">
+  <div class="field">
     <%= f.label :account,"Account#" %>
     <%= f.text_field :account %>
   </div>
@@ -79,10 +74,10 @@
 
   <div class="field">
     <%= f.label :terms_client,"Terms client"%>
-    <%= f.select :parent_billing, options_for_select([["Net 10"],["Net 20"],["Net 30"],["Net 40"],["Net 50"]])%>
+    <%= f.select :terms_client, options_for_select([["Net 10"],["Net 20"],["Net 30"],["Net 40"],["Net 50"]])%>
   </div>
 
-  <div class="filed">
+  <div class="field">
     <%= f.label :status%>
     <%= f.text_field :status %>
   </div>

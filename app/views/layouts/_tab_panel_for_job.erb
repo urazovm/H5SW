@@ -2,12 +2,28 @@
   <li class = <%= params[:controller] == "jobs" && (params[:action] == "new" || params[:action] == "edit" )? 'active' : '' %> >
     <%= link_to "Job" %>
   </li>
+
+   <li>
+    <%= link_to "Notes",notes_path(:type => "Job") %>
+  </li>
+
+  <li>
+    <%= link_to "Times" %>
+  </li>
+
+  <li>
+    <%= link_to "Items" %>
+  </li>
+
+
   <li class = <%= params[:controller] == "documents" && (params[:action] == "new" || params[:action] == "edit" )? 'active' : '' %> >
     <%= link_to "Documents", documents_path(:type => "Job") %>
   </li>
+
   <li class = <%= params[:controller] == "customs" && (params[:action] == "new" || params[:action] == "edit" )? 'active' : '' %> >
     <%= link_to_function "Custom", "alert('coming soon!'); return false;"%>
   </li>
+  
   <li class = <%= params[:controller] == "job_histories" && (params[:action] == "new" || params[:action] == "edit" )? 'active' : '' %> >
     <%= link_to_function "Job History", "alert('coming soon!'); return false;" %>
   </li>
