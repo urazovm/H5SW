@@ -1,13 +1,3 @@
+<%= render 'job_heading' %>
 <%= render '/layouts/tab_panel_for_job' %>
 <%= render 'form' %>
-
-<!-- For Job Notes -->
-<div style="width:420px;">
-  <h4 style="background:#CCC; padding:5px; border:1px solid #999; width:auto;">Job Notes</h4>
-  <%= render 'notes/form', :style => "table{ border:none; }" %>
-  <hr />
-  <h2>NOTES</h2>
-  <div id="notes">
-    <%= render :partial => "notes/notes", :locals => {:notes => @notes} %>
-  </div>
-</div>

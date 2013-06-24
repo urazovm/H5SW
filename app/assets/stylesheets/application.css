@@ -65,3 +65,77 @@ tr.odd{
     float: left;
     width: 700px;
 }
+
+#comment{
+    clear: both;
+    width: 100%;
+    padding : 0;
+    margin: 0;
+    margin-bottom: 10px;
+    background: #CCC;
+    border: 2px solid #999;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#comment h4{
+    clear: both;
+    margin: 0;
+    width: auto;
+    border: 2px solid rgb(221, 110, 8);
+    padding: 5px;
+    background:rgb(28, 132, 245);
+    color: #FFF;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+#comment #close{
+    float: right;
+    padding-right: 10px;
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+#comment #box{
+    display: box;
+    clear: both;
+    background: #F0F0F0;
+    width: 97%;
+    margin: 8px auto;
+    padding: 5px;
+    height: 130px;
+}
+
+#comment #box #image{
+    width: 100px;
+    float: left
+}
+#image #img{
+    width: 80px;
+    height: 80px;
+    margin: 5px auto;
+    background: #c0c0c0;
+}
+#image #desc{
+    width: 80px;
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+}
+
+#comment #box #notes{
+    margin: 10px 0 0 20px;
+    width: 50%;
+    float: left;
+}
+
+#comment #box #created_at{
+    width: auto;
+    margin-top: 20px;
+    padding: 2px 5px;
+    float: right;
+    font-weight: bold;
+    border: 1px solid #333;
+}

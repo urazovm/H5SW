@@ -1,5 +1,11 @@
 <%= render '/layouts/customer_with_action' %>
-<%= render '/layouts/tab_panel_for_customer' %>
+
+<% if params[:type] == "Job" || params[:type] == "job" %>
+  <%= render '/layouts/tab_panel_for_job' %>
+<% else %>
+  <%= render  '/layouts/tab_panel_for_customer' %>
+<% end %>
+
 <%= render 'form' %><br/>
 <%= render 'search' %>
 

@@ -42,7 +42,13 @@ function getJobsiteId(s){
         url: '/jobsites/'+ jQuery(s).val() + '/get_id',
         dataType: 'script',
         success: function(data){
-           window.location.reload(true)
+            window.location.reload(true)
         }
     });   
 }
+
+$(document).ready(function(){
+    $("#close").click(function(){
+        $("#comment").fadeOut();
+    });
+});
