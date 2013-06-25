@@ -15,7 +15,7 @@
 
   <div class="field">
     <%= f.label :types, "Type" %>
-    <%= f.select :types, options_for_select([["Prospect"],["Customer"],["Job site"]])%>
+    <%= f.select :types, options_for_select([["Prospect"],["Customer"],["Job site"]],:selected => @customer.types)%>
   </div>
    
 
@@ -46,7 +46,7 @@
     <% if current_company.contacts.empty? %>
     <span style="color: red;">NO CONTACTS</span>
     <% else %>
-      <%= f.select :contact_id, options_for_select(current_company.contacts.map{|contact| [contact.name, contact.id]}),{}, :onchange => "GetContact(this)" %>
+      <%= f.select :contact_id, options_for_select(current_company.contacts.map{|contact| [contact.name, contact.id]},:selected => @customer.contact_id),{}, :onchange => "GetContact(this)" %>
     <% end %>
     <div id="contact34">
     </div>
@@ -69,12 +69,12 @@
 
   <div class="field">
     <%= f.label :business_type, "Biz type" %>
-    <%= f.select :business_type, options_for_select(["commercial"])%>
+    <%= f.select :business_type, options_for_select(["commercial"],:selected => @customer.business_type)%>
   </div>
 
   <div class="field">
     <%= f.label :terms_client,"Terms client"%>
-    <%= f.select :terms_client, options_for_select([["Net 10"],["Net 20"],["Net 30"],["Net 40"],["Net 50"]])%>
+    <%= f.select :terms_client, options_for_select([["Net 10"],["Net 20"],["Net 30"],["Net 40"],["Net 50"]],:selected => @customer.terms_client)%>
   </div>
 
   <div class="field">

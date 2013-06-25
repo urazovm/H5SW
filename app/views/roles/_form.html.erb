@@ -26,28 +26,28 @@
 
     <tr>
       <td><%= f.label :customer,"Customer" %></td>
-      <td><%= f.select :customer, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]]) %></td>
+      <td><%= f.select :customer, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]],:selected => @role.customer) %></td>
     </tr>
 
     <tr>
       <td><%= f.label :jobs,"Jobs" %></td>
-      <td><%= f.select :jobs, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]]) %></td>
+      <td><%= f.select :jobs, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]],:selected => @role.jobs) %></td>
     </tr>
 
 
     <tr>
       <td><%= f.label :contacts,"Contacts" %></td>
-      <td><%= f.select :contacts, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]]) %></td>
+      <td><%= f.select :contacts, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]],:selected => @role.contacts) %></td>
     </tr>
 
     <tr>
       <td><%= f.label :reports,"Reports" %></td>
-      <td><%= f.select :reports, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]]) %></td>
+      <td><%= f.select :reports, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]],:selected => @role.reports) %></td>
     </tr>
 
     <tr>
       <td><%= f.label :settings_admin,"Settings/Admin" %></td>
-      <td><%= f.select :settings_admin, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]]) %></td>
+      <td><%= f.select :settings_admin, options_for_select([["All"],["Read-Only"],["Add/Edit"],["Add/Edit/Read"],["None"]],:selected => @role.settings_admin) %></td>
     </tr>
 
     <tr>
