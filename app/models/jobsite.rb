@@ -3,6 +3,6 @@ class Jobsite < ActiveRecord::Base
   belongs_to :customer
   has_many :documents
   has_many :notes
-
+  has_many :items
   validates :name, :city, :state, :zip, :customer, :presence => true
 end

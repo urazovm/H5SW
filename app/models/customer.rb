@@ -10,7 +10,9 @@ class Customer < ActiveRecord::Base
   has_many :jobsites
   
   has_many :documents, :as => :documentable
-  has_many :notes, :as => :notable  
+  has_many :notes, :as => :notable
+
+  has_many :items
 
   validates:company_name,:address1, :address2, :city, :state, :zip,:website, :business_type, :account, :status ,:presence => true
   validates :account, :uniqueness => true

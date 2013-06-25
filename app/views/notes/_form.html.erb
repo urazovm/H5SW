@@ -11,7 +11,7 @@
     </tr>
     <tr>
       <td>
-        <%= f.select :note_type, [["Note Type", ""],["Site Notes", "Site Notes"],["Service Request", "Service Request"], ["Service Performed", "Service Performed"], ["Private", "Private"], ["Customer", "Customer"], ["System Notes", "System Notes"]] %>
+        <%= f.select :note_type, [["Note Type", ""],["Site Notes", "Site Notes"],["Service Request", "Service Request"], ["Service Performed", "Service Performed"], ["Private", "Private"], ["Customer", "Customer"], ["System Notes", "System Notes"]],:selected => @note.note_type%>
       </td>
     </tr>
     <tr>

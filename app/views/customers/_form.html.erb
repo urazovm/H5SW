@@ -16,6 +16,7 @@
   <div class="field">
     <%= f.label :types, "Type" %>
     <%= f.select :types, options_for_select([["Prospect"],["Customer"],["Job site"]],:selected => @customer.types)%>
+
   </div>
    
 
@@ -46,7 +47,9 @@
     <% if current_company.contacts.empty? %>
     <span style="color: red;">NO CONTACTS</span>
     <% else %>
+
       <%= f.select :contact_id, options_for_select(current_company.contacts.map{|contact| [contact.name, contact.id]},:selected => @customer.contact_id),{}, :onchange => "GetContact(this)" %>
+
     <% end %>
     <div id="contact34">
     </div>

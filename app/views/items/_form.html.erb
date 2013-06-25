@@ -1,0 +1,63 @@
+<%= form_for(@item) do |f| %>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+        <% @item.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<%= f.hidden_field :job_id, :value => @job_id %>
+<%= f.hidden_field :customer_id, :value => @customer_id %>
+<%= f.hidden_field :jobsite_id, :value => @jobsite_id %>
+
+<div class ="field">
+  <%= f.label :itemtype,"Type" %>
+  <%= f.select :itemtype, options_for_select([["Service"],["Non-Inventory"],["Inventory"]],:selected => @item.itemtype)%>
+</div>
+
+
+<div class ="field">
+  <%= f.label :qty,"Qty" %>
+  <%= f.text_field :qty %>
+</div>
+
+<div class ="field">
+  <%= f.label :number, "Number" %>
+  <%= f.text_field :number %>
+</div>
+
+<div class ="field">
+  <%= f.label :name, "Name" %>
+  <%= f.text_field :name %>
+</div>
+
+<div class ="field">
+  <%= f.label :description, "Description" %>
+  <%= f.text_field :description %>
+</div>
+
+<div class ="field">
+  <%= f.label :unit_cost %>
+  <%= f.text_field :unit_cost %>
+</div>
+
+<div class ="field">
+  <%= f.label :unit_price %>
+  <%= f.text_field :unit_price %>
+</div>
+
+<div class  ="field">
+  <%= f.label :job_item,"Item" %>
+  <%= f.text_field :job_item %>
+</div>
+
+<div class ="actions">
+  <%= f.submit "Save", :class => "btn-success"  %>
+</div>
+
+<% end %>

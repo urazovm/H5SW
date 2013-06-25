@@ -1,7 +1,4 @@
-class JobsitesController < ApplicationController
-
-  
-
+class JobsitesController < ApplicationController 
   def index
     session[:customer_id] ? session[:customer_id] == "All" ? @jobsites = Jobsite.all : @jobsites = Jobsite.where("customer_id=?", session[:customer_id]) : @jobsites = Jobsite.all
   end
@@ -56,11 +53,9 @@ class JobsitesController < ApplicationController
 
   # action for displaying dynamic select options
   def ajax_show
-    @jobsites = Jobsite.find_all_by_customer_id(session[:customer_id])
     session[:customer_id] = params[:id]
-    respond_to do |format|
-      format.js{render :partial =>'jobsites'}
-    end
+    @jobsites = Jobsite.find_all_by_customer_id(session[:customer_id])
+    render
   end
 
   #action for storing the selected id to session

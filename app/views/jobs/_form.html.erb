@@ -17,7 +17,7 @@
     - Customer details will automatically comes
   -->
   <%= f.hidden_field :customer_id, :value => @customer_id %>
-    <%= f.hidden_field :jobsite_id, :value => @jobsite_id %>
+  <%= f.hidden_field :jobsite_id, :value => @jobsite_id %>
   
   <div class="field">
     <%= f.label :reference_no %>
@@ -29,11 +29,11 @@
   </div>
   <div class="field">
     <%= f.label :class_type %>
-    <%= f.select :class_type, options_for_select([["Installation", "installation"]]) %>
+    <%= f.select :class_type, options_for_select([["Installation", "installation"]],:selected => @job.class_type) %>
   </div>
   <div class="field">
     <%= f.label :assigned_to %>
-    <%= f.select :assigned_to, options_for_select([["Bob Field guy", "Bob"]]) %>
+    <%= f.select :assigned_to, options_for_select([["Bob Field guy", "Bob"]],:selected => @job.assigned_to) %>
   </div>
   <div class="field">
     <%= f.label :status %>
@@ -44,14 +44,14 @@
     <% if current_company.contacts.empty? %>
       <span style="color: red;">NO CONTACTS</span>
     <% else %>
-      <%= f.select :contact_id, options_for_select(current_company.contacts.map{|contact| [contact.name, contact.id]}),{},:onchange => "GetContact(this)" %>
+      <%= f.select :contact_id, options_for_select(current_company.contacts.map{|contact| [contact.name, contact.id]},:selected => @job.contact_id),{},:onchange => "GetContact(this)" %>
     <% end %>
     <div id="contact34">
     </div>
   </div>
   <div class="field">
     <%= f.label :sales_person %>
-    <%= f.select :sales_person, options_for_select([["Fred Salse guy", "Fred"]]) %>
+    <%= f.select :sales_person, options_for_select([["Fred Salse guy", "Fred"]],:selected => @job.sales_person) %>
   </div>
   <div class="field">
     <%= f.label :summary %>
