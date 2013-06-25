@@ -3,7 +3,7 @@
 
   <% else %>
     Customer :
-    <%= f.select :customers, options_for_select(["All"]+current_company.customers.map{|customer| [customer.company_name, customer.id]}, :selected => session[:customer_id]), {}, :onchange => "getJobsite(this);" %>
+    <%= f.select :customers, options_for_select(["All"]+current_company.customers.map{|customer| [customer.company_name, customer.id]}, :selected => ( params[:cust_id] ? params[:cust_id] : session[:customer_id]) ), {}, :onchange => "getJobsite(this);" %>
     
     <% end %>
 
