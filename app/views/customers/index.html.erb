@@ -28,8 +28,8 @@
         <td><%= "No. of job sites" %> </td>
         <td><%= "Job executed" %> </td>
         <td>
-          [<%= link_to "Add Contact", new_contact_path %>]
-          [<%= link_to "Add Job Site", new_jobsite_path %>]
+          [<%= link_to "Add Contact", new_contact_path(:cust_id => customer) %>]
+          [<%= link_to "Add Job Site", new_jobsite_path(:cust_id => customer) %>]
         </td>
       </tr>
     <% end %>
