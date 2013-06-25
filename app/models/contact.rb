@@ -8,7 +8,7 @@ class Contact < ActiveRecord::Base
   validates_numericality_of :mobile, :presence => true, :only_integer => true
   validates :customer_id, :jobsite_id, :presence => true
 
-  def self.search(search)
+   def self.search(search)
     if search
       where('name LIKE?', "%#{search}%")
     else

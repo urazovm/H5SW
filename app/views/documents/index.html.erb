@@ -7,14 +7,13 @@
 <% end %>
 
 <%= render 'form' %><br/>
-<%= render 'search' %>
+<div>
+  <%= form_tag :documents, :method => 'get', :class => "form-search" do |f|  %>
+    <%= text_field_tag :search, params[:search], :placeholder => "Search", :class => "input-large search-query" %> &nbsp;
+    <%= button_tag :button, :style => "height:40px; width: 80px;"%>
+  <% end %>
+</div>
 
-<% form_tag documents_path, :method => 'get' do %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :name => nil %>
-  </p>
-<% end %>
 <hr />
 
 <div id="documents">
