@@ -27,22 +27,22 @@ function GetContact(s){
 
 function getJobsite(s){
     $.ajax({
+        type: 'GET',
         url: '/jobsites/'+ jQuery(s).val() + '/ajax_show',
         dataType: 'script',
         success: function(data){
-            $("#jobsite").html(data);
-            window.location.reload(true)
+//            $("#jobsite").html(data);
+            window.location.reload(true);
         }
     });
-    
 }
 
 function getJobsiteId(s){
     $.ajax({
         url: '/jobsites/'+ jQuery(s).val() + '/get_id',
         dataType: 'script',
-        success: function(data){
-            window.location.reload(true)
+        success: function(data){            
+            window.location.reload(true);            
         }
     });   
 }
