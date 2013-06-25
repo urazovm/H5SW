@@ -17,7 +17,6 @@ class JobsController < ApplicationController
     @job = Job.new
 
     session_types
-@job_number = Job.count + 1
   end
 
   # GET /jobs/1/edit
@@ -29,7 +28,6 @@ class JobsController < ApplicationController
   # POST /jobs
   def create
     @job = Job.new(params[:job])
-    @job.job_number = Job.count + 1
     @job.company_id = current_company.id
 
 

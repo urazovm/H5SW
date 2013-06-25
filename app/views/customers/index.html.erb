@@ -21,11 +21,14 @@
     <% @customers.each do |customer| %>
       <tr>
         <td><%= link_to  customer.company_name, edit_customer_path(customer) %></td>
-        <td>created_by</td>
+        <td><%=  current_company.name %></td>
         <td><%= customer.created_at %> </td>        
-        <td><%= "Primary Contact" %> </td>
-        <td><%= "Email" %> </td>
-        <td><%= "No. of job sites" %> </td>
+        <td>
+          <% contact = Contact.find(customer.contact_id) %>
+          <%= contact.name %>
+        </td>
+        <td><%= contact.email %> </td>
+        <td style="text-align: center;"><%= Jobsite.where("customer_id=?", customer.id).count %> </td>
         <td><%= "Job executed" %> </td>
         <td>
           [<%= link_to "Add Contact", new_contact_path(:cust_id => customer) %>]
