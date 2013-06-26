@@ -15,7 +15,7 @@ class JobsController < ApplicationController
   # GET /jobs/new
   def new
     @job = Job.new
-
+   
     session_types
   end
 

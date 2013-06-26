@@ -4,9 +4,7 @@ class DocumentsController < ApplicationController
  
   def index
     @document = current_company.documents.new()
-    
     @documents = search_by_session_type("document",current_company.documents.search(params[:search]),params[:type]).paginate(:per_page => 10, :page => params[:page])
-   
   end
 
   def create
