@@ -1,6 +1,11 @@
-<span style = "color:#0044cc; font-weight: bold;"> Job # : <%= Job.count + 1  %>  </span>
-<br />
-<div style="width:435px; font-weight: bold;">
+<%= form_for "form2" do |f|%>
+  <%= f.select :actions, options_for_select([["Actions", ""], ["Add Customer", new_customer_path],
+      ["Add Job Site", new_jobsite_path] ,["Add Job", new_job_path] , ["Add Note", notes_path(:type => "Customer")], ["Add Contact", new_contact_path],
+      ["Add Document", documents_path(:type => "Customer")]])
+  %>
+<% end %>
+<p><span style = "color:#0044cc; font-weight: bold;"> Job # : <%= params[:controller] == "jobs" && params[:action] == "new" ? '' : session[:job_id] %>  </span></p>
+<div style="width:435px; font-weight: bold;">  
   <p>
     <% if @customer == nil %>
       <span style="color:red">Please select customer for this job !</span><br/>
@@ -17,3 +22,11 @@
   </p>
 </div>
 <br/>
+
+<script>
+  $(document).ready(function(){
+    $('#form2_actions').change(function(){
+      location.href = $(this).val();
+    });
+  });
+</script>
