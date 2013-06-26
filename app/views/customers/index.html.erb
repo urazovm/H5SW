@@ -22,10 +22,10 @@
         <td><%=  current_company.name %></td>
         <td><%= customer.created_at %> </td>
         <td>
-          <% contact = Contact.find(customer.contact_id) %>
-          <%= contact.name %>
+          <% Contact.find(customer.contact_id) ? contact = Contact.find(customer.contact_id) : '' %>
+          <%= contact ? contact.name : '' %>
         </td>
-        <td><%= contact.email %> </td>
+        <td><%= contact ? contact.email : '' %> </td>
         <td style="text-align: center;"><%= Jobsite.where("customer_id=?", customer.id).count %> </td>
         <td><%= "Job executed" %> </td>
         <td>
