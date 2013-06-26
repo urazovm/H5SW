@@ -23,3 +23,4 @@ end
 gem 'jquery-rails'
 gem 'therubyracer'
 gem "prototype-rails","~> 3.2.1"
+gem "exception_notification", :git => "git://github.com/rails/exception_notification", :require => 'exception_notifier'
