@@ -79,8 +79,5 @@ SMO::Application.configure do
     :authentication       => 'plain',
     :enable_starttls_auto => true
   }
-  config.middleware.use ExceptionNotifier,
-      :email_prefix => "[H5SW ERROR] ",
-      :sender_address => %{"notifier" <notifier@example.com>},
-      :exception_recipients => %w{sowmya@dine-media.com pusparaj@dine-media.com vivek@dine-media.com}
+  
 end
