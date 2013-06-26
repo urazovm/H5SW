@@ -23,12 +23,8 @@ class ApplicationController < ActionController::Base
     @job_id = session[:job_id]
     @customer_id = session[:customer_id]
     @jobsite_id = session[:jobsite_id]
-
-    if params[:controller] == "job"
-      
-    else
-      @job_id ? @job_id == "All" ? nil : @job = Jobsite.find(@job_id) : nil
-    end
+    
+    @job_id ? @job_id == "All" ? nil : @job = Jobsite.find(@job_id) : nil
 
     @customer_id ? @customer_id=="All" ? nil : @customer = Customer.find(@customer_id) : nil
     @jobsite_id ? @jobsite_id == "All" ? nil : @jobsite = Jobsite.find(@jobsite_id) : nil
