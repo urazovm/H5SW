@@ -1,6 +1,4 @@
 <%= render "search" %>
-
-
 <table class="table">
   <table class="table table-striped" >
     <tr>
@@ -22,7 +20,7 @@
       <tr>
         <td><%= link_to  customer.company_name, edit_customer_path(customer) %></td>
         <td><%=  current_company.name %></td>
-        <td><%= customer.created_at %> </td>        
+        <td><%= customer.created_at %> </td>
         <td>
           <% contact = Contact.find(customer.contact_id) %>
           <%= contact.name %>
@@ -38,8 +36,8 @@
     <% end %>
   </table>
   <tr>
-    <td colspan="8">
-      <%= will_paginate @customers %>
+    <td colspan="8">      
+        <%= will_paginate @customers %>
     </td>
   </tr>
 </table>
