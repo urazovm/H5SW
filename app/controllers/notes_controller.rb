@@ -1,6 +1,7 @@
 class NotesController < ApplicationController
   before_filter :get_notes
-
+  before_filter :session_types
+  
   def index
     @note = current_company.notes.new()
   end

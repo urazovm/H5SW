@@ -1,43 +1,36 @@
 class JobsController < ApplicationController
 
   before_filter :is_login?
+  before_filter :session_types, :except => ["index", "show"]
   
-  # GET /jobs
   def index
     @jobs = search_by_session(current_company.jobs.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
   end
 
-  # GET /jobs/1
   def show
     @job = Job.find(params[:id])
   end
 
-  # GET /jobs/new
   def new
     @job = Job.new
-
-    session_types
   end
 
-  # GET /jobs/1/edit
   def edit
-    session_types
     @job = Job.find(params[:id])
+    puts @job.id
+    session[:job_id] = @job.id
   end
 
-  # POST /jobs
   def create
     @job = Job.new(params[:job])
     @job.company_id = current_company.id
 
-
-    session_types
-
     @note = current_company.notes.new
     @notes = search_by_session_type("note",current_company.notes,"Job").order("created_at desc")
 
-    #@job.customer_id = current_customer.id
     if @job.save
+      puts @job.id
+      session[:job_id] = @job.id
       if params[:select_action] == "print"
         redirect_to job_pdf_job_path(@job)
       elsif params[:select_action] == "email"
@@ -57,18 +50,18 @@ class JobsController < ApplicationController
     render :pdf => "jobs/job_pdf.html.erb"
   end
 
-  # PUT /jobs/1
   def update
     @job = Job.find(params[:id])
-    session_types
+
     if @job.update_attributes(params[:job])
+      puts @job.id
+      session[:job_id] = @job.id
       redirect_to jobs_path(@job), :notice => "Job was successfully updated."
     else
       render :action => "edit"
     end
   end
 
-  # DELETE /jobs/1
   def destroy
     @job = Job.find(params[:id])
     if @job.destroy
@@ -77,13 +70,5 @@ class JobsController < ApplicationController
       flash[:error] =  "Job deletion failed."
     end
     redirect_to jobs_url
-  end
-
-  def session_types
-    @customer_id = session[:customer_id]
-    @jobsite_id = session[:jobsite_id]
-
-    @customer_id ? @customer_id=="All" ? nil : @customer = Customer.find(@customer_id) : nil
-    @jobsite_id ? @jobsite_id == "All" ? nil : @jobsite = Jobsite.find(@jobsite_id) : nil
   end
 end

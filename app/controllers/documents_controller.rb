@@ -1,12 +1,11 @@
 class DocumentsController < ApplicationController
   
   before_filter :get_documents, :except => ["index"]
+  before_filter :session_types
  
   def index
     @document = current_company.documents.new()
-    
     @documents = search_by_session_type("document",current_company.documents.search(params[:search]),params[:type]).paginate(:per_page => 10, :page => params[:page])
-   
   end
 
   def create
