@@ -72,6 +72,6 @@ class JobsController < ApplicationController
   end
 
   def session_job_id
-    session[:job_id] = @job.id
+    @job.id ? session[:job_id] = @job.id : ''
   end
 end
