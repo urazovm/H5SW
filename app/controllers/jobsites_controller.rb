@@ -60,6 +60,7 @@ class JobsitesController < ApplicationController
     session[:customer_id] = params[:id]
     session[:jobsite_id] = nil
     @jobsites = Jobsite.find_all_by_customer_id(session[:customer_id])
+    @edit = params[:edit]
     render
   end
 
