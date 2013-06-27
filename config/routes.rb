@@ -25,15 +25,18 @@ SMO::Application.routes.draw do
       get :job_pdf
     end
 
-   end
+  end
 
   resources :items
  
   resources :documents
 
   resources :notes
+  devise_for :users
 
   resources :users
+
+  match 'users/create' => "users#create",:as => :create_user
 
 
 
@@ -41,6 +44,10 @@ SMO::Application.routes.draw do
   devise_for :companies
 
   authenticated :company do
+    root :to => "dashboards#index"
+  end
+
+  authenticated :user do
     root :to => "dashboards#index"
   end
 

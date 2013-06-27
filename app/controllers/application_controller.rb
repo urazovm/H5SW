@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_login?
-    unless current_company
+    unless current_company or current_user
       flash[:error] = "Please login"
       redirect_to '/'
     end
