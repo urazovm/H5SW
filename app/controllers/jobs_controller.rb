@@ -64,6 +64,8 @@ class JobsController < ApplicationController
   def destroy
     @job = Job.find(params[:id])
     if @job.destroy
+      #destroy the session
+      session[:job_id] = nil
       flash[:notice] =  "Job was successfully deleted."
     else
       flash[:error] =  "Job deletion failed."
