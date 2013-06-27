@@ -17,6 +17,9 @@
 
   <br />
   <% if params[:controller]=="customers" && (params[:action]=="new" || params[:action]=="index") %>
+  
+  <% elsif params[:controller]=="jobsites" && params[:action]=="index" %>
+
   <% else %>
     <div id="jobsite">
       <% @jobsites = Jobsite.find_all_by_customer_id(session[:customer_id]) %>

@@ -14,7 +14,7 @@ class ContactsController < ApplicationController
   end
 
   # GET /contacts/new
-  def new
+  def new    
     @contacts = search_by_session(current_company.contacts.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
     @contact = Contact.new
   end
