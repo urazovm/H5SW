@@ -1,18 +1,21 @@
-<table>
-  <tr>
-    <th>Name</th>
-    <th>City</th>
-    <th>State</th>
-    <th>Zip</th>
-  </tr>
+<%= render '/layouts/customer_with_action' %>
+<table class="table">
+  <table class="table table-striped">
+    <tr>
+      <th>Name</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+    </tr>
 
 
-  <% @jobsites.each do |jobsite| %>
-  <tr>
-    <td><%= jobsite.name %></td>
-    <td><%= jobsite.city %></td>
-    <td><%= jobsite.state %></td>
-    <td><%= jobsite.zip %></td>
-  </tr>
-  <% end %>
+    <% @jobsites.each do |jobsite| %>
+      <tr>
+        <td><%= jobsite.name %></td>
+        <td><%= jobsite.city %></td>
+        <td><%= jobsite.state %></td>
+        <td><%= jobsite.zip %></td>
+      </tr>
+    <% end %>
+  </table>
 </table>

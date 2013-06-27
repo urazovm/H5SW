@@ -3,8 +3,7 @@
 
   <% else %>
     Customer :
-    <%= f.select :customers, options_for_select(["All"]+current_company.customers.map{|customer| [customer.company_name, customer.id]}, :selected => ( params[:cust_id] ? params[:cust_id] : session[:customer_id]) ), {}, :onchange => "getJobsite(this);" %>
-    <%= link_to 'search', customers_path %>
+    <%= f.select :customers, options_for_select(["All"]+current_company.customers.map{|customer| [customer.company_name, customer.id]}, :selected => session[:customer_id] ), {}, :onchange => "getJobsite(this);" %>
     <% end %>
 
   <%= f.select :actions, options_for_select([["Actions", ""], ["Add Customer", new_customer_path],
@@ -15,6 +14,9 @@
 
   <br />
   <% if params[:controller]=="customers" && (params[:action]=="new" || params[:action]=="index") %>
+  
+  <% elsif params[:controller]=="jobsites" && params[:action]=="index" %>
+
   <% else %>
     <div id="jobsite">
       <% @jobsites = Jobsite.find_all_by_customer_id(session[:customer_id]) %>

@@ -21,7 +21,7 @@ class CustomersController < ApplicationController
   # GET /customers/1/edit
   def edit
     session[:customer_id] = params[:id]
-    @customer = Customer.find(params[:id])    
+    @customer = Customer.find(session[:customer_id])
   end
 
   # POST /customers

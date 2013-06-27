@@ -1,11 +1,13 @@
 <%= form_for(@document, :url => documents_path(:type => params[:type]),:remote => true, :html => {:multipart => true }) do |f| %>
 
   <table width="100%">
-
     <tr>
-      <td><div id="error_explanation" style="display:none;">
-
-  </div></td>
+      <td style="color: #FFF; font-weight: bold; font-size: 1.2em; background: #666;">Document Format supported are : .docx, .zip, .pdf</td>
+    </tr>
+    <tr>
+      <td>
+        <div id="error_explanation" style="display:none;"></div>
+      </td>
     </tr>
     <tr>
       <td>

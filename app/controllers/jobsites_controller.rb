@@ -1,11 +1,15 @@
 class JobsitesController < ApplicationController 
+  
   def index
     session[:customer_id] ? session[:customer_id] == "All" ? @jobsites = Jobsite.all : @jobsites = Jobsite.where("customer_id=?", session[:customer_id]) : @jobsites = Jobsite.all
   end
 
   def new
+    params[:cust_id] ? session[:customer_id] = params[:cust_id] : ''
+    params[:cust_id] ? session[:jobsite_id] = nil : ''
+
     @jobsite = Jobsite.new
-    @customer_id = session[:customer_id]
+    session[:customer_id] ? @customer_id = session[:customer_id] : ''
   end
 
 
