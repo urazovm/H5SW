@@ -68,10 +68,7 @@ class ContactsController < ApplicationController
 
   private
   def get_contacts
-
      @contacts = search_by_session(current_company.contacts).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
-    
-   
   end
   
 end
