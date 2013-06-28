@@ -148,3 +148,11 @@ tr.odd{
     top:40%;
     z-index:1000;
 }
+
+#droparea{
+    border: 1px dotted grey;
+    height: 65px;
+    padding-top: 40px;
+    text-align: center;
+    width: 705px;
+}
