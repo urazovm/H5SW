@@ -20,6 +20,8 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
+gem "quiet_assets", ">= 1.0.1"
+gem "better_errors", ">= 0.3.2"
 gem 'jquery-rails'
 gem 'therubyracer'
 gem "prototype-rails","~> 3.2.1"

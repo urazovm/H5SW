@@ -144,3 +144,12 @@ tr.odd{
     font-weight: bold;
     border: 1px solid #333;
 }
+
+#ajax_loader_big_div{
+    display:none;
+    height:auto;
+    left:50%;
+    position:fixed;
+    top:40%;
+    z-index:1000;
+}
