@@ -18,9 +18,16 @@ class UsersController < ApplicationController
     @user = current_company.users.new(params[:user])
     @user.password = 'qawsed!@#'
     @user.password_confirmation = 'qawsed!@#'
-    @user.save
-    @user.update_attributes(:confirmation_token => nil,:confirmed_at => Time.now,:reset_password_token => (0...16).map{(65+rand(26)).chr}.join,:reset_password_sent_at => Time.now)
-    CompanyMailer.user_link(@user,current_company).deliver
+    user_save = false
+    if @user.save
+      user_save = true
+    else
+      user_save = false
+    end
+    unless user_save == false
+      @user.update_attributes(:confirmation_token => nil,:confirmed_at => Time.now,:reset_password_token => (0...16).map{(65+rand(26)).chr}.join,:reset_password_sent_at => Time.now)
+      CompanyMailer.user_link(@user,current_company).deliver
+    end
     respond_to do |format|
       format.js
     end

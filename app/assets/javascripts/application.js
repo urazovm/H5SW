@@ -31,7 +31,7 @@ function getJobsite(s){
         url: '/jobsites/'+ jQuery(s).val() + '/ajax_show',
         dataType: 'script',
         success: function(data){
-//            $("#jobsite").html(data);
+        //            $("#jobsite").html(data);
             
         }
     });
@@ -43,7 +43,7 @@ function getEditJobsite(s, edit){
         url: '/jobsites/'+ jQuery(s).val() + '/ajax_show' + "/?edit=" + edit,
         dataType: 'script',
         success: function(data){
-//            $("#jobsite").html(data);
+        //            $("#jobsite").html(data);
 
         }
     });
@@ -65,4 +65,11 @@ $(document).ready(function(){
     $("#close").click(function(){
         $("#comment").fadeOut();
     });
+});
+
+$(document).ajaxStart(function(){
+    $('#ajax_loader_big_div').show();
+});
+$(document).ajaxStop(function(){
+    $('#ajax_loader_big_div').hide();
 });

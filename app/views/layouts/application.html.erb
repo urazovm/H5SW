@@ -3,9 +3,7 @@
   <head>
     <title>SMO</title>
     <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= javascript_include_tag "application", "jquery-1.3.2.min"  %>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -56,6 +54,9 @@
         </div>
       <% end %>
       <%= yield %>
+    </div>
+    <div id='ajax_loader_big_div'>
+      <img alt="Ajax-loader-big" src="/assets/ajax-loader-big.gif"  />
     </div>
   </body>
 </html>
