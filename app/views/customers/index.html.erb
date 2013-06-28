@@ -7,30 +7,26 @@
       </th>
     </tr>
     <tr>
-      <th>Customer Name</th>
-      <th>Created By</th>
-      <th>Created On</th>
-      <th>Primary Contact</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Contact</th>
       <th>Email</th>
-      <th>No. of Job Sites</th>
       <th>Jobs</th>
       <th>Options</th> 
     </tr>
     <% @customers.each do |customer| %>
       <tr>
         <td><%= link_to  customer.company_name, edit_customer_path(customer) %></td>
-        <td><%= current_company.name %></td>
-        <td><%= customer.created_at %> </td>
+        <td><%= customer.types %></td>
         <td>
           <% customer.contact_id ? contact = Contact.find(customer.contact_id) : '' %>
           <%= contact ? contact.name : '-' %>
         </td>
         <td><%= contact ? contact.email : '-' %> </td>
-        <td style="text-align: center;"><%= customer.id ? (link_to Jobsite.where("customer_id=?", customer.id).count, jobsites_path(:cust_id => customer)) : '0' %> </td>
         <td style="text-align: center;"><%= customer.id ? Job.where("customer_id=?", customer.id).count : '0' %> </td>
         <td>
-          [<%= link_to "Add Contact", new_contact_path(:cust_id => customer) %>]
-          [<%= link_to "Add Job Site", new_jobsite_path(:cust_id => customer) %>]
+          <%= link_to image_tag("add_contact.png", :title => "Add Contact", :width => "24px", :height => "24px"), new_contact_path(:cust_id => customer) %>
+          | <%= link_to image_tag("add_jobsite.png", :title => "Add Job Site", :width => "24px", :height => "24px"), new_jobsite_path(:cust_id => customer) %>
         </td>
       </tr>
     <% end %>

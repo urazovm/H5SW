@@ -1,26 +1,16 @@
 <%= form_for(@note, :url => notes_path(:type => params[:type]), :remote => true) do |f| %>
   <table width="100%">
-    <tr>
-      <td>
-
-        <%= f.hidden_field :notable_id, :value => session[:customer_id] %>      
+        <%= f.hidden_field :notable_id, :value => session[:customer_id] %>
         <%= f.hidden_field :notable_type, :value => params[:type] %>
-         <%= f.hidden_field :jobsite_id, :value => session[:jobsite_id] %>
-       
-      </td>
+        <%= f.hidden_field :jobsite_id, :value => session[:jobsite_id] %>
+    <tr style="background:#666; color: #FFF; font-weight: bold;">
+      <td>Please Select customer and jobsite for this note first</td>
     </tr>
     <tr>
       <td>
         <%= f.select :note_type, [["Note Type", ""],["Site Notes", "Site Notes"],["Service Request", "Service Request"], ["Service Performed", "Service Performed"], ["Private", "Private"], ["Customer", "Customer"], ["System Notes", "System Notes"]],:selected => @note.note_type%>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <%= f.text_area :description, :cols => 30, :rows => 4 %>
-      </td>
-    </tr>
-    <tr>
-      <td><%= f.submit "Add Note" %></td>
+        <%= f.text_area :description, :style => "width:350px;", :rows => 1 %>
+        <%= f.submit "Add Note", :style => "padding: 10px;" %></td>
     </tr>
   </table>
 <% end %>
@@ -30,5 +20,4 @@
   }
 </style>
 
-<hr />
 

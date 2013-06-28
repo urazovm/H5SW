@@ -3,10 +3,9 @@ class Contact < ActiveRecord::Base
 
   belongs_to :company
 
-  validates :business, :email, :mobile, :name, :role, :twitter, :presence => true
-  validates :twitter, :email, :uniqueness => true
-  validates_numericality_of :mobile, :presence => true, :only_integer => true
-  validates :customer_id, :jobsite_id, :presence => true
+  validates :name,  :presence => true
+  validates :email, :uniqueness => true
+  validates :customer_id, :presence => true
 
    def self.search(search)
     if search

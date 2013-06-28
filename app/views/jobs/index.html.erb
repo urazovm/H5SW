@@ -38,8 +38,8 @@
         <td><%= job.summary %></td>
 
         <td colspan="3">
-          <%= link_to 'Edit', edit_job_path(job) %> |
-          <%= link_to 'Delete', job, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to image_tag("edit.png", :title => "Edit", :width => "24px", :height => "24px"), edit_job_path(job) %> |
+          <%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), job, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
       </tr>
     <% end %>

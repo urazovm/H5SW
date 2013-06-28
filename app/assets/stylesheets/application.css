@@ -12,6 +12,11 @@
  *= require_tree .
 */
 
+td a:hover{
+    background: transparent;
+    color: #333;
+}
+
 h1, h2, h3, h4{
     color: #339bb9;
 }
@@ -105,7 +110,7 @@ tr.odd{
     width: 97%;
     margin: 8px auto;
     padding: 5px;
-    height: 130px;
+    height: 100px;
 }
 
 #comment #box #image{
@@ -113,8 +118,8 @@ tr.odd{
     float: left
 }
 #image #img{
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     margin: 5px auto;
     background: #c0c0c0;
 }
