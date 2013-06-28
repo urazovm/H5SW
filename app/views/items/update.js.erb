@@ -1,0 +1,5 @@
+<% if @update_status == true %>
+  $('#items').html("<%= escape_javascript(render(:partial => 'items', :locals => {:items => @items})) %> ");
+<% else %>
+  $("#item_form").html("<%= escape_javascript(render(:partial => 'edit')) %>")
+<% end %>

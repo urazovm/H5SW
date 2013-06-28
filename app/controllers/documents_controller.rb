@@ -1,6 +1,7 @@
 class DocumentsController < ApplicationController
   
   before_filter :get_documents, :except => ["index"]
+  before_filter :session_types
  
   def index
     @document = current_company.documents.new()

@@ -1,14 +1,17 @@
-<%= render 'items_heading' %>
+
+<%= render '/layouts/job_with_action' %>
 <%= render '/layouts/tab_panel_for_job' %>
 
 
 
 <div>
   <%= label_tag :Subtotal %>
+  <%= text_field_tag :subtotal %>
 </div>
 
 <div>
   <%= label_tag :add_item,"Add Item" %>
+
   <%= text_field_tag :add_item %>
   <%= link_to :add_item, new_item_path %>
 </div>
@@ -20,17 +23,45 @@
     <th>Number</th>
     <th>Name</th>
     <th>Description</th>
+    <th></th>
   </tr>
 
 
   <% @items.each do |item| %>
-  <tr>
-    <td><%= item.itemtype %></td>
-    <td><%= item.qty %></td>
-    <td><%= link_to item.number, edit_item_path(item) %></td>
-    <td><%= item.name %></td>
-    <td><%= item.description %></td>
-  </tr>
-
-<% end %>
+    <tr>
+     
+      <td><%= item.itemtype %></td>
+      <td><%= best_in_place item,:qty ,:type => :input%></td>
+      <td><%= item.number %></td>
+      <td><%= item.name %></td>
+      <td><%= item.description %></td>
+      <td><%= link_to_function "Edit", "item_edit_form('#{item.id}')" %></td>
+    </tr>
+  <% end %>
 </table>
+<script>
+  
+  function item_edit_form(item_id){
+    $.ajax({
+      url:"/items/"+item_id+"/edit",
+      success:function(data){
+        $("#popup_box").show();
+        $("#overlay").show();
+        $("#popup_body").html(data);
+      }
+    });
+  }
+</script>
+
+
+<script>
+  $(document).ready(function() {
+/* Activating Best In Place */
+jQuery(".best_in_place").best_in_place()
+});
+</script>
+
+
+
+
+

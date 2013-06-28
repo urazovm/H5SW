@@ -14,16 +14,17 @@
 <%= f.hidden_field :job_id, :value => @job_id %>
 <%= f.hidden_field :customer_id, :value => @customer_id %>
 <%= f.hidden_field :jobsite_id, :value => @jobsite_id %>
-
+<div>
 <div class ="field">
   <%= f.label :itemtype,"Type" %>
-  <%= f.select :itemtype, options_for_select([["Service"],["Non-Inventory"],["Inventory"]],:selected => @item.itemtype)%>
+  <%= f.text_field :itemtype %>
 </div>
 
 
 <div class ="field">
   <%= f.label :qty,"Qty" %>
   <%= f.text_field :qty %>
+  
 </div>
 
 <div class ="field">
@@ -59,5 +60,5 @@
 <div class ="actions">
   <%= f.submit "Save", :class => "btn-success"  %>
 </div>
-
+</div>
 <% end %>

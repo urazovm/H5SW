@@ -1,23 +1,19 @@
-<span style = "color:#0044cc; font-weight: bold;"> Job # : <%= @job_number  %>  </span>
+<span style = "color:#0044cc; font-weight: bold;"> Job # : <%= Job.count + 1  %>  </span>
 <br />
 <div style="width:435px; font-weight: bold;">
-    <% if @job == nil %>
-      <span style="color:red">Please select Job for this item !</span>
-    <% else %>
-      <%= "Job# : " + @job.reference_no + ", " %>
-    <% end %>
-
-
+  <p>
     <% if @customer == nil %>
-      <span style="color:red">Please select customer for this item !</span><br/>
+      <span style="color:red">Please select customer for this job !</span><br/>
     <% else %>
       <%=  "Customer : " + @customer.company_name + ", " + @customer.address1 + ", " + @customer.city + ", " + @customer.state + ", " + @customer.zip.to_s %>
     <% end %>
-
+  </p>
+  <p>
     <% if @jobsite == nil %>
-      <span style="color:red">Please select Jobsite for this item !</span>
+      <span style="color:red">Please select Jobsite for this job !</span>
     <% else %>
       <%= "Job Site : " + @jobsite.name + ", " + @jobsite.city + ", " + @jobsite.state + ", " + @jobsite.zip %>
     <% end %>
-  </div>
-  <br/>
+  </p>
+</div>
+<br/>

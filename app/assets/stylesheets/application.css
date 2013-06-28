@@ -139,3 +139,30 @@ tr.odd{
     font-weight: bold;
     border: 1px solid #333;
 }
+
+ #overlay{
+    display: none;
+    background-color:#000000;
+    height:100%;
+    left:0;
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index: 1000;
+    opacity: 0.5;
+}
+
+#popup_box {
+    background: mediumturquoise;
+    display: none;
+    height: 500px;
+    left: 50%;
+    margin: -200px 0 0 -200px;
+    position: fixed;
+    top: 63%;
+    width: 200px;
+    z-index: 1001;
+   
+}
+
+
