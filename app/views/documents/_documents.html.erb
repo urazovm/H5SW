@@ -12,7 +12,7 @@
       <td><%= document.document_file_name %></td>
       <td><%= document.document_content_type %></td>
       <td><%= document.created_at%></td>
-      <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+      <td><%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), document, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
     </tr>
   
 <% end %>

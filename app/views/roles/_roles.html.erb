@@ -19,9 +19,9 @@
         <td><%= role.reports %></td>
         <td><%= role.settings_admin%> </td>
         <td>
-          <%= link_to 'Edit', edit_role_path(role), :remote => true %>
+          <%= link_to image_tag("edit.png", :title => "Edit", :width => "24px", :height => "24px"), edit_role_path(role), :remote => true %>
           |
-          <%= link_to 'Destroy', role, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+          <%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), role, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
         </td>
       </tr>
     <% end %>
