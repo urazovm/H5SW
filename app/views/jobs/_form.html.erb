@@ -40,7 +40,7 @@
     <%= f.select :status, options_for_select([["Waiting for parts", "Waiting"]]) %>
   </div>
   <div class="field">
-    <%= label_tag :select_contact %>
+    <%= label_tag :job_contact %>
     <% if current_company.contacts.empty? %>
       <span style="color: red;">NO CONTACTS</span>
     <% else %>
@@ -61,11 +61,7 @@
     <%= f.label :sub_total %>
     <%= f.text_field :sub_total %>
   </div>
-  <div class="field">
-    <%= f.label :add_items %>
-    <%= f.text_field :add_items %>
-  </div>
   <div class="actions">
-    <%= f.submit :class => "btn btn-success" %>
+    <%= f.submit :class => "btn btn-large btn-success" %>
   </div>
 <% end %>

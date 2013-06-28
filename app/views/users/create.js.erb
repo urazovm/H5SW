@@ -1,5 +1,5 @@
 <% if !@user.new_record? %>
-  $('#users').replaceWith("<%= escape_javascript(render(:partial => 'users', :locals => {:users => @users})) %> ");
+  $('#users').html("<%= escape_javascript(render(:partial => 'users', :locals => {:users => @users})) %> ");
   $("#user_role_id").val(' ')
   $("#user_name").val(' ')
   $("#user_accounting_type").val(' ')

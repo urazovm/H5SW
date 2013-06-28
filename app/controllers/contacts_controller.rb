@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
    
   before_filter :is_login?
-  before_filter :get_contacts, :only => ["new", "create", "edit", "update"]
+  before_filter :get_contacts, :only => ["create", "edit", "update"]
 
   # GET /contacts
   def index
@@ -14,7 +14,8 @@ class ContactsController < ApplicationController
   end
 
   # GET /contacts/new
-  def new
+  def new    
+    @contacts = search_by_session(current_company.contacts.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
     @contact = Contact.new
   end
 
@@ -69,5 +70,4 @@ class ContactsController < ApplicationController
   def get_contacts
      @contacts = search_by_session(current_company.contacts).order("created_at desc").paginate(:per_page => 5, :page => params[:page])  
    end
-  
-end
+ end

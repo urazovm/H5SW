@@ -1,20 +1,25 @@
 <%= form_for "form2" do |f|%>
   <% if params[:controller]=="customers" && (params[:action]=="new" || params[:action]=="index") %>
 
+  <% elsif params[:controller]=="customers" && params[:action]=="edit"  %>
+    Customer :
+    <%= f.select :customers, options_for_select(["All"]+current_company.customers.map{|customer| [customer.company_name, customer.id]}, :selected => ( params[:cust_id] ? params[:cust_id] : session[:customer_id]) ), {}, :onchange => "getEditJobsite(this, 'edit');" %>
   <% else %>
     Customer :
     <%= f.select :customers, options_for_select(["All"]+current_company.customers.map{|customer| [customer.company_name, customer.id]}, :selected => ( params[:cust_id] ? params[:cust_id] : session[:customer_id]) ), {}, :onchange => "getJobsite(this);" %>
-    <%= link_to 'search', customers_path %>
-    <% end %>
+  <% end %>
 
   <%= f.select :actions, options_for_select([["Actions", ""], ["Add Customer", new_customer_path],
       ["Add Job Site", new_jobsite_path] ,["Add Job", new_job_path] , ["Add Note", notes_path(:type => "Customer")], ["Add Contact", new_contact_path],
       ["Add Document", documents_path(:type => "Customer")]])
-  %>
+%>
 
 
   <br />
   <% if params[:controller]=="customers" && (params[:action]=="new" || params[:action]=="index") %>
+  
+  <% elsif params[:controller]=="jobsites" && params[:action]=="index" %>
+
   <% else %>
     <div id="jobsite">
       <% @jobsites = Jobsite.find_all_by_customer_id(session[:customer_id]) %>

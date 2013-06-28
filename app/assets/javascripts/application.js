@@ -34,10 +34,24 @@ function getJobsite(s){
         dataType: 'script',
         success: function(data){
 //            $("#jobsite").html(data);
-            window.location.reload(true);
+            
         }
     });
 }
+
+function getEditJobsite(s, edit){
+    $.ajax({
+        type: 'GET',
+        url: '/jobsites/'+ jQuery(s).val() + '/ajax_show' + "/?edit=" + edit,
+        dataType: 'script',
+        success: function(data){
+//            $("#jobsite").html(data);
+
+        }
+    });
+}
+
+
 
 function getJobsiteId(s){
     $.ajax({

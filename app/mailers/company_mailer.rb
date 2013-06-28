@@ -7,4 +7,10 @@ class CompanyMailer < ActionMailer::Base
     @job = job
     mail(:to => @company.email, :subject => "Job details")
   end
+
+  def user_link(user,company)
+    @user = user
+    @company = company
+    mail(:to => @user.email,:subject => "Company #{@company.name} created you")
+  end
 end

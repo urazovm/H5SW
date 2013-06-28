@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/rails/exception_notification
+  revision: 192a49a02d63d28b23ed41cebadfedd490929cf1
+  specs:
+    exception_notification (1.0.0)
+
+GIT
   remote: git://github.com/thoughtbot/paperclip.git
   revision: f2b273a62b4ef4430de2ce420df54bd269609561
   specs:
@@ -152,6 +158,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   dynamic_form
+  exception_notification!
   jquery-rails
   paperclip!
   pg

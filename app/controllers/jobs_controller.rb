@@ -19,8 +19,7 @@ class JobsController < ApplicationController
 
   def edit
     @job = Job.find(params[:id])
-    puts @job.id
-    session[:job_id] = @job.id
+    session_job_id
   end
 
   def create
@@ -31,8 +30,7 @@ class JobsController < ApplicationController
     @notes = search_by_session_type("note",current_company.notes,"Job").order("created_at desc")
 
     if @job.save
-      puts @job.id
-      session[:job_id] = @job.id
+      session_job_id
       if params[:select_action] == "print"
         redirect_to job_pdf_job_path(@job)
       elsif params[:select_action] == "email"
@@ -56,8 +54,9 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
 
     if @job.update_attributes(params[:job])
-      puts @job.id
-      session[:job_id] = @job.id
+
+      session_job_id
+
       redirect_to jobs_path(@job), :notice => "Job was successfully updated."
     else
       render :action => "edit"
@@ -67,10 +66,16 @@ class JobsController < ApplicationController
   def destroy
     @job = Job.find(params[:id])
     if @job.destroy
+      #destroy the session
+      session[:job_id] = nil
       flash[:notice] =  "Job was successfully deleted."
     else
       flash[:error] =  "Job deletion failed."
     end
     redirect_to jobs_url
+  end
+
+  def session_job_id
+    @job.id ? session[:job_id] = @job.id : ''
   end
 end
