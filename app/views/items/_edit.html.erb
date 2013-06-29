@@ -1,8 +1,6 @@
 <%= form_for(@item) do |f| %>
 
   <div id ="item_form">
-
-
     <div class ="field">
       <%= f.label :qty, "Qty" %>
       <%= f.text_field :qty %>
@@ -31,7 +29,6 @@
     <div class ="actions">
       <%= f.submit "save", :class => "btn-success" %>
     </div>
-
   </div>
 <% end %>
 
