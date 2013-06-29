@@ -159,14 +159,14 @@ tr.odd{
 }
 
 #popup_box {
-    width: 220px;
+    width: 300px;
     background: lightgray;
     display: none;
     height: 450px;
-    left: 50%;
+    left: 35%;
     margin: -280px 0 0 150px;
     position: fixed;
-    top: 75%;    
+    top: 70%;
     z-index: 1001;   
 }
 
@@ -174,10 +174,10 @@ tr.odd{
     height: 200px;
     width: 200px;
     padding: 10px 5px;
-    left: 51%;
+    left: 35%;
     margin: -280px 0 0 150px;
     position: fixed;
-    top: 75%;
+    top: 70%;
     z-index: 1001;    
 }
 
