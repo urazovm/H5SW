@@ -1,24 +1,24 @@
 
 <table class="table table-striped" :width="100%">
-    <tr>
-      <th>Description</th>
-      <th>FileType</th>
-      <th>DateAdded</th>
-      <th>Action</th>
-    </tr>
+       <tr>
+    <th>Description</th>
+    <th>FileType</th>
+    <th>DateAdded</th>
+    <th>Action</th>
+  </tr>
 
-<% documents.each do |document| %>
-     <tr id="document_<%= document.id %>">
-      <td> <a href="/documents/<%=document.id%>/document_download"  style="text-decoration:none">
-      <%= document.document_file_name %></a></td>
-      <td><a href="/documents/<%=document.id%>/document_download"  style="text-decoration:none">
-      <%= document.document_content_type %></a></td>
+  <% documents.each do |document| %>
+    <tr id="document_<%= document.id %>">
+      <td>
+        <%= link_to document.document_file_name, document.document.url %></td>
+      <td>
+        <%= link_to document.document_content_type, document.document.url %></td>
       <td><%= document.created_at%></td>
 
       <td><%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), document, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
 
     </tr>
-  
-<% end %>
 
- </table>
+  <% end %>
+
+</table>

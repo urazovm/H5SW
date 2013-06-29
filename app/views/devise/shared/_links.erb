@@ -1,6 +1,11 @@
 <%- if controller_name != 'sessions' %>
   <%= link_to "Sign in", new_session_path(resource_name) %><br />
 <% end -%>
+<% if request.fullpath == '/users/sign_in' %>
+  <%= link_to "Comapy Sign in", "/companies/sign_in" %><br />
+<% else %>
+  <%= link_to "User Sign in", "/users/sign_in" %><br />
+<% end %>
 <%- if devise_mapping.registerable? && controller_name != 'registrations' && request.fullpath != '/users/sign_in' %>
   <%= link_to "Sign up", new_registration_path(resource_name) %><br />
 <% end -%>
