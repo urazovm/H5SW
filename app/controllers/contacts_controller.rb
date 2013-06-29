@@ -18,10 +18,10 @@ class ContactsController < ApplicationController
     @contacts = search_by_session(current_company.contacts.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
     @contact = Contact.new
 
-    @phone1 = params[:job][:phone1]
-    @phone2 = params[:job][:phone2]
-    @phone3 = params[:job][:phone3]
-    @phone4 = params[:job][:phone4]
+    @phone1 = params[:contact][:phone1]
+    @phone2 = params[:contact][:phone2]
+    @phone3 = params[:contact][:phone3]
+    @phone4 = params[:contact][:phone4]
   end
 
   # GET /contacts/1/edit
@@ -34,10 +34,10 @@ class ContactsController < ApplicationController
     @contact = Contact.new(params[:contact])
     @contact.company_id = current_company.id
 
-    @phone1 = params[:job][:phone1]
-    @phone2 = params[:job][:phone2]
-    @phone3 = params[:job][:phone3]
-    @phone4 = params[:job][:phone4]
+    @phone1 = params[:contact][:phone1]
+    @phone2 = params[:contact][:phone2]
+    @phone3 = params[:contact][:phone3]
+    @phone4 = params[:contact][:phone4]
     @contact.save
     respond_to do |format|
       format.js

@@ -67,7 +67,7 @@ $(document).ready(function(){
     });
 });
 
-<<<<<<< HEAD
+
 function item_edit_form(item_id){
     $.ajax({
         url:"/items/"+item_id+"/edit",
@@ -99,11 +99,38 @@ function phone_validate(which,next) {
         document.getElementById(next).focus()
     }
 }
-=======
+
 $(document).ajaxStart(function(){
     $('#ajax_loader_big_div').show();
 });
 $(document).ajaxStop(function(){
     $('#ajax_loader_big_div').hide();
 });
->>>>>>> dfa0b3b061a410785958b5e917794d0ea14df72f
+
+function mobile_validate(which,next) {
+    var val = which.value;
+    val = val.replace(/[^0-9]/g,"");  // strip non-digits
+    which.value = val;
+    next = "contact_phone" + next;
+    if (val.length == 3) {  // field completed
+        document.getElementById(next).focus()
+    }
+}
+
+
+  $(document).ready(function() {
+/* Activating Best In Place */
+jQuery(".best_in_place").best_in_place()
+});
+
+
+function item_edit_form(item_id){
+    $.ajax({
+        url:"/items/"+item_id+"/new",
+        success:function(data){
+            $("#popup_box").show();
+            $("#overlay").show();
+            $("#popup_body").html(data);
+        }
+    });
+}
