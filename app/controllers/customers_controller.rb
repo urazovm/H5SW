@@ -14,13 +14,12 @@ class CustomersController < ApplicationController
   # GET /customers/new
   def new
     @customer = Customer.new
-    
-    @jobsites = Jobsite.all.find(params[:customer_id])
-    
+    @jobsites = Jobsite.all.find(params[:customer_id]) 
  	end
 
   # GET /customers/1/edit
   def edit
+    session[:customer_id] = params[:id]
     @customer = Customer.find(session[:customer_id])
   end
 

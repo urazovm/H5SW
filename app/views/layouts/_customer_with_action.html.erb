@@ -23,7 +23,7 @@
   <% else %>
     <div id="jobsite">
       <% @jobsites = Jobsite.find_all_by_customer_id(session[:customer_id]) %>
-      Job Site &nbsp; : <%= select_tag :jobsite_id, options_for_select(["All"]+@jobsites.map{|job| [job.name,job.id]}, :selected => session[:jobsite_id]), :onchange => "getJobsiteId(this)" %>
+      Job Site &nbsp; : <%= select_tag :jobsite_id, options_for_select(["None"]+["All"]+@jobsites.map{|job| [job.name,job.id]}, :selected => session[:jobsite_id]), :onchange => "getJobsiteId(this)" %>
     </div>
   <% end %>
 <%  end %>

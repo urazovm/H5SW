@@ -29,11 +29,7 @@ SMO::Application.routes.draw do
 
   resources :items
  
-  resources :documents do
-    member do
-      get :document_download
-    end
-  end
+  resources :documents 
   
   resources :notes
   devise_for :users
