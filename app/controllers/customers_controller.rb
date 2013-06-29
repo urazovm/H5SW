@@ -14,7 +14,7 @@ class CustomersController < ApplicationController
   # GET /customers/new
   def new
     @customer = Customer.new
-
+    
     @jobsites = Jobsite.all.find(params[:customer_id])
     
  	end
@@ -45,6 +45,10 @@ class CustomersController < ApplicationController
   # PUT /customers/1
   def update
     @customer = Customer.find(params[:id])
+    @phone1 = params[:customer][:phone1]
+    @phone2 = params[:customer][:phone2]
+    @phone3 = params[:customer][:phone3]
+    @phone4 = params[:customer][:phone4]
 
     if @customer.update_attributes(params[:customer])
       flash[:notice] = "Customer was successfully updated."

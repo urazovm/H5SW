@@ -67,7 +67,6 @@ $(document).ready(function(){
     });
 });
 
-
 function item_edit_form(item_id){
     $.ajax({
         url:"/items/"+item_id+"/edit",
@@ -78,6 +77,9 @@ function item_edit_form(item_id){
         }
     });
 }
+
+
+
 
 function hide_popup(){
 
@@ -95,7 +97,7 @@ function phone_validate(which,next) {
     val = val.replace(/[^0-9]/g,"");  // strip non-digits
     which.value = val;
     next = "customer_phone" + next;
-        if (val.length == 3) {  // field completed
+    if (val.length == 3) {  // field completed
         document.getElementById(next).focus()
     }
 }
@@ -105,7 +107,18 @@ function mobile_validate(which,next) {
     var val = which.value;
     val = val.replace(/[^0-9]/g,"");  // strip non-digits
     which.value = val;
-    next = "contact_phone" + next;
+    next = "contact_mobile" + next;
+    if (val.length == 3) {  // field completed
+        document.getElementById(next).focus()
+    }
+}
+
+
+function business_validate(which,next) {
+    var val = which.value;
+    val = val.replace(/[^0-9]/g,"");  // strip non-digits
+    which.value = val;
+    next = "contact_business" + next;
     if (val.length == 3) {  // field completed
         document.getElementById(next).focus()
     }
@@ -118,20 +131,3 @@ $(document).ajaxStop(function(){
     $('#ajax_loader_big_div').hide();
 });
 
-
-  $(document).ready(function() {
-/* Activating Best In Place */
-jQuery(".best_in_place").best_in_place()
-});
-
-
-function item_new_form(item_id){
-    $.ajax({
-        url:"/items/"+item_id+"/new",
-        success:function(data){
-            $("#popup_box").show();
-            $("#overlay").show();
-            $("#popup_body").html(data);
-        }
-    });
-}

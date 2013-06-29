@@ -17,11 +17,6 @@ class ContactsController < ApplicationController
   def new    
     @contacts = search_by_session(current_company.contacts.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
     @contact = Contact.new
-
-    @phone1 = params[:contact][:phone1]
-    @phone2 = params[:contact][:phone2]
-    @phone3 = params[:contact][:phone3]
-    @phone4 = params[:contact][:phone4]
   end
 
   # GET /contacts/1/edit
@@ -34,10 +29,14 @@ class ContactsController < ApplicationController
     @contact = Contact.new(params[:contact])
     @contact.company_id = current_company.id
 
-    @phone1 = params[:contact][:phone1]
-    @phone2 = params[:contact][:phone2]
-    @phone3 = params[:contact][:phone3]
-    @phone4 = params[:contact][:phone4]
+    @mobile1 = params[:contact][:mobile1]
+    @mobile2 = params[:contact][:mobile2]
+    @mobile3 = params[:contact][:mobile3]
+    @mobile4 = params[:contact][:mobile4]
+    @business1 = params[:contact][:business1]
+    @business2 = params[:contact][:business2]
+    @business3 = params[:contact][:business3]
+    @business4 = params[:contact][:business4]
     @contact.save
     respond_to do |format|
       format.js
@@ -48,6 +47,14 @@ class ContactsController < ApplicationController
   def update
     @contact = Contact.find(params[:id])
     @update_status = false
+    @mobile1 = params[:contact][:mobile1]
+    @mobile2 = params[:contact][:mobile2]
+    @mobile3 = params[:contact][:mobile3]
+    @mobile4 = params[:contact][:mobile4]
+    @business1 = params[:contact][:business1]
+    @business2 = params[:contact][:business2]
+    @business3 = params[:contact][:business3]
+    @business4 = params[:contact][:business4]
     if @contact.update_attributes(params[:contact])
       
       @update_status = true
