@@ -124,7 +124,7 @@ jQuery(".best_in_place").best_in_place()
 });
 
 
-function item_edit_form(item_id){
+function item_new_form(item_id){
     $.ajax({
         url:"/items/"+item_id+"/new",
         success:function(data){
