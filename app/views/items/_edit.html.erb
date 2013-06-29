@@ -1,11 +1,11 @@
 <%= form_for(@item) do |f| %>
 
-    <div id ="item_form">
+  <div id ="item_form">
 
-   
-   <div class ="field" width="36%" valign="top">
-    <%= f.label :qty, "Qty" %>
-    <%= f.text_field :qty %>
+
+    <div class ="field">
+      <%= f.label :qty, "Qty" %>
+      <%= f.text_field :qty %>
     </div>
 
     <div class ="field">
@@ -32,6 +32,6 @@
       <%= f.submit "save", :class => "btn-success" %>
     </div>
 
-    </div>
-  <% end %>
+  </div>
+<% end %>
 

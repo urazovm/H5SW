@@ -4,7 +4,7 @@ class Document < ActiveRecord::Base
   has_attached_file :document
   validates_format_of :document_file_name, :with => %r{\.(docx|doc|pdf|zip)$}i, :message => "Only allow docx|doc|pdf|zip."
 
-
+   
 
 def self.search(search)
   if search

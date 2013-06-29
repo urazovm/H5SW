@@ -9,10 +9,12 @@
 
 <% documents.each do |document| %>
      <tr id="document_<%= document.id %>">
-      <td><%= document.document_file_name %></td>
-      <td><%= document.document_content_type %></td>
+      <td> <a href="/documents/<%=document.id%>/document_download"  style="text-decoration:none">
+      <%= document.document_file_name %></a></td>
+      <td><a href="/documents/<%=document.id%>/document_download"  style="text-decoration:none">
+      <%= document.document_content_type %></a></td>
       <td><%= document.created_at%></td>
-      <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+      <td><%= link_to 'Delete', document, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
     </tr>
   
 <% end %>

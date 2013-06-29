@@ -28,7 +28,7 @@
 
 
   <% @items.each do |item| %>
-    <tr>
+    <tr id="item_<%= item.id %>">
      
       <td><%= item.itemtype %></td>
       <td><%= best_in_place item,:qty ,:type => :input%></td>
@@ -39,20 +39,6 @@
     </tr>
   <% end %>
 </table>
-<script>
-  
-  function item_edit_form(item_id){
-    $.ajax({
-      url:"/items/"+item_id+"/edit",
-      success:function(data){
-        $("#popup_box").show();
-        $("#overlay").show();
-        $("#popup_body").html(data);
-      }
-    });
-  }
-</script>
-
 
 <script>
   $(document).ready(function() {

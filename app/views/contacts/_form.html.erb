@@ -38,7 +38,11 @@
   </div>
   <div class="field">
     <%= f.label :mobile %>
-    <%= f.text_field :mobile %>
+    <%= f.text_field :phone1, :size => 3, :maxlength => 3,:value =>@phone1.blank? ? @job.phone1 : @phone1, :style => "height: 25px;    padding: 3px 10px;width: 50px; ", :onkeyup => "mobile_validate(this,2)" %>
+    <%= f.text_field :phone2, :size => 3, :maxlength => 3,:value =>@phone2.blank? ? @job.phone2 : @phone2, :style => "height: 25px;   margin-left: 2px;  width: 50px;  margin-top: 0px; padding: 3px 10px;", :onkeyup => "mobile_validate(this,3)" %>
+    <%= f.text_field :phone3, :size => 4, :maxlength => 4,:value =>@phone3.blank? ? @job.phone3 : @phone3, :style => "height: 25px;  margin-left: 2px;   width: 50px;  margin-top: 0px;   padding: 3px 10px;", :onkeyup => "mobile_validate(this,3)" %>
+    <%= f.text_field :phone4, :size => 4, :maxlength => 4,:value =>@phone4.blank? ? @job.phone4 : @phone4, :style => "height: 25px;    padding: 3px 10px; width: 50px;  margin-left: 2px;margin-top: 0px;", :onkeyup => "mobile_validate(this,4)", :placeholder => "Ext.." %>
+   
   </div>
   <div class="field">
     <%= f.label :business %>

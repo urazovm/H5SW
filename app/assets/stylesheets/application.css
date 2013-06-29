@@ -153,16 +153,27 @@ tr.odd{
 }
 
 #popup_box {
-    background: mediumturquoise;
+    background: lightgray;
     display: none;
-    height: 500px;
+    height: 350px;
     left: 50%;
-    margin: -200px 0 0 -200px;
+    margin: -280px 0 0 150px;
     position: fixed;
-    top: 63%;
+    top: 75%;
     width: 200px;
     z-index: 1001;
    
 }
 
-
+#item_form {
+    height: 350px;
+    left: 51%;
+    margin: -280px 0 0 150px;
+    position: fixed;
+    top: 75%;
+    width: 200px;
+    z-index: 1001;
+    padding: 10px 4px;
+    
+    
+}

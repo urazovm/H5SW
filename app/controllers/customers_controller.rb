@@ -16,6 +16,7 @@ class CustomersController < ApplicationController
     @customer = Customer.new
 
     @jobsites = Jobsite.all.find(params[:customer_id])
+    
  	end
 
   # GET /customers/1/edit
@@ -27,7 +28,12 @@ class CustomersController < ApplicationController
   def create
     @customer = Customer.new(params[:customer])
     @customer.company_id = current_company.id
-    
+
+
+    @phone1 = params[:customer][:phone1]
+    @phone2 = params[:customer][:phone2]
+    @phone3 = params[:customer][:phone3]
+    @phone4 = params[:customer][:phone4]
     if @customer.save
       flash[:notice] = "Customer was successfully created."
       redirect_to customers_path
