@@ -161,7 +161,7 @@ tr.odd{
 #popup_box {
     background: lightgray;
     display: none;
-    height: 350px;
+    height: 450px;
     left: 50%;
     margin: -280px 0 0 150px;
     position: fixed;
@@ -172,7 +172,7 @@ tr.odd{
 }
 
 #item_form {
-    height: 350px;
+    height: 200px;
     left: 51%;
     margin: -280px 0 0 150px;
     position: fixed;

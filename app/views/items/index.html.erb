@@ -13,8 +13,7 @@
   <%= label_tag :add_item,"Add Item" %>
 
   <%= text_field_tag :add_item %>
-  <%= link_to :add_item, new_item_path %>
-  
+  <%= link_to_function "Add Item", "new_item_form(#{@item_id})" %>
 </div>
 
 <table class ="table table-striped ">
@@ -30,13 +29,14 @@
 
   <% @items.each do |item| %>
     <tr id="item_<%= item.id %>">
-     
+
       <td><%= item.itemtype %></td>
       <td><%= best_in_place item,:qty ,:type => :input%></td>
       <td><%= item.number %></td>
       <td><%= item.name %></td>
       <td><%= item.description %></td>
-      <td><%= link_to_function "Edit", "item_edit_form('#{item.id}')" %></td>
+      <td><%= link_to_function image_tag("edit.png", :title => "Edit", :width => "24px", :height => "24px"), "item_edit_form('#{item.id}')" %>|
+        <%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
 </table>

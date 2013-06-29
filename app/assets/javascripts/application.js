@@ -79,8 +79,18 @@ function item_edit_form(item_id){
 }
 
 
+function new_item_form(item_id){
+    $.ajax({
+        url:"/items/new",
+        success:function(data){
+            $("#popup_box").show();
+            $("#overlay").show();
+            $("#popup_body").html(data);
+        }
+    });
+}
 
-
+ 
 function hide_popup(){
 
     if(jQuery('#popup_box')){
@@ -131,3 +141,8 @@ $(document).ajaxStop(function(){
     $('#ajax_loader_big_div').hide();
 });
 
+
+$(document).ready(function() {
+/* Activating Best In Place */
+jQuery(".best_in_place").best_in_place()
+});
