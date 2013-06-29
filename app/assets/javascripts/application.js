@@ -67,7 +67,6 @@ $(document).ready(function(){
     });
 });
 
-<<<<<<< HEAD
 function item_edit_form(item_id){
     $.ajax({
         url:"/items/"+item_id+"/edit",
@@ -99,11 +98,10 @@ function phone_validate(which,next) {
         document.getElementById(next).focus()
     }
 }
-=======
+
 $(document).ajaxStart(function(){
     $('#ajax_loader_big_div').show();
 });
 $(document).ajaxStop(function(){
     $('#ajax_loader_big_div').hide();
 });
->>>>>>> dfa0b3b061a410785958b5e917794d0ea14df72f
