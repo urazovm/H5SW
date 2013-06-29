@@ -21,8 +21,8 @@
         <td><%= contact.mobile %></td>
         <td><%= contact.business %></td>
         <td><%= contact.twitter %></td>
-        <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-        <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+        <td><%= link_to image_tag("edit.png", :title => "Edit", :width => "24px", :height => "24px"), edit_contact_path(contact) %></td>
+        <td><%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), contact, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
       </tr>
     <% end %>
   </table>

@@ -15,13 +15,11 @@
   </p>
   <p>
     <% if @jobsite == nil %>
-      <span style="color:red">Please select Jobsite for this job !</span>
     <% else %>
       <%= "Job Site : " + @jobsite.name + ", " + @jobsite.city + ", " + @jobsite.state + ", " + @jobsite.zip %>
     <% end %>
   </p>
 </div>
-<br/>
 
 <script>
   $(document).ready(function(){

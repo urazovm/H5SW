@@ -47,13 +47,20 @@ GEM
       multi_json (~> 1.0)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
+<<<<<<< HEAD
     best_in_place (0.2.3)
       rails (>= 3.0.0)
+=======
+    better_errors (0.9.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+>>>>>>> dfa0b3b061a410785958b5e917794d0ea14df72f
     builder (3.0.4)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.1)
       climate_control (>= 0.0.3, < 1.0)
+    coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -88,6 +95,8 @@ GEM
     polyglot (0.3.3)
     prototype-rails (3.2.1)
       rails (~> 3.2)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -154,7 +163,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+<<<<<<< HEAD
   best_in_place (~> 0.2.0)
+=======
+  better_errors (>= 0.3.2)
+>>>>>>> dfa0b3b061a410785958b5e917794d0ea14df72f
   coffee-rails (~> 3.2.1)
   devise
   dynamic_form
@@ -163,6 +176,7 @@ DEPENDENCIES
   paperclip!
   pg
   prototype-rails (~> 3.2.1)
+  quiet_assets (>= 1.0.1)
   rails (= 3.2.13)
   remotipart (~> 1.0.2)
   sass-rails (~> 3.2.3)

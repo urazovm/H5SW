@@ -13,7 +13,9 @@ class Customer < ActiveRecord::Base
 
   has_many :items
 
+
   validates:company_name, :presence => true
+
   validates :account, :uniqueness => true
   before_create :make_phone
     def self.search(search)

@@ -9,7 +9,11 @@ class DocumentsController < ApplicationController
   end
 
   def create
-    @document = current_company.documents.new(params[:document])
+    if params[:file]
+      @document = current_company.documents.new(:document => params[:file], :documentable_type => params[:type], :documentable_id => session[:customer_id], :jobsite_id => session[:jobsite_id])
+    else
+      @document = current_company.documents.new(params[:document])
+    end
     @document.save
     respond_to do |format|
       format.js
@@ -27,7 +31,7 @@ class DocumentsController < ApplicationController
 
   
   def get_documents    
-     @documents = search_by_session_type("document", current_company.documents, params[:type].to_s).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
+    @documents = search_by_session_type("document", current_company.documents, params[:type].to_s).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
   end
 
 
