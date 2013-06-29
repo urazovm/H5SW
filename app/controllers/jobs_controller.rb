@@ -13,8 +13,6 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new  
-    session_types
-
   end
 
   def edit
