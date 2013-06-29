@@ -95,6 +95,17 @@ function phone_validate(which,next) {
     val = val.replace(/[^0-9]/g,"");  // strip non-digits
     which.value = val;
     next = "customer_phone" + next;
+        if (val.length == 3) {  // field completed
+        document.getElementById(next).focus()
+    }
+}
+
+
+function mobile_validate(which,next) {
+    var val = which.value;
+    val = val.replace(/[^0-9]/g,"");  // strip non-digits
+    which.value = val;
+    next = "contact_phone" + next;
     if (val.length == 3) {  // field completed
         document.getElementById(next).focus()
     }
@@ -106,16 +117,6 @@ $(document).ajaxStart(function(){
 $(document).ajaxStop(function(){
     $('#ajax_loader_big_div').hide();
 });
-
-function mobile_validate(which,next) {
-    var val = which.value;
-    val = val.replace(/[^0-9]/g,"");  // strip non-digits
-    which.value = val;
-    next = "contact_phone" + next;
-    if (val.length == 3) {  // field completed
-        document.getElementById(next).focus()
-    }
-}
 
 
   $(document).ready(function() {
