@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require twitter/bootstrap
+//= require best_in_place
 //= require_tree .
 
 function GetContact(s){
