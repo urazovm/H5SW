@@ -5,4 +5,13 @@ class Jobsite < ActiveRecord::Base
   has_many :notes
   has_many :items
   validates :name, :city, :state, :zip, :customer, :presence => true
+
+  def self.search(search)
+    if search
+      where('name LIKE?', "%#{search}%")
+    else
+      scoped
+    end
+  end
+  
 end
