@@ -1,4 +1,6 @@
 class RolesController < ApplicationController
+  before_filter :is_login?
+  
   before_filter :get_roles, :only => ["create", "edit", "update", "index"]
   
   def index

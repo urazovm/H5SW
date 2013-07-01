@@ -1,7 +1,8 @@
 class JobsitesController < ApplicationController 
+  before_filter :is_login?
   
   def index
-    session[:customer_id] ? session[:customer_id] == "All" ? @jobsites = Jobsite.all : @jobsites = Jobsite.where("customer_id=?", session[:customer_id]) : @jobsites = Jobsite.all
+    session[:customer_id] ? session[:customer_id] == "All" ? @jobsites = Jobsite.paginate(:per_page => 10, :page => params[:page]) : @jobsites = Jobsite.where("customer_id=?", session[:customer_id]).paginate(:per_page => 10, :page => params[:page]) : @jobsites = Jobsite.paginate(:per_page => 10, :page => params[:page])
   end
 
   def new

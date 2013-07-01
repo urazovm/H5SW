@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
-
+  before_filter :is_login?
+  
   respond_to :html, :json
   before_filter :is_login?
   before_filter :session_types

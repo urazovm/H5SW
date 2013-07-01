@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :is_login?
+  
   before_filter :get_users, :only => ["create", "edit", "update", "index"]
   
   def index

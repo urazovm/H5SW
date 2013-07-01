@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
-
+  before_filter :is_login?
+  
   before_filter :is_login?
   before_filter :session_types, :except => ["index", "show"]
   
