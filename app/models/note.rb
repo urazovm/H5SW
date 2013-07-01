@@ -7,4 +7,6 @@ class Note < ActiveRecord::Base
 
   attr_accessible :notable_id, :jobsite_id, :presence => true
   attr_accessible :description, :note_type, :presence => true
+
+  validates :note_type, :presence => true
 end
