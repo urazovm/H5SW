@@ -5,7 +5,7 @@ class JobsController < ApplicationController
   before_filter :session_types, :except => ["index", "show"]
   
   def index
-    @jobs = search_by_session(current_company.jobs.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
+    @jobs = search_by_session(current_login.jobs.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
   end
 
   def show
@@ -23,17 +23,17 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.new(params[:job])
-    @job.company_id = current_company.id
+    @job.company_id = current_login.id
 
-    @note = current_company.notes.new
-    @notes = search_by_session_type("note",current_company.notes,"Job").order("created_at desc")
+    @note = current_login.notes.new
+    @notes = search_by_session_type("note",current_login.notes,"Job").order("created_at desc")
 
     if @job.save
       session_job_id
       if params[:select_action] == "print"
         redirect_to job_pdf_job_path(@job)
       elsif params[:select_action] == "email"
-        @company = Company.find(current_company.id)
+        @company = Company.find(current_login.id)
         CompanyMailer.send_job_details(@company,@job).deliver
         redirect_to jobs_path, :notice => "Job details are sent to company's email"
       else

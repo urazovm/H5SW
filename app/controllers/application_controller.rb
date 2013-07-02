@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_login?
-    unless current_company or current_user
+    unless current_login or current_user
       flash[:error] = "Please login"
       redirect_to '/'
     end
@@ -100,4 +100,14 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+end
+
+
+# accessing the role set for each user
+def current_login
+  current_company ? current_company : current_user.company
+end
+
+def access_role
+  
 end

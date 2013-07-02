@@ -14,7 +14,7 @@
   <% end %>
 
 <%= f.label :parent_billing, "Parent/Billing" %>
-<%= f.select :customer_id, options_for_select(["All"]+current_company.customers.map{|customer| [customer.company_name, customer.id]}, :selected => ( params[:cust_id] ? params[:cust_id] : session[:customer_id])), {}, :onchange => "getJobsite(this);" %>
+<%= f.select :customer_id, options_for_select(["All"]+current_login.customers.map{|customer| [customer.company_name, customer.id]}, :selected => ( params[:cust_id] ? params[:cust_id] : session[:customer_id])), {}, :onchange => "getJobsite(this);" %>
 
 <div class ="field">
   <%= f.label :name %>

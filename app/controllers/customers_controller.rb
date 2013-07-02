@@ -3,7 +3,7 @@ class CustomersController < ApplicationController
 
   # GET /customers
   def index
-    @customers = current_company.customers.search(params[:search]).paginate(:per_page => 10, :page => params[:page])
+    @customers = current_login.customers.search(params[:search]).paginate(:per_page => 10, :page => params[:page])
   end
 
   # GET /customers/1
@@ -26,7 +26,7 @@ class CustomersController < ApplicationController
   # POST /customers
   def create
     @customer = Customer.new(params[:customer])
-    @customer.company_id = current_company.id
+    @customer.company_id = current_login.id
 
 
     @phone1 = params[:customer][:phone1]

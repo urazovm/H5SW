@@ -8,7 +8,7 @@
     </tr>
     <tr>
       <td>
-        <%= f.select :note_type, [["Note Type", ""],["Site Notes", "Site Notes"],["Service Request", "Service Request"], ["Service Performed", "Service Performed"], ["Private", "Private"], ["Customer", "Customer"], ["System Notes", "System Notes"]],:selected => @note.note_type%>
+        <%= f.select :note_type, [["Site Notes", "Site Notes"],["Service Request", "Service Request"], ["Service Performed", "Service Performed"], ["Private", "Private"], ["Customer", "Customer"], ["System Notes", "System Notes"]],:selected => @note.note_type%>
         <%= f.text_area :description, :style => "width:350px;", :rows => 1 %>
         <%= f.submit "Add Note", :style => "padding: 10px;" %></td>
     </tr>

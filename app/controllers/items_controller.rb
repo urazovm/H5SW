@@ -7,7 +7,7 @@ class ItemsController < ApplicationController
 
 
   def index
-    @items = current_company.items.all
+    @items = current_login.items.all
   end
 
   def new
@@ -25,7 +25,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(params[:item])
-    @item.company_id = current_company.id
+    @item.company_id = current_login.id
 
     if @item.save
       flash[:notice]= "Item was successfully created "
