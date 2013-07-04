@@ -12,10 +12,6 @@
  *= require_tree .
 */
 
-ul > li > a:hover{
-    color: #333;
-}
-
 td a:hover{
     background: transparent;
     color: #333;
