@@ -13,7 +13,7 @@
   </li>
 
   <li class="<%= params[:controller] == "items" ? 'active' : ''  %> " >
-    <%= link_to_function "Items", "alert('comming soon!'); return false;"  %>
+    <%= link_to "Items", items_path %>
   </li>
 
   <li class = <%= params[:controller] == "documents" ? 'active' : '' %> >

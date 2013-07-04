@@ -4,7 +4,6 @@ class ItemsController < ApplicationController
   before_filter :is_login?
   before_filter :session_types
 
-
   def index
     @items = current_company.items.all
   end
@@ -36,12 +35,16 @@ class ItemsController < ApplicationController
 
 
 
+  def show
+    @item = Item.find(params[:id])
+    redirect_to items_path
+  end
+
   def update
     @item = Item.find(params[:id])
      
     if @item.update_attributes(params[:item])
-      flash[:notice] = "item was successfully updated."
-      redirect_to items_path
+      respond_with @item
     else
       render :action => "edit"
     end
@@ -56,5 +59,35 @@ class ItemsController < ApplicationController
       flash[:error] = "item deletion failed"
     end
     redirect_to items_url
+  end
+
+  def autocomplete_items
+    @not_names = params[:not_list].split(',').join("','")
+    @items = Item.where("name LIKE '#{params[:name]}%' and name NOT IN ('#{@not_names}')")
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def edit_autocomplete_items
+    @not_names = params[:not_list].split(',').join("','")
+    @items = Item.where("name LIKE '#{params[:name]}%' and name NOT IN ('#{@not_names}')")
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def sub_total
+    @total = 0
+    @items = Item.where("name='#{params[:name]}'")
+    if @items
+      @items.each do |it|
+        @total+= (it.qty.to_f*it.unit_price.to_f)
+      end
+    end
+    @total+= params[:sub_to].to_f
+    respond_to do |format|
+      format.js
+    end
   end
 end

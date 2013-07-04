@@ -11,6 +11,7 @@ gem "wkhtmltopdf-heroku"
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem "remotipart", "~> 1.0.2"
 gem "dynamic_form"
+gem 'rails3-jquery-autocomplete'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -22,7 +23,7 @@ group :assets do
 end
 gem "quiet_assets", ">= 1.0.1"
 gem "better_errors", ">= 0.3.2"
-gem 'jquery-rails'
+gem 'jquery-rails',  "2.3.0"
 gem 'therubyracer'
 gem "prototype-rails","~> 3.2.1"
 gem "best_in_place"

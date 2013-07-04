@@ -7,9 +7,9 @@
         <td><%= f.text_field :qty %></td>
       </tr>
       <tr>
-        <td><%= f.label :job_item,"Item" %></td>
-        <td><%= text_field_tag :search, params[:search], :placeholder => "Search", :class => "input-small search-query" %></td>
-      </tr>
+        <td><%= label_tag :item,"Item" %></td>
+        <td><%= text_field_tag :item_names,'',:size => 75, :id => 'edit_auto_complete_text' %>
+        <ul id="edit_auto_results"></ul></td>
       <tr>
         <td><%= f.label :description %></td>
         <td><%= f.text_field :description %></td>

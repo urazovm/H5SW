@@ -15,7 +15,10 @@
 //= require jquery.remotipart
 //= require twitter/bootstrap
 //= require best_in_place
+//= require jquery-ui
+//= require autocomplete-rails
 //= require_tree .
+
 
 function GetContact(s){
     $.ajax({
@@ -144,6 +147,8 @@ $(document).ajaxStop(function(){
 
 
 $(document).ready(function() {
-/* Activating Best In Place */
-jQuery(".best_in_place").best_in_place()
+  /* Activating Best In Place */
+  jQuery(".best_in_place").best_in_place();
 });
+
+

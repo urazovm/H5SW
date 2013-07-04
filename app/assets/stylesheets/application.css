@@ -198,3 +198,10 @@ tr.odd{
     width: 705px;
 }
 
+#item_form input[type="text"]{
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    width: 180px;
+    padding :4px 0px;
+}
+
