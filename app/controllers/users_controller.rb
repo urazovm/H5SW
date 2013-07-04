@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :is_login?
+  
   before_filter :get_users, :only => ["create", "edit", "update", "index"]
   
   def index
@@ -15,7 +17,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = current_company.users.new(params[:user])
+    @user = current_login.users.new(params[:user])
     @user.password = 'qawsed!@#'
     @user.password_confirmation = 'qawsed!@#'
     user_save = false
@@ -26,7 +28,7 @@ class UsersController < ApplicationController
     end
     unless user_save == false
       @user.update_attributes(:confirmation_token => nil,:confirmed_at => Time.now,:reset_password_token => (0...16).map{(65+rand(26)).chr}.join,:reset_password_sent_at => Time.now)
-      CompanyMailer.user_link(@user,current_company).deliver
+      CompanyMailer.user_link(@user,current_login).deliver
     end
     respond_to do |format|
       format.js
@@ -53,7 +55,7 @@ class UsersController < ApplicationController
 
   private
   def get_users
-    @users = current_company.users.order("created_at desc")
+    @users = current_login.users.order("created_at desc")
   end
 
 end

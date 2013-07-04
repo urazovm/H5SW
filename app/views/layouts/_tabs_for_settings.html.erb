@@ -1,23 +1,23 @@
 <ul class="nav nav-tabs" id="myTab">
   <li class>
-    <%= link_to_function "Accounting", "alert('coming soon!'); return false;" %>
+    <%= link_to_function "Accounting", "alert('coming soon!'); return false;", :title => "list accounting" %>
   </li>
 
   <li class=<%= params[:controller] == "users" ? 'active' : ''  %>>
-    <%= link_to 'Users', users_path  %>
+    <%= link_to 'Users', users_path , :title => "list users" %>
   </li>
 
   <li class=<%= params[:controller] == "roles" ? 'active' : ''  %>>
-    <%= link_to "Roles", roles_path %>
+    <%= link_to "Roles", roles_path, :title => "list roles" %>
   </li>
 
   <li>
-    <%= link_to_function "Custom Fields", "alert('coming soon!'); return false;" %>
+    <%= link_to_function "Custom Fields", "alert('coming soon!'); return false;", :title => "custom page" %>
   </li>
 
 
   <li>
-    <%=  link_to_function "Billing", "alert('coming soon!'); return false;" %>
+    <%=  link_to_function "Billing", "alert('coming soon!'); return false;", :title => "billing page" %>
   </li>
 
 </ul>

@@ -1,7 +1,8 @@
 class JobsitesController < ApplicationController 
+  before_filter :is_login?
   
   def index
-    session[:customer_id] ? session[:customer_id] == "All" ? @jobsites = Jobsite.all : @jobsites = Jobsite.where("customer_id=?", session[:customer_id]) : @jobsites = Jobsite.all
+    @jobsites = search_by_session(Jobsite.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
   end
 
   def new
@@ -67,7 +68,6 @@ class JobsitesController < ApplicationController
   #action for storing the selected id to session
   def get_id
     session[:jobsite_id] = params[:id]
-    #puts params[:id],session[:jobsite_id]
     render :nothing => true
   end
 end

@@ -18,10 +18,10 @@
     <tr>
       <td>
         Role <br/>
-        <% if current_company.roles.empty? %>
+        <% if current_login.roles.empty? %>
           <span style="color: red;">No Roles First create roles on role tab.</span>
         <% else %>
-          <%= f.select :role_id, options_for_select(current_company.roles.map{|cr| [cr.roll, cr.id]}) %>
+          <%= f.select :role_id, options_for_select(current_login.roles.map{|cr| [cr.roll, cr.id]}) %>
         <% end %>
       </td>
       <td>

@@ -101,3 +101,17 @@ class ApplicationController < ActionController::Base
     end
   end
 end
+
+
+# accessing the role set for each user
+def current_login
+  current_company ? current_company : current_user.company
+end
+
+def access_role(value)
+  if current_user
+    @user_role = Role.find_by_company_id(current_user.company)
+    @user_role ? @role_name = @user_role.roll : ""
+    
+  end
+end

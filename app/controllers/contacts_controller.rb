@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
 
   # GET /contacts
   def index
-   @contacts = search_by_session(current_company.contacts.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
+   @contacts = search_by_session(current_login.contacts.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
   end
 
   # GET /contacts/1
@@ -15,7 +15,7 @@ class ContactsController < ApplicationController
 
   # GET /contacts/new
   def new    
-    @contacts = search_by_session(current_company.contacts.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
+    @contacts = search_by_session(current_login.contacts.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
     @contact = Contact.new
   end
 
@@ -27,7 +27,7 @@ class ContactsController < ApplicationController
   # POST /contacts
   def create
     @contact = Contact.new(params[:contact])
-    @contact.company_id = current_company.id
+    @contact.company_id = current_login.id
 
     @mobile1 = params[:contact][:mobile1]
     @mobile2 = params[:contact][:mobile2]
@@ -85,6 +85,6 @@ class ContactsController < ApplicationController
 
   private
   def get_contacts
-     @contacts = search_by_session(current_company.contacts).order("created_at desc").paginate(:per_page => 5, :page => params[:page])  
+     @contacts = search_by_session(current_login.contacts).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
    end
  end

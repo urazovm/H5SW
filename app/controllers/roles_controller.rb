@@ -1,4 +1,6 @@
 class RolesController < ApplicationController
+  before_filter :is_login?
+  
   before_filter :get_roles, :only => ["create", "edit", "update", "index"]
   
   def index
@@ -15,7 +17,7 @@ class RolesController < ApplicationController
   end
 
   def create
-    @role = current_company.roles.new(params[:role])
+    @role = current_login.roles.new(params[:role])
     @role.save
     respond_to do |format|
       format.js
@@ -48,6 +50,6 @@ class RolesController < ApplicationController
 
   private
   def get_roles
-    @roles = current_company.roles.order("created_at desc")
+    @roles = current_login.roles.order("created_at desc")
   end
 end
