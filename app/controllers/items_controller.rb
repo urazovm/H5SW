@@ -1,8 +1,7 @@
 class ItemsController < ApplicationController
   before_filter :is_login?
-  
+   
   respond_to :html, :json
-  before_filter :is_login?
   before_filter :session_types
 
   def index
@@ -64,15 +63,7 @@ class ItemsController < ApplicationController
 
   def autocomplete_items
     @not_names = params[:not_list].split(',').join("','")
-    @items = Item.where("name LIKE '#{params[:name]}%' and name NOT IN ('#{@not_names}')")
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def edit_autocomplete_items
-    @not_names = params[:not_list].split(',').join("','")
-    @items = Item.where("name LIKE '#{params[:name]}%' and name NOT IN ('#{@not_names}')")
+    @items = current_login.items.where("name LIKE '#{params[:name]}%' and name NOT IN ('#{@not_names}')")
     respond_to do |format|
       format.js
     end
