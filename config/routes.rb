@@ -30,7 +30,6 @@ SMO::Application.routes.draw do
   resources :items do
     collection do
       get :autocomplete_items
-       get :edit_autocomplete_items
       get :sub_total
     end
   end
