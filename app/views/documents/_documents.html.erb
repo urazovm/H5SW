@@ -15,7 +15,7 @@
         <%= link_to document.document_content_type, document.document.url %></td>
       <td><%= document.created_at%></td>
 
-      <td><%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), document, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+      <td><%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), document, :method => :delete, :data => { :confirm => 'Are you sure?' }, :remote => true %></td>
 
     </tr>
 

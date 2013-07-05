@@ -160,14 +160,15 @@ tr.odd{
 
 #popup_box {
     width: 230px;
-    background: lightgray;
+    background: snow;
     display: none;
     height: 380px;
     left: 35%;
     margin: -290px 0 0 150px;
     position: fixed;
     top: 70%;
-    z-index: 1001;   
+    z-index: 1001;
+     border: 1px solid black;
 }
 
 #overlay1{
@@ -184,7 +185,7 @@ tr.odd{
 
 #popup_box1 {
     width: 230px;
-    background: lightgray;
+    background: snow;
     display: none;
     height: 300px;
     left: 35%;
@@ -192,6 +193,7 @@ tr.odd{
     position: fixed;
     top: 70%;
     z-index: 1001;
+    border: 1px solid black;
 }
 
 
