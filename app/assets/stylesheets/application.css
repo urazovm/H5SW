@@ -22,8 +22,7 @@ h1, h2, h3, h4{
 }
 
 table{
-    border:1px solid #333;
-    width:950px;
+    border:1px solid #CCC;
 }
 
 tr, td, th {
