@@ -1,0 +1,67 @@
+<table class ="table table-striped ">
+  <tr>
+    <th>Type</th>
+    <th>Qty Avl</th>
+    <th>Edit Qty</th>
+    <th>Number</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Action</th>
+  </tr>
+
+  <% @items.each do |item| %>
+    <tr>
+      <td><%= item.itemtype %></td>
+      <td><%= item.qty %></td>
+      <td>
+        <div id="edit_doc_exp_<%= item.id %>" onclick="$('#edit_doc_exp_<%= item.id %>').hide();$('#update_doc_exp_<%= item.id %>').show();">
+          <% if item.qty %>
+            <%= item.qty %>
+          <% else %>
+            <%= link_to_function "Add ", "" %>
+          <% end  %>
+        </div>
+
+        <div id="update_doc_exp_<%= item.id %>" style="display:none">
+          <%= text_field_tag "qty_#{item.id}", (item.qty ? item.qty : ""), :style => "width: 70px;", :title => "Format in : DD/MM/YYYY" %>
+          <%= hidden_field_tag "name_#{item.name}" %>
+          <br />
+          <%= link_to_function "Update", "update_business_doc_expire_date(#{item.id},'#{item.name}')" %>
+          <%= link_to_function "Cancel", "$('#update_doc_exp_#{item.id}').hide();$('#edit_doc_exp_#{item.id}').show();" %>
+        </div>
+      </td>
+      <td><%= item.number %></td>
+      <td><%= item.name %></td>
+      <td><%= item.description %></td>
+      <td><%= link_to_function image_tag("edit.png", :title => "Edit", :width => "24px", :height => "24px"), "item_edit_form('#{item.id}')" %>
+        <%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), item, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+
+</table>
+<script>
+  function update_business_doc_expire_date(id,name) {
+    var doc_expire_date = $('#qty_'+id).val()
+    var name = $('#qty_'+ name).val()
+    alert(name)
+    if(doc_expire_date != ""){
+      $.ajax({
+        url: "/items/"+id+"/update_doc_expire_date?"+name,
+        data: {
+          doc_expire_date: ($('#qty_'+id).val()),
+          name : $('#qty_'+name).val()
+        },
+        type: "PUT",
+        success: function(data){
+          alert(data)
+          $('#edit_doc_exp_'+id).html(data);
+          $('#update_doc_exp_'+id).hide();
+          $('#edit_doc_exp_'+id).show();
+        }
+      });
+    }else{
+      alert("Please enter valid date format. Ex DD/MM/YYYY")
+    }
+  }
+
+</script>
