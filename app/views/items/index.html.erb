@@ -29,7 +29,7 @@
   <% @items.each do |item| %>
     <tr>
       <td><%= item.itemtype %></td>
-      <td><%= best_in_place item,:qty ,:type => :input%></td>
+      <td><%= best_in_place item,:qty ,:type => :input,:style => "height: 25px;   margin-left: 2px;  width: 50px;  margin-top: 0px; padding: 3px 10px;"%></td>
       <td><%= item.number %></td>
       <td><%= item.name %></td>
       <td><%= item.description %></td>

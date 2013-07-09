@@ -3,7 +3,7 @@
   <div id ="item_form">
     <table style="border:none;">
       <tr>
-        <td><%= f.label :qty, "Qty" %></td>
+        <td width="10%" valign="top"><%= f.label :qty, "Qty" %></td>
         <td><%= f.text_field :qty %></td>
       </tr>
       <tr>
@@ -23,9 +23,14 @@
         <td><%= f.text_field :unit_price %></td>
       </tr>
       <tr>
-        <td colspan="2"><%= f.submit "save", :class => "btn-success" %></td>
+        <td colspan="2" style ="text-align: center;"><%= f.submit "save", :class => "btn-success" %></td>
       </tr>
     </table>
   </div>
 <% end %>
 
+<style>
+  td, th {
+    text-align: left;
+  }
+</style>

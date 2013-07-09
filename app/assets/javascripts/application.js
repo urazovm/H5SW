@@ -75,9 +75,9 @@ function item_edit_form(item_id){
     $.ajax({
         url:"/items/"+item_id+"/edit",
         success:function(data){
-            $("#popup_box").show();
-            $("#overlay").show();
-            $("#popup_body").html(data);
+            $("#popup_box1").show();
+            $("#overlay1").show();
+            $("#popup_body1").html(data);
         }
     });
 }
@@ -103,6 +103,18 @@ function hide_popup(){
     }
     if(jQuery('#overlay')){
         jQuery('#overlay').hide();
+    }
+}
+
+
+function hide_popup1(){
+
+    if(jQuery('#popup_box1')){
+        jQuery('#popup_body1').html("");
+        jQuery('#popup_box1').hide();
+    }
+    if(jQuery('#overlay1')){
+        jQuery('#overlay1').hide();
     }
 }
 
