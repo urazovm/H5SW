@@ -149,8 +149,6 @@ $(document).ajaxStop(function(){
 
 $(document).ready(function() {
     /* Activating Best In Place */
-    jQuery(".best_in_place").best_in_place();
-
     $("#auto_complete_text").keyup(function(){
         var n = $(this).val().split(',').length
         var data = $(this).val().split(',')[n-1];
