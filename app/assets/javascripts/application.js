@@ -82,29 +82,19 @@ function item_edit_form(item_id){
     });
 }
 
-
-function new_item_form(item_id){
+function inventory_edit_form(inventory_id){
     $.ajax({
-        url:"/items/new",
+        url:"/inventories/"+inventory_id+"/edit",
         success:function(data){
-            $("#popup_box").show();
-            $("#overlay").show();
-            $("#popup_body").html(data);
+            $("#popup_box1").show();
+            $("#overlay1").show();
+            $("#popup_body1").html(data);
         }
     });
 }
 
- 
-function hide_popup(){
 
-    if(jQuery('#popup_box')){
-        jQuery('#popup_body').html("");
-        jQuery('#popup_box').hide();
-    }
-    if(jQuery('#overlay')){
-        jQuery('#overlay').hide();
-    }
-}
+ 
 
 
 function hide_popup1(){
@@ -159,8 +149,6 @@ $(document).ajaxStop(function(){
 
 
 $(document).ready(function() {
-  /* Activating Best In Place */
-  jQuery(".best_in_place").best_in_place();
+    /* Activating Best In Place */
+    jQuery(".best_in_place").best_in_place();
 });
-
-

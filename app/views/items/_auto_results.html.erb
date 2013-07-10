@@ -34,10 +34,10 @@
     $("#auto_complete_text").val(tex_val+''+item+',');
     $("#auto_results").hide();
     $.ajax({
-      url:'/items/sub_total',
+      url:'/items/create_inventory',
       data:{
         name:item,
-        sub_to:$("#sub_total").val()
+        sub_to:$( "#create_inventory").val()
       },
       type:'GET',
       success:function(data){}

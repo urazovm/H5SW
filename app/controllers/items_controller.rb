@@ -4,21 +4,8 @@ class ItemsController < ApplicationController
   respond_to :html, :json
   before_filter :session_types
 
-  def index
-    @items = current_login.items.all
-  end
-
   def new
     @item = Item.new
-    render :layout => false
-
-  end
-
-  def edit
-    
-    @item = Item.find(params[:id])
-    render :layout => false
-
   end
 
   def create
@@ -33,34 +20,6 @@ class ItemsController < ApplicationController
     end
   end
 
-
-
-  def show
-    @item = Item.find(params[:id])
-    redirect_to items_path
-  end
-
-  def update
-    @item = Item.find(params[:id])
-     
-    if @item.update_attributes(params[:item])
-      respond_with @item
-    else
-      render :action => "edit"
-    end
-  end
-   
- 
-  def destroy
-    @item = Item.find(params[:id])
-    if @item.destroy
-      flash[:notice] = "item was successfully deleted"
-    else
-      flash[:error] = "item deletion failed"
-    end
-    redirect_to items_url
-  end
-
   def autocomplete_items
     @not_names = params[:not_list].split(',').join("','")
     @items = current_login.items.where("name LIKE '#{params[:name]}%' and name NOT IN ('#{@not_names}')")
@@ -69,13 +28,20 @@ class ItemsController < ApplicationController
     end
   end
 
-  def sub_total
+  def create_inventory
     @total = 0
     @items = Item.where("name='#{params[:name]}'")
     if @items
-      @items.each do |it|
-        @total+= (it.qty.to_f*it.unit_price.to_f)
-      end
+      for item in @items
+        if Inventory.exists?(:name => item.name, :company_id => current_login.id, :customer_id => session[:customer_id], :job_id => session[:job_id], :jobsite_id => session[:jobsite_id])
+        else
+          Inventory.create(:itemtype => item.itemtype,:qty => item.qty,:name => item.name, :number => item.number, :description => item.description, :unit_price => item.unit_price, :unit_cost => item.unit_cost, :company_id => current_login.id, :job_id => session[:job_id], :jobsite_id => session[:jobsite_id], :customer_id => session[:customer_id], :subtotal => (item.qty.nil? || item.unit_price.nil?) ? " " : (item.qty.to_f*item.unit_price.to_f) )
+          @items.each do |it|
+            @total+= (it.qty.to_f*it.unit_price.to_f)
+            @inventories = current_login.inventories
+          end
+        end
+      end      
     end
     @total+= params[:sub_to].to_f
     respond_to do |format|
