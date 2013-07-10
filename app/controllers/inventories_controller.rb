@@ -2,7 +2,7 @@ class InventoriesController < ApplicationController
 
   before_filter :is_login?
 
-  respond_to :html, :json
+  respond_to :html, :json, :js
   before_filter :session_types
 
   def index
@@ -34,6 +34,7 @@ class InventoriesController < ApplicationController
     @inventory = Inventory.find(params[:id])
     @inventory.subtotal = (params[:inventory][:qty].to_i*@inventory.unit_price) if params[:inventory][:qty].present?
     if @inventory.update_attributes(params[:inventory])
+      @inventories = current_login.inventories
       respond_with @inventory
     else
       render :action => "edit"

@@ -151,4 +151,29 @@ $(document).ajaxStop(function(){
 $(document).ready(function() {
     /* Activating Best In Place */
     jQuery(".best_in_place").best_in_place();
+
+    $("#auto_complete_text").keyup(function(){
+        var n = $(this).val().split(',').length
+        var data = $(this).val().split(',')[n-1];
+        $.ajax({
+            url:'/items/autocomplete_items',
+            data:{
+                name:data,
+                not_list:$(this).val()
+            },
+            type:'GET',
+            success:function(data){}
+        });
+    });
 });
+
+function inplace_edit_quantity(id){
+    $.ajax({
+        url:'/inventories/'+id+'/edit',
+        type:'GET'
+    });
+}
+
+function cancel_update(id,qty){
+    $("#quantity_"+id).html('<div onclick="inplace_edit_quantity('+id+')">'+qty+'</div>')
+}
