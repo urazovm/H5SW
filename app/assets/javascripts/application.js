@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require twitter/bootstrap
-//= require best_in_place
 //= require jquery-ui
 //= require autocomplete-rails
 //= require_tree .
