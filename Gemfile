@@ -29,5 +29,4 @@ gem "better_errors", ">= 0.3.2"
 gem 'jquery-rails',  "2.3.0"
 gem 'therubyracer'
 gem "prototype-rails","~> 3.2.1"
-gem "best_in_place"
 gem "exception_notification", :git => "git://github.com/rails/exception_notification", :require => 'exception_notifier'

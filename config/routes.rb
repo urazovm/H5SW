@@ -36,11 +36,13 @@ SMO::Application.routes.draw do
   resources :items do
     collection do
       get :autocomplete_items
-      get :sub_total
+      get :create_inventory
     end
   end
  
   resources :documents 
+
+  resources :inventories
   
   resources :notes
   devise_for :users

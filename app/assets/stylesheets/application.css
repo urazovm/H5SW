@@ -197,16 +197,7 @@ tr.odd{
 }
 
 
-#item_form {
-    height: 200px;
-    width: 200px;
-    padding: 10px 5px;
-    left: 35%;
-    margin: -280px 0 0 150px;
-    position: fixed;
-    top: 70%;
-    z-index: 1001;
-}
+
 
 #ajax_loader_big_div{
     display:none;
@@ -232,6 +223,13 @@ tr.odd{
     padding :4px 0px;
 }
 
+#inventory_form input[type="text"]{
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    width: 120px;
+    padding :4px 0px;
+}
 .form_in_place input[type="text"]{
     width :60px;
 }
+

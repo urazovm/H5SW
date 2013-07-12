@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require twitter/bootstrap
-//= require best_in_place
 //= require jquery-ui
 //= require autocomplete-rails
 //= require_tree .
@@ -82,29 +81,19 @@ function item_edit_form(item_id){
     });
 }
 
-
-function new_item_form(item_id){
+function inventory_edit_form(inventory_id){
     $.ajax({
-        url:"/items/new",
+        url:"/inventories/"+inventory_id+"/edit",
         success:function(data){
-            $("#popup_box").show();
-            $("#overlay").show();
-            $("#popup_body").html(data);
+            $("#popup_box1").show();
+            $("#overlay1").show();
+            $("#popup_body1").html(data);
         }
     });
 }
 
- 
-function hide_popup(){
 
-    if(jQuery('#popup_box')){
-        jQuery('#popup_body').html("");
-        jQuery('#popup_box').hide();
-    }
-    if(jQuery('#overlay')){
-        jQuery('#overlay').hide();
-    }
-}
+ 
 
 
 function hide_popup1(){
@@ -160,10 +149,6 @@ $(document).ajaxStop(function(){
 
 $(document).ready(function() {
     /* Activating Best In Place */
-    jQuery(".best_in_place").best_in_place();
-});
-
-$(document).ready(function(){
     $('.datepicker').datepicker()
     .on('changeDate', function(e){
         var y = e.date.getFullYear(),
@@ -173,6 +158,29 @@ $(document).ready(function(){
         d = (_d > 9 ? _d : '0'+_d);
         $(this).prev('input.data').val(y + '-' + m + '-' + d);
     });
-})
 
+    $("#auto_complete_text").keyup(function(){
+        var n = $(this).val().split(',').length
+        var data = $(this).val().split(',')[n-1];
+        $.ajax({
+            url:'/items/autocomplete_items',
+            data:{
+                name:data,
+                not_list:$(this).val()
+            },
+            type:'GET',
+            success:function(data){}
+        });
+    });
+});
 
+function inplace_edit_quantity(id){
+    $.ajax({
+        url:'/inventories/'+id+'/edit',
+        type:'GET'
+    });
+}
+
+function cancel_update(id,qty){
+    $("#quantity_"+id).html('<div onclick="inplace_edit_quantity('+id+')">'+qty+'</div>')
+}

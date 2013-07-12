@@ -4,4 +4,7 @@ class Item < ActiveRecord::Base
    belongs_to :customer
    belongs_to :job
    belongs_to :jobsite
+   has_many :inventory
+
+   validates :name, :presence => true, :uniqueness => true
 end
