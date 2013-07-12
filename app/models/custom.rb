@@ -3,10 +3,6 @@ class Custom < ActiveRecord::Base
   belongs_to :company
   validates :name, :presence => true
   validates :type, :presence => true
-  validate :validation_name
+  validates :name, :uniqueness => {:scope => [:company_id, :type], :message => "Custom field name is already created"}
   has_many :dropdown_values,:dependent => :destroy
-
-  def validation_name
-    
-  end
 end
