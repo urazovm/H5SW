@@ -11,7 +11,6 @@ class Job < ActiveRecord::Base
   belongs_to :customer
   belongs_to :company
   has_many :notes, :as => :notable
-
   has_many :documents, :as => :documentable
   has_many :items
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130627114324) do
+ActiveRecord::Schema.define(:version => 20130711130853) do
 
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(:version => 20130627114324) do
     t.integer  "jobsite_id"
   end
 
+  create_table "customs", :force => true do |t|
+    t.string   "name"
+    t.string   "field"
+    t.integer  "company_id"
+    t.string   "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "documents", :force => true do |t|
     t.string   "document_file_name"
     t.string   "document_content_type"
@@ -88,6 +97,13 @@ ActiveRecord::Schema.define(:version => 20130627114324) do
     t.datetime "updated_at",            :null => false
     t.integer  "company_id"
     t.integer  "jobsite_id"
+  end
+
+  create_table "dropdown_values", :force => true do |t|
+    t.string   "drop_value"
+    t.integer  "custom_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "items", :force => true do |t|

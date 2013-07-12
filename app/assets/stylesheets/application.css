@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require_tree .
+
 */
 
 td a:hover{
@@ -32,7 +33,6 @@ tr, td, th {
 
 td, th{
     padding: 5px;
-    text-align: center;
 }
 
 tr.heading{
@@ -146,7 +146,7 @@ tr.odd{
 }
 
 
- #overlay{
+#overlay{
     display: none;
     background-color:#000000;
     height:100%;
@@ -168,7 +168,7 @@ tr.odd{
     position: fixed;
     top: 70%;
     z-index: 1001;
-     border: 1px solid black;
+    border: 1px solid black;
 }
 
 #overlay1{

@@ -159,8 +159,20 @@ $(document).ajaxStop(function(){
 
 
 $(document).ready(function() {
-  /* Activating Best In Place */
-  jQuery(".best_in_place").best_in_place();
+    /* Activating Best In Place */
+    jQuery(".best_in_place").best_in_place();
 });
+
+$(document).ready(function(){
+    $('.datepicker').datepicker()
+    .on('changeDate', function(e){
+        var y = e.date.getFullYear(),
+        _m = e.date.getMonth() + 1,
+        m = (_m > 9 ? _m : '0'+_m),
+        _d = e.date.getDate(),
+        d = (_d > 9 ? _d : '0'+_d);
+        $(this).prev('input.data').val(y + '-' + m + '-' + d);
+    });
+})
 
 

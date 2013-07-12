@@ -5,12 +5,12 @@
 
 <div>
   <%= label_tag :Subtotal %>
-  <%= text_field_tag :sub_total,'' ,:readonly => true%>
+  <%= text_field_tag :sub_total, '', :readonly => true%>
 </div>
 
 <div>
-  <%= label_tag :add_item,"Add Item" %>
-  <%= text_field_tag :item_names,'',:size => 75, :id => 'auto_complete_text' %>
+  <%= label_tag :add_item,"Add Items" %>
+  <%= text_field_tag :item_names, '',:size => 75, :autofocus => true, :id => 'auto_complete_text' %>
   <ul id="auto_results"></ul>
   <%= link_to_function "Add Item", "new_item_form(#{@item_id})" %>
 </div>

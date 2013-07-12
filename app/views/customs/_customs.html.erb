@@ -1,0 +1,23 @@
+<table style="background: #F1F1F1; margin-bottom: 10px;">
+  <% i=1 %>
+  <% @customs.each do |custom| %>
+    <tr>
+      <td>
+        <%= custom.field ? custom.name : '' %>
+      </td>
+      <td>
+        <% if custom.field == "Text Box" %>
+          <%= text_field_tag "textField" %>
+        <% elsif custom.field == "Dropdown List" %>
+          <%= select_tag "dropdownField", options_for_select(DropdownValue.where("custom_id= '#{custom.id}'").map{|dr| [dr.drop_value,dr.id]}), :style => "width: 436px" %>
+        <% elsif custom.field == "Calendar" %>
+          <%= text_field_tag "calendar#{i}", nil, :class => 'data', :placeholder => Date.today %>&nbsp;
+          <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer;", :id => "calendar_icon#{i}", :class => "datepicker"%>
+        <% else %>
+          ''
+        <% end %>
+      </td>
+    </tr>
+    <% i=i+1 %>
+  <% end %>
+</table>

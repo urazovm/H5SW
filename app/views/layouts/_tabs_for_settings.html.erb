@@ -11,8 +11,8 @@
     <%= link_to "Roles", roles_path, :title => "list roles" %>
   </li>
 
-  <li>
-    <%= link_to_function "Custom Fields", "alert('coming soon!'); return false;", :title => "custom page" %>
+  <li class="<%= (params[:controller] == "customs" && params[:action] == "new" )? 'active' : '' %>" >
+    <%= link_to "Custom Fields", new_custom_path, :title => "custom page" %>
   </li>
 
 

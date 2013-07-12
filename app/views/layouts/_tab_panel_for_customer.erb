@@ -1,29 +1,29 @@
 <ul class="nav nav-tabs" id="myTab">
-    <li class = <%= params[:controller] == "customers" || params[:action] == "new" ? 'active' : ''  %> >
+  <li class = <%= params[:controller] == "customers" || params[:action] == "new" ? 'active' : ''  %> >
     <%= link_to 'Customer', new_customer_path, :title => "Customer New Page" %>
-    </li>
+  </li>
 
-     <li class = <%= params[:controller] == "jobs" && params[:action] == "index" ? 'active' : ''  %> >
+  <li class = <%= params[:controller] == "jobs" && params[:action] == "index" ? 'active' : ''  %> >
     <%= link_to 'Jobs', jobs_path, :title => "Jobs index page" %>
-    </li>
+  </li>
 
-    <li class = <%= params[:controller]=="notes" ? 'active' : ''  %> >
-      <%= link_to "Notes", notes_path(:type => "Customer"), :title => "list customer notes" %>
-    </li>
+  <li class = <%= params[:controller]=="notes" ? 'active' : ''  %> >
+    <%= link_to "Notes", notes_path(:type => "Customer"), :title => "list customer notes" %>
+  </li>
 
-    <li class = <%= params[:controller] == "contacts" && params[:action] == "index" ? 'active' : ''  %> >
-      <%= link_to "Contact", contacts_path, :title => "list contacts" %>
-    </li>
+  <li class = <%= params[:controller] == "contacts" && params[:action] == "index" ? 'active' : ''  %> >
+    <%= link_to "Contact", contacts_path, :title => "list contacts" %>
+  </li>
 
-    <li class = <%= params[:controller] == "documents" ? 'active' : ''  %>>
-      <%= link_to "Documents", documents_path(:type => "Customer"), :title => "list customer documents" %>
-    </li>
+  <li class = <%= params[:controller] == "documents" ? 'active' : ''  %>>
+    <%= link_to "Documents", documents_path(:type => "Customer"), :title => "list customer documents" %>
+  </li>
 
-    <li>
-      <%= link_to_function "Custom", "alert('coming soon!'); return false;", :title => "custome page" %>
-    </li>
+  <li class =" <%= (params[:controller] == "customs" && params[:type]) == "Customer" ? 'active' : ''  %> ">
+    <%= link_to "Custom", customs_path(:type => "Customer"),  :title => "custom page" %>
+  </li>
 
-    </ul>
+</ul>
 
-    
+
 
