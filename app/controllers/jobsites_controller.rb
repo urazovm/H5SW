@@ -3,7 +3,7 @@ class JobsitesController < ApplicationController
   before_filter :gmap_json, :only => ["edit"]
 
   def index
-    @jobsites = search_by_session(Jobsite.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
+    @jobsites = search_by_customer_id(Jobsite.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
   end
 
   def new
