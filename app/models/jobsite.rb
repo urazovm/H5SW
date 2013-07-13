@@ -1,5 +1,7 @@
 class Jobsite < ActiveRecord::Base
   attr_accessible :name, :city, :state, :zip, :customer_id
+  acts_as_gmappable
+
   belongs_to :customer
   has_many :documents
   has_many :notes
@@ -15,10 +17,13 @@ class Jobsite < ActiveRecord::Base
     end
   end
 
-  acts_as_gmappable
 
   def gmaps4rails_address
-  "#{self.city}, #{self.state}, #{self.zip}"
+    "#{self.city}, #{self.state}, #{self.zip}"
   end
-  
+
+  def gmaps4rails_infowindow
+    "Jobsite: <br/><b>Name:&nbsp;</b> #{self.name}<br /><b>City:&nbsp;</b>#{self.city}<br /><b>State:&nbsp;</b> #{self.state}<br /><b>Zip:&nbsp;</b> #{self.zip}<br />"
+  end
+
 end

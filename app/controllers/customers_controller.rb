@@ -1,6 +1,7 @@
 class CustomersController < ApplicationController
   before_filter :is_login?
   before_filter :access_role?
+  before_filter :gmap_json, :only => ["edit"]
 
   # GET /customers
   def index
@@ -22,7 +23,6 @@ class CustomersController < ApplicationController
   def edit
     session[:customer_id] = params[:id]
     @customer = Customer.find(session[:customer_id])
-    @json = Customer.all.to_gmaps4rails
   end
 
   # POST /customers
@@ -67,6 +67,6 @@ class CustomersController < ApplicationController
     else
       flash[:error] = "Customer deletion is failed. please try again."
     end
-    redirect_to customers_url 
+    redirect_to customers_url
   end
 end

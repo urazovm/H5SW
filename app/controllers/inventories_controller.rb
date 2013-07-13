@@ -4,11 +4,10 @@ class InventoriesController < ApplicationController
 
   respond_to :html, :json, :js
   before_filter :session_types
+  before_filter :gmap_json, :only => ["index"]
 
   def index
     @inventories = current_login.inventories
-    @json = Customer.all.to_gmaps4rails
-    @json = Jobsite.all.to_gmaps4rails
   end
 
   def new

@@ -2,11 +2,10 @@ class NotesController < ApplicationController
   before_filter :is_login?
   before_filter :get_notes
   before_filter :session_types
-  
+  before_filter :gmap_json, :only => ["index"]
+
   def index
     @note = current_login.notes.new()
-    @json = Customer.all.to_gmaps4rails
-    @json = Jobsite.all.to_gmaps4rails
   end
 
   def create

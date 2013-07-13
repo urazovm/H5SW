@@ -1,11 +1,10 @@
 class JobtimesController < ApplicationController
   before_filter :is_login?
   before_filter :session_types
+  before_filter :gmap_json, :only => ["index"]
 
   def index
     @jobtimes = current_login.jobtimes.all
-    @json = Customer.all.to_gmaps4rails
-    @json = Jobsite.all.to_gmaps4rails
   end
 
   def new

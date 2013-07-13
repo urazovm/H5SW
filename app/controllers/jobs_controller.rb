@@ -3,7 +3,7 @@ class JobsController < ApplicationController
   before_filter :access_role?
   
   before_filter :session_types, :except => ["index", "show"]
-  
+  before_filter :gmap_json, :only => ["new","edit"]
   def index
     @jobs = search_by_session(current_login.jobs.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
   end
@@ -14,13 +14,10 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new
-    @json = Customer.all.to_gmaps4rails
-    @json = Jobsite.all.to_gmaps4rails
   end
 
   def edit
     @job = Job.find(params[:id])
-    @json = Customer.all.to_gmaps4rails
     session_job_id
   end
 
