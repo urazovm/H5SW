@@ -128,6 +128,15 @@ class ApplicationController < ActionController::Base
         @json2 = Jobsite.find_by_id(session[:jobsite_id]).to_gmaps4rails
       end
     end
+    if !@json2.nil? and !@json1.nil?
+      @json = (JSON.parse(@json1) + JSON.parse(@json2)).to_json
+    elsif @json2.nil? and !@json1.nil?
+      @json = JSON.parse(@json1).to_json
+    elsif !@json2.nil? and @json1.nil?
+      @json = JSON.parse(@json2).to_json
+    else
+      @json = ""
+    end
   end
 end
 
