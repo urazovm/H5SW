@@ -56,4 +56,8 @@ class Customer < ActiveRecord::Base
   def gmaps4rails_address
   "#{self.city}, #{self.state}, #{self.zip}"
   end
+  def gmaps4rails_infowindow
+    "Customer: <br/><b>Name:&nbsp;</b> #{self.company_name}<br /><b>City:&nbsp;</b>#{self.city}<br /><b>State:&nbsp;</b> #{self.state}<br /><b>Zip:&nbsp;</b> #{self.zip}<br /> <b>Phone:&nbsp;</b>#{self.phone}<br />"
+  end
+
 end

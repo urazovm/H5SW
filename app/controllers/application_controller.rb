@@ -100,8 +100,38 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-end
 
+  def gmap_json
+    if !session[:customer_id].nil? && !session[:jobsite_id].nil?
+      if session[:customer_id]=="All" && (session[:jobsite_id] == "All" || session[:jobsite_id] == "None")
+        @json1 = Customer.all.to_gmaps4rails
+        @json2 = Jobsite.all.to_gmaps4rails
+      elsif session[:customer_id]!="All" && (session[:jobsite_id] == "All" || session[:jobsite_id] == "None")
+        @json1 = Customer.find_by_id(session[:customer_id]).to_gmaps4rails
+        @json2 = Jobsite.all.to_gmaps4rails
+      elsif session[:customer_id]=="All" && (session[:jobsite_id] != "All" || session[:jobsite_id] != "None")
+        @json1 = Customer.all.to_gmaps4rails
+        @json2 = Jobsite.find_by_id(session[:jobsite_id]).to_gmaps4rails
+      else
+        @json1 = Customer.find_by_id(session[:customer_id]).to_gmaps4rails
+        @json2 = Jobsite.find_by_id(session[:jobsite_id]).to_gmaps4rails
+      end
+    end
+    puts @json2.nil?
+    puts @json1.nil?
+    if !@json2.nil? and !@json1.nil?
+      @json = (JSON.parse(@json1) + JSON.parse(@json2)).to_json
+    elsif @json2.nil? and !@json1.nil?
+      @json = JSON.parse(@json1).to_json
+    elsif !@json2.nil? and @json1.nil?
+      @json = JSON.parse(@json2).to_json
+    else
+      @json = ""
+    end
+    puts @json
+    puts @json
+  end
+end
 
 # accessing the role set for each user
 def current_login
@@ -110,7 +140,7 @@ end
 
 def access_role?
   if current_user
-    @user_role = Role.find(current_user.role_id)    
+    @user_role = Role.find(current_user.role_id)
     @user_role ? @role_name = @user_role.roll : ""
     @error_message = "You don't have permission to access this page!"
     
@@ -183,7 +213,7 @@ def access_role?
 
         #settings/admin role
 
-       @settings_role =  @user_role.settings_admin
+        @settings_role =  @user_role.settings_admin
         if @settings_role == "All"
         elsif @settings_role == "None"
           if params[:controller] == "users" || params[:controller] == "roles" || (params[:controller] == "customs" && params[:action] == "new")

@@ -1,6 +1,7 @@
 class JobsitesController < ApplicationController 
   before_filter :is_login?
-  
+  before_filter :gmap_json, :only => ["edit"]
+
   def index
     @jobsites = search_by_session(Jobsite.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
   end
@@ -21,7 +22,6 @@ class JobsitesController < ApplicationController
 
   def edit
     @jobsite = Jobsite.find(params[:id])
-     @json = Jobsite.all.to_gmaps4rails
   end
 
   def create
