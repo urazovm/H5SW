@@ -72,6 +72,7 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    gmaps4rails (1.5.6)
     hike (1.2.3)
     i18n (0.6.1)
     journey (1.0.4)
@@ -165,6 +166,7 @@ DEPENDENCIES
   devise
   dynamic_form
   exception_notification!
+  gmaps4rails
   jquery-rails (= 2.3.0)
   paperclip!
   pg

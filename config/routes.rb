@@ -37,6 +37,8 @@ SMO::Application.routes.draw do
   resources :documents 
 
   resources :inventories
+
+  resources :jobtimes
   
   resources :notes
   devise_for :users
