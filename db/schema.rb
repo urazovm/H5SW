@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711130853) do
+ActiveRecord::Schema.define(:version => 20130712130026) do
 
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -74,6 +74,9 @@ ActiveRecord::Schema.define(:version => 20130711130853) do
     t.datetime "updated_at",     :null => false
     t.integer  "contact_id"
     t.integer  "jobsite_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.boolean  "gmaps"
   end
 
   create_table "customs", :force => true do |t|
@@ -140,6 +143,11 @@ ActiveRecord::Schema.define(:version => 20130711130853) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "job_times", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "jobs", :force => true do |t|
     t.string   "reference_no",                               :default => "",  :null => false
     t.datetime "due_date"
@@ -169,6 +177,25 @@ ActiveRecord::Schema.define(:version => 20130711130853) do
     t.integer  "customer_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.float    "latitude"
+    t.float    "longitude"
+    t.boolean  "gmaps"
+  end
+
+  create_table "jobtimes", :force => true do |t|
+    t.string   "timetype"
+    t.datetime "jobdate"
+    t.string   "qty"
+    t.string   "user"
+    t.string   "service"
+    t.integer  "job_id"
+    t.integer  "jobsite_id"
+    t.integer  "company_id"
+    t.integer  "customer_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.time     "clockStart"
+    t.time     "clockStop"
   end
 
   create_table "notes", :force => true do |t|
