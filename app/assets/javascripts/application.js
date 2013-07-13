@@ -149,6 +149,16 @@ $(document).ajaxStop(function(){
 
 $(document).ready(function() {
     /* Activating Best In Place */
+    $('.datepicker').datepicker()
+    .on('changeDate', function(e){
+        var y = e.date.getFullYear(),
+        _m = e.date.getMonth() + 1,
+        m = (_m > 9 ? _m : '0'+_m),
+        _d = e.date.getDate(),
+        d = (_d > 9 ? _d : '0'+_d);
+        $(this).prev('input.data').val(y + '-' + m + '-' + d);
+    });
+
     $("#auto_complete_text").keyup(function(){
         var n = $(this).val().split(',').length
         var data = $(this).val().split(',')[n-1];

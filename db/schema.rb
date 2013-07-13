@@ -79,6 +79,15 @@ ActiveRecord::Schema.define(:version => 20130712095152) do
     t.boolean  "gmaps"
   end
 
+  create_table "customs", :force => true do |t|
+    t.string   "name"
+    t.string   "field"
+    t.integer  "company_id"
+    t.string   "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "documents", :force => true do |t|
     t.string   "document_file_name"
     t.string   "document_content_type"
@@ -91,6 +100,13 @@ ActiveRecord::Schema.define(:version => 20130712095152) do
     t.datetime "updated_at",            :null => false
     t.integer  "company_id"
     t.integer  "jobsite_id"
+  end
+
+  create_table "dropdown_values", :force => true do |t|
+    t.string   "drop_value"
+    t.integer  "custom_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "inventories", :force => true do |t|
@@ -128,24 +144,20 @@ ActiveRecord::Schema.define(:version => 20130712095152) do
   end
 
   create_table "jobs", :force => true do |t|
-    t.string   "reference_no",                                  :default => "",  :null => false
+    t.string   "reference_no",                               :default => "",  :null => false
     t.datetime "due_date"
-    t.string   "class_type",                                    :default => "",  :null => false
-    t.string   "assigned_to",                                   :default => "",  :null => false
-    t.string   "status",                                        :default => "",  :null => false
-    t.string   "job_contact",                                   :default => "",  :null => false
-    t.string   "sales_person",                                  :default => "",  :null => false
+    t.string   "class_type",                                 :default => "",  :null => false
+    t.string   "assigned_to",                                :default => "",  :null => false
+    t.string   "status",                                     :default => "",  :null => false
+    t.string   "sales_person",                               :default => "",  :null => false
     t.string   "summary"
-    t.decimal  "sub_total",       :precision => 8, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "sub_total",    :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.string   "add_items"
-    t.text     "notes"
-    t.datetime "created_at",                                                     :null => false
-    t.datetime "updated_at",                                                     :null => false
     t.integer  "job_number"
-    t.string   "contact_details"
-    t.string   "note_type"
     t.integer  "customer_id"
     t.integer  "company_id"
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
     t.integer  "contact_id"
     t.integer  "jobsite_id"
   end

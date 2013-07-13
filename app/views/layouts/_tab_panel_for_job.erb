@@ -20,8 +20,8 @@
     <%= link_to "Documents", documents_path(:type => "Job"), :title => "list job documents" %>
   </li>
 
-  <li class = <%= params[:controller] == "customs" && (params[:action] == "new" || params[:action] == "edit" )? 'active' : '' %> >
-    <%= link_to_function "Custom", "alert('coming soon!'); return false;", :title => "Job custom page" %>
+  <li class = <%= params[:controller] == "customs" ? 'active' : '' %> >
+    <%= link_to "Custom", customs_path(:type => "Job"), :title => "Job custom page" %>
   </li>
   
   <li class = <%= params[:controller] == "job_histories" && (params[:action] == "new" || params[:action] == "edit" )? 'active' : '' %> >

@@ -1,0 +1,80 @@
+<table style="background: #F1F1F1">
+  <%= form_for(@custom) do |f| %>
+    <%= hidden_field_tag "drop_ids" %>
+    <tr style="background: #666; color: #FFF;">
+      <td colspan="3">Select Customer/Job from the select field and create fields for it..</td>
+    </tr>
+    <tr><td colspan="2">&nbsp;</td></tr>
+    <tr style="border-bottom: 1px solid #CCC;">
+      <td colspan="3">
+        Select Customer/Job first<br/>
+        <%= f.select :type, options_for_select([['Customer', 'Customer'], ['Job', 'Job']]), :selected => params[:custom_type] %>
+      </td>
+    </tr>
+    <tr>
+      <td><%= f.label :name, "Create a unique label for your custom field" %></td>
+      <td><%= f.label :field, "Select a custom field" %></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td><%= f.text_field :name, :placeholder => "Create a Label for your custom field" %></td>
+      <td>
+        <%= f.select :field, options_for_select([['Text Box', 'Text Box'], ['Dropdown List', 'Dropdown List'], ['Calendar', 'Calendar']]), {} %>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <div id="display_dropdown_values"></div>
+      </td>
+    </tr>
+    <tr id="add_drop_down_values" style="display:none;">
+      <td id="append_text"><%= text_field_tag "drop_down_value", nil, :placeholder => "Add Values for Dropdown List" %></td>
+      <td><%= link_to_function "Add More Values", "add_drop_value();", :class => "btn btn-small", :style => "padding-top: 8px; padding-bottom: 8px;" %></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td colspan="3" style="color: red; display:none;" id="show_message">
+        After Adding values for this dropdown list, do not forget to save entire date (click on Save Button)
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3"><%= f.submit :save, :style => "width: 80px; height: 37px", :onclck => "validates();" %> </td>
+    </tr>
+  <% end %>
+</table>
+<script>
+  $(document).ready(function(){
+    if($("#custom_field").val() == 'Dropdown List'){
+      $("tr#add_drop_down_values").show();
+      $("tr#show_message").show();
+    }
+
+    $("#custom_field").change(function(){
+      if($(this).val() == 'Dropdown List'){
+        $("tr#add_drop_down_values").show();
+        $("tr#show_message").show();
+      }else{
+        $("tr#add_drop_down_values").hide();
+        $("tr#show_message").hide();
+      }
+    });
+  });
+
+  function add_drop_value(){
+    var dr_val = $("#drop_down_value").val();
+    if(dr_val == ''){
+      alert('null value not allowed');
+      return false;
+    }else{
+      $.ajax({
+        url:"/customs/add_drop_values",
+        data:{
+          drop_val:dr_val
+        },
+        type:'GET',
+        success:function(data){}
+      });
+    }
+  }
+</script>

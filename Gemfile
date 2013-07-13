@@ -14,6 +14,9 @@ gem "dynamic_form"
 gem 'rails3-jquery-autocomplete'
 gem 'gmaps4rails'
 
+#gems used for bootstrap-datepicker-rails
+gem 'rails-asset-jqueryui'
+
 # Gems used only for assets and not required
 # in production environments by default.
 

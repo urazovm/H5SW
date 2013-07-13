@@ -18,7 +18,7 @@ class Company < ActiveRecord::Base
   has_many :users, :dependent => :destroy
   has_many :roles, :dependent => :destroy
   has_many :items
+  has_many :customs
   has_many :inventories
   has_many :jobtimes
- 
 end

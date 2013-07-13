@@ -1,6 +1,5 @@
 class NotesController < ApplicationController
   before_filter :is_login?
-  
   before_filter :get_notes
   before_filter :session_types
   

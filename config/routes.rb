@@ -1,6 +1,12 @@
 SMO::Application.routes.draw do  
   get "settings/index"
 
+  resources :customs do
+    collection do
+      get :add_drop_values
+    end
+  end
+
   resources :jobs  
   resources :customers
   resources :jobsites do

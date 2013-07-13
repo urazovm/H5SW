@@ -108,6 +108,8 @@ GEM
       activesupport (= 3.2.13)
       bundler (~> 1.0)
       railties (= 3.2.13)
+    rails-asset-jqueryui (0.0.3)
+      jquery-rails
     rails3-jquery-autocomplete (1.0.11)
       rails (~> 3.0)
     railties (3.2.13)
@@ -173,6 +175,7 @@ DEPENDENCIES
   prototype-rails (~> 3.2.1)
   quiet_assets (>= 1.0.1)
   rails (= 3.2.13)
+  rails-asset-jqueryui
   rails3-jquery-autocomplete
   remotipart (~> 1.0.2)
   sass-rails (~> 3.2.3)

@@ -2,9 +2,9 @@
 <html>
   <head>
     <title>SMO</title>
-    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= stylesheet_link_tag    "application","datepicker", :media => "all" %>
     <%= stylesheet_link_tag 'gmaps4rails' %>
-    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag "application","autocomplete-rails","bootstrap-datepicker" %>
     <%= javascript_include_tag "autocomplete-rails.js" %>
     <%= csrf_meta_tags %>
   </head>
@@ -59,7 +59,7 @@
       <%= yield :scripts %>
     </div>
 
-    
+
     <div id='overlay1' style='filter:alpha(opacity=50);' onclick="hide_popup1();"></div>
     <div align='left' id='popup_box1'>
       <div style='float: right; margin-top: -40px;margin-right:-40px'>
@@ -68,7 +68,6 @@
     </div>
     <div id='ajax_loader_big_div'>
       <img alt="Ajax-loader-big" src="/assets/ajax-loader-big.gif"  />
-
     </div>
   </body>
 </html>
