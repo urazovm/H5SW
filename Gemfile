@@ -12,6 +12,7 @@ gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem "remotipart", "~> 1.0.2"
 gem "dynamic_form"
 gem 'rails3-jquery-autocomplete'
+gem 'gmaps4rails'
 
 #gems used for bootstrap-datepicker-rails
 gem 'rails-asset-jqueryui'

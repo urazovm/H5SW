@@ -22,6 +22,7 @@ class CustomersController < ApplicationController
   def edit
     session[:customer_id] = params[:id]
     @customer = Customer.find(session[:customer_id])
+    @json = Customer.all.to_gmaps4rails
   end
 
   # POST /customers

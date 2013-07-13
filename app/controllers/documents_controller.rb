@@ -5,7 +5,9 @@ class DocumentsController < ApplicationController
  
   def index
     @document = current_login.documents.new()
-    @documents = search_by_session_type("document", current_login.documents.search(params[:search]), params[:type]).paginate(:per_page => 10, :page => params[:page])
+    @documents = search_by_session_type("document",current_login.documents.search(params[:search]),params[:type]).paginate(:per_page => 10, :page => params[:page])
+    @json = Customer.all.to_gmaps4rails
+    @json = Jobsite.all.to_gmaps4rails
   end
 
   def create

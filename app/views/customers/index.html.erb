@@ -26,7 +26,7 @@
         <td style="text-align: center;"><%= customer.id ? Job.where("customer_id=?", customer.id).count : '0' %> </td>
         <td>
           <%= link_to image_tag("add_contact.png", :title => "Add Contact", :width => "24px", :height => "24px"), new_contact_path(:cust_id => customer) %>
-          | <%= link_to image_tag("add_jobsite.png", :title => "Add Job Site", :width => "24px", :height => "24px"), new_jobsite_path(:cust_id => customer) %>
+          |<%= link_to image_tag("add_jobsite.png", :title => "Add Job Site", :width => "24px", :height => "24px"), new_jobsite_path(:cust_id => customer) %>
         </td>
       </tr>
     <% end %>

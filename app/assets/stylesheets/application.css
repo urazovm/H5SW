@@ -233,3 +233,22 @@ tr.odd{
     width :60px;
 }
 
+#hour{
+    color: red;
+}
+
+#min{
+    color: green;
+}
+
+#sec{
+    color: blue;
+}
+
+
+
+#map{
+    width: 200px;
+    height: 200px;
+    float: right;
+}

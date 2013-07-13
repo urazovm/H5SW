@@ -13,6 +13,7 @@ class Job < ActiveRecord::Base
   has_many :notes, :as => :notable
   has_many :documents, :as => :documentable
   has_many :items
+  has_many :jobtimes
   
   def self.search(search)
     if search

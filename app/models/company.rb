@@ -20,4 +20,5 @@ class Company < ActiveRecord::Base
   has_many :items
   has_many :customs
   has_many :inventories
+  has_many :jobtimes
 end

@@ -21,6 +21,7 @@ class JobsitesController < ApplicationController
 
   def edit
     @jobsite = Jobsite.find(params[:id])
+     @json = Jobsite.all.to_gmaps4rails
   end
 
   def create
