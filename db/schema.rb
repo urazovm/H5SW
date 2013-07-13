@@ -12,7 +12,6 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20130712095152) do
-
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -141,6 +140,11 @@ ActiveRecord::Schema.define(:version => 20130712095152) do
     t.integer  "job_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "job_times", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "jobs", :force => true do |t|
