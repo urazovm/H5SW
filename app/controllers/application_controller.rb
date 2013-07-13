@@ -29,6 +29,17 @@ class ApplicationController < ActionController::Base
     @jobsite_id ? (@jobsite_id == "All" || @jobsite_id == "None") ? nil : @jobsite = Jobsite.find(@jobsite_id) : nil
   end
 
+  #only applicable for jobsite
+  def search_by_customer_id(value)
+    if session[:customer_id]
+      if session[:customer_id] == "All"
+        value
+      else
+        value.where('customer_id=?', session[:customer_id])
+      end
+    end
+  end
+
   def search_by_session(value)
     if session[:customer_id] && session[:jobsite_id]
       if session[:customer_id]=="All" && (session[:jobsite_id] == "All" || session[:jobsite_id] == "None")
