@@ -1,5 +1,5 @@
 class Jobsite < ActiveRecord::Base
-  attr_accessible :name, :city, :state, :zip, :customer_id
+  attr_accessible :name, :city, :state, :zip, :customer_id, :company_id
   acts_as_gmappable
 
   belongs_to :customer
