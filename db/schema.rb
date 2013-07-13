@@ -143,11 +143,6 @@ ActiveRecord::Schema.define(:version => 20130712130026) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "job_times", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "jobs", :force => true do |t|
     t.string   "reference_no",                                  :default => "",  :null => false
     t.datetime "due_date"
