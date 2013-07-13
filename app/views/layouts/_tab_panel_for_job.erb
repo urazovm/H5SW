@@ -8,8 +8,8 @@
     <%= link_to "Notes", notes_path(:type => "Job"), :title => "list job notes" %>
   </li>
 
-  <li>
-    <%= link_to_function "Times", "alert('comming soon!'); return false;", :title => "list job times" %>
+  <li class = "<%= params[:controller] == "jobtimes" ? 'active' : '' %> ">
+    <%= link_to "Times",  jobtimes_path%>
   </li>
 
   <li class="<%= params[:controller] == "inventories" ? 'active' : ''  %> " >

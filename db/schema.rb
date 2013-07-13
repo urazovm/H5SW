@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130710073507) do
+ActiveRecord::Schema.define(:version => 20130712095152) do
 
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -74,6 +74,9 @@ ActiveRecord::Schema.define(:version => 20130710073507) do
     t.datetime "updated_at",     :null => false
     t.integer  "contact_id"
     t.integer  "jobsite_id"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.boolean  "gmaps"
   end
 
   create_table "documents", :force => true do |t|
@@ -157,6 +160,25 @@ ActiveRecord::Schema.define(:version => 20130710073507) do
     t.integer  "customer_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.float    "latitude"
+    t.float    "longitude"
+    t.boolean  "gmaps"
+  end
+
+  create_table "jobtimes", :force => true do |t|
+    t.string   "timetype"
+    t.datetime "jobdate"
+    t.string   "qty"
+    t.string   "user"
+    t.string   "service"
+    t.integer  "job_id"
+    t.integer  "jobsite_id"
+    t.integer  "company_id"
+    t.integer  "customer_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.datetime "start_time"
+    t.datetime "end_time"
   end
 
   create_table "notes", :force => true do |t|

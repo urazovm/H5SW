@@ -3,6 +3,7 @@
   <head>
     <title>SMO</title>
     <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= stylesheet_link_tag 'gmaps4rails' %>
     <%= javascript_include_tag "application" %>
     <%= javascript_include_tag "autocomplete-rails.js" %>
     <%= csrf_meta_tags %>
@@ -55,6 +56,7 @@
         </div>
       <% end %>
       <%= yield %>
+      <%= yield :scripts %>
     </div>
 
     

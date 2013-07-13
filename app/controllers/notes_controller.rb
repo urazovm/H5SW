@@ -6,6 +6,8 @@ class NotesController < ApplicationController
   
   def index
     @note = current_login.notes.new()
+    @json = Customer.all.to_gmaps4rails
+    @json = Jobsite.all.to_gmaps4rails
   end
 
   def create

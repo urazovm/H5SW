@@ -13,11 +13,14 @@ class JobsController < ApplicationController
   end
 
   def new
-    @job = Job.new  
+    @job = Job.new
+    @json = Customer.all.to_gmaps4rails
+    @json = Jobsite.all.to_gmaps4rails
   end
 
   def edit
     @job = Job.find(params[:id])
+    @json = Customer.all.to_gmaps4rails
     session_job_id
   end
 

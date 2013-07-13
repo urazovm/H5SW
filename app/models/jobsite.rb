@@ -4,6 +4,7 @@ class Jobsite < ActiveRecord::Base
   has_many :documents
   has_many :notes
   has_many :items
+  has_many :jobtimes
   validates :name, :city, :state, :zip, :customer, :presence => true
 
   def self.search(search)
@@ -12,6 +13,12 @@ class Jobsite < ActiveRecord::Base
     else
       scoped
     end
+  end
+
+  acts_as_gmappable
+
+  def gmaps4rails_address
+  "#{self.city}, #{self.state}, #{self.zip}"
   end
   
 end
