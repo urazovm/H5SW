@@ -2,37 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com
 
-#job_class_type{
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    width: 430px;
-}
-
-#job_assigned_to{
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    width: 430px;
-}
-
-#job_status{
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    width: 430px;
-}
-
-#job_contact_id{
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    width: 430px;
-}
-
-#job_sales_person{
-    background-color: #FFFFFF;
-    border: 1px solid #CCCCCC;
-    width: 430px;
-}
-
-#note_type{
+#job_class_type, #job_assigned_to, #job_status, #job_contact_id, #job_sales_person, #note_type{
     background-color: #FFFFFF;
     border: 1px solid #CCCCCC;
     width: 430px;

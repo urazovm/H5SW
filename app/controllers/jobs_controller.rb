@@ -4,6 +4,8 @@ class JobsController < ApplicationController
   
   before_filter :session_types, :except => ["index", "show"]
   before_filter :gmap_json, :only => ["new","edit"]
+  before_filter :find_id_by_role, :only => ["new", "edit", "create", "update"]
+
   def index
     @jobs = search_by_session(current_login.jobs.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
   end
@@ -76,5 +78,13 @@ class JobsController < ApplicationController
 
   def session_job_id
     @job.id ? session[:job_id] = @job.id : ''
+  end
+
+  def find_id_by_role
+    @tech_role = current_login.roles.find_by_roll("Tech")
+    @tech_role ? @tech_users = current_login.users.find_all_by_role_id(@tech_role.id) : @tech_users = nil
+
+    @sales_role = current_login.roles.find_by_roll("Sales")
+    @sales_role ? @sales_users = current_login.users.find_all_by_role_id(@sales_role.id) : @sales_users = nil
   end
 end

@@ -12,10 +12,7 @@
     </div>
   <% end %>
   <%= select_tag :select_action, options_for_select([['Actions', ' '], ['Convert to Invoice', 'convert_to_invoice'], ['Invoice & Pay', 'invoice_pay'], ['Email', 'email'], ['Print', 'print']], :selected => params[:select_action]) %>
-  <!--
-    - job_id is auto_increment
-    - Customer details will automatically comes
-  -->
+  
   <%= f.hidden_field :customer_id, :value => @customer_id %>
   <%= f.hidden_field :jobsite_id, :value => @jobsite_id %>
   
@@ -33,7 +30,7 @@
   </div>
   <div class="field">
     <%= f.label :assigned_to %>
-    <%= f.select :assigned_to, options_for_select([["Bob Field guy", "Bob"]],:selected => @job.assigned_to) %>
+    <%= f.select :assigned_to, options_for_select(@tech_users ? @tech_users.map{|user| [user.name]} : [""], :selected => @job.assigned_to) %>
   </div>
   <div class="field">
     <%= f.label :status %>
@@ -51,7 +48,7 @@
   </div>
   <div class="field">
     <%= f.label :sales_person %>
-    <%= f.select :sales_person, options_for_select([["Fred Salse guy", "Fred"]],:selected => @job.sales_person) %>
+    <%= f.select :sales_person, options_for_select(@sales_users ? @sales_users.map{|user| [user.name]} : [""], :selected => @job.sales_person) %>
   </div>
   <div class="field">
     <%= f.label :summary %>
