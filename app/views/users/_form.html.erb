@@ -1,4 +1,4 @@
-<%= form_for @user,:url =>create_user_path(@user),  :remote => true do |f| %>
+<%= form_for @user,  :remote => true do |f| %>
   <table width="100%;">
     <tr>
       <td>
@@ -21,7 +21,7 @@
         <% if current_login.roles.empty? %>
           <span style="color: red;">No Roles First create roles on role tab.</span>
         <% else %>
-          <%= f.select :role_id, options_for_select(current_login.roles.map{|cr| [cr.roll, cr.id]}) %>
+          <%= f.select :role_id, options_for_select(current_login.roles.map{|cr| [cr.roll, cr.id]}, :selected => @user.role_id) %>
         <% end %>
       </td>
       <td>

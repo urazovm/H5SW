@@ -16,7 +16,9 @@
     <tr><td>&nbsp;</td></tr>
     <tr>
       <td><%=  f.label :roll,"Role" %></td>
-      <td><%= f.text_field :roll %></td>
+      <td>
+        <%= f.select :roll, options_for_select([["Admin", "Admin"], ["Tech", "Tech"], ["Sales", "Sales"], ["Subcontractor", "Subcontractor"], ["Office", "Office"], ["Customer", "Customer"]],:selected => @role.roll) %>
+      </td>
     </tr>
 
     <tr style="font-weight: bold;">
