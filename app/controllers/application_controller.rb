@@ -37,6 +37,8 @@ class ApplicationController < ActionController::Base
       else
         value.where('customer_id=?', session[:customer_id])
       end
+    else
+      value
     end
   end
 
