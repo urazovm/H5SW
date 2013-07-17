@@ -1,5 +1,5 @@
-<% if @update_status == true %>
-  $('#users').html("<%= escape_javascript(render(:partial => 'users', :locals => {:users => @users})) %> ");
-<% else %>
-  $("#user_form").html("<%= escape_javascript(render(:partial => 'form')) %>")
-<% end %>
+$('#users').html("<%= escape_javascript(render(:partial => 'users', :locals => {:users => @users})) %> ");
+$("input[type='text']").val('');
+$("input[type='email']").val('');
+$(".field_with_errors input").css('border','1px solid #CCCCCC');
+$("#error_explanation").hide();

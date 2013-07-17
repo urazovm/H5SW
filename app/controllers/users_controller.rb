@@ -46,11 +46,10 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
-      @update_status = true
+      render
     else
-      @update_status = false
+      render :action => "edit"
     end
-    render
   end
 
   private
