@@ -1,5 +1,5 @@
 
-<%= form_for(@job) do |f| %>
+<%= form_for(@job,:class => 'signature_form' ) do |f| %>
   <% if @job.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
@@ -12,10 +12,11 @@
     </div>
   <% end %>
   <%= select_tag :select_action, options_for_select([['Actions', ' '], ['Convert to Invoice', 'convert_to_invoice'], ['Invoice & Pay', 'invoice_pay'], ['Email', 'email'], ['Print', 'print']], :selected => params[:select_action]) %>
-  
+
   <%= f.hidden_field :customer_id, :value => @customer_id %>
   <%= f.hidden_field :jobsite_id, :value => @jobsite_id %>
-  
+  <%= f.hidden_field :signature %>
+
   <div class="field">
     <%= f.label :reference_no %>
     <%= f.text_field :reference_no %>
@@ -58,7 +59,30 @@
     <%= f.label :sub_total %>
     <%= f.text_field :sub_total %>
   </div>
-  <div class="actions">
-    <%= f.submit :class => "btn btn-large btn-success" %>
+
+  <div class ="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
   </div>
+
+  <%=  f.label :signature %>
+  <div id="canvas">
+    <canvas class="roundCorners" id="newSignature" style="position: relative; margin: 0; padding: 0; border: 1px solid #c4caac;"><%= @job.signature %></canvas>
+  </div>
+
+  <div>
+    <%= image_tag(@job.signature) %>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+      signatureCapture();
+    })
+  </script>
+
+
+  <div class="actions">
+    <%= f.submit :class => "btn  btn-success",:onclick=>"signatureSave()" %>
+  </div>
+
 <% end %>

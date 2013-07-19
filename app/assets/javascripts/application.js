@@ -184,3 +184,5 @@ function inplace_edit_quantity(id){
 function cancel_update(id,qty){
     $("#quantity_"+id).html('<div onclick="inplace_edit_quantity('+id+')">'+qty+'</div>')
 }
+
+

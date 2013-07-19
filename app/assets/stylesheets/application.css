@@ -13,6 +13,7 @@
 
 */
 
+
 td a:hover{
     background: transparent;
     color: #333;
@@ -251,4 +252,11 @@ tr.odd{
     width: 200px;
     height: 200px;
     float: right;
+}
+
+.signature_form{
+  margin: 0;
+  padding: 0;
+  width: 300px;
+
 }

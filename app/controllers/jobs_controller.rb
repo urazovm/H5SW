@@ -15,7 +15,7 @@ class JobsController < ApplicationController
   end
 
   def new
-    @job = Job.new
+     @job = Job.new
   end
 
   def edit
@@ -26,10 +26,10 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(params[:job])
     @job.company_id = current_login.id
+    
 
     @note = current_login.notes.new
     @notes = search_by_session_type("note",current_login.notes,"Job").order("created_at desc")
-
     if @job.save
       session_job_id
       if params[:select_action] == "print"
