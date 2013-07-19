@@ -19,7 +19,7 @@
     <%= link_to "Documents", documents_path(:type => "Customer"), :title => "list customer documents" %>
   </li>
 
-  <li class =" <%= (params[:controller] == "customs" && params[:type]) == "Customer" ? 'active' : ''  %> ">
+  <li class =" <%= (params[:controller] == "customs" && params[:type] == "Customer") ? 'active' : ''  %> ">
     <%= link_to "Custom", customs_path(:type => "Customer"),  :title => "custom page" %>
   </li>
 

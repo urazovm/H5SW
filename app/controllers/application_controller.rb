@@ -225,7 +225,7 @@ def access_role?
         @settings_role =  @user_role.settings_admin
         if @settings_role == "All"
         elsif @settings_role == "None"
-          if params[:controller] == "users" || params[:controller] == "roles" || (params[:controller] == "customs" && params[:action] == "new")
+          if params[:controller] == "users" || params[:controller] == "roles" || (params[:controller] == "customs" && params[:action] == "new") || (params[:controller] == "jobtimes" && params[:action] == "new")
             flash[:error] = @error_message
             redirect_to dashboards_index_path
           end
