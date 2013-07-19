@@ -45,7 +45,7 @@ SMO::Application.routes.draw do
 
   resources :jobtimes do
     collection do
-      post :shedule
+      post :jobtime_shedule
     end
   end
   
