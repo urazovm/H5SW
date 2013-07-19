@@ -137,7 +137,7 @@ class ApplicationController < ActionController::Base
     elsif !@json2.nil? and @json1.nil?
       @json = JSON.parse(@json2).to_json
     else
-      @json = ""
+      @json = []
     end
   end
 end

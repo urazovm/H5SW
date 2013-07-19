@@ -13,6 +13,7 @@
 
 */
 
+
 td a:hover{
     background: transparent;
     color: #333;
@@ -252,4 +253,3 @@ tr.odd{
     height: 200px;
     float: right;
 }
-

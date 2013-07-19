@@ -60,7 +60,7 @@ class JobsitesController < ApplicationController
   # action for displaying dynamic select options
   def ajax_show
     session[:customer_id] = params[:id]
-    session[:jobsite_id] = nil
+    session[:jobsite_id] = "All"
     @jobsites = Jobsite.find_all_by_customer_id(session[:customer_id])
     @edit = params[:edit]
     render

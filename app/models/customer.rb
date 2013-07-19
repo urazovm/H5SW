@@ -1,5 +1,5 @@
 class Customer < ActiveRecord::Base
-
+  acts_as_gmappable
   attr_accessible :company_id, :action,:types, :company_name, :parent_billing, :address1, :address2, :city, :state, :zip, :contact, :website, :business_type, :terms_client, :status, :account, :phone, :contact_id,:phone1, :phone2, :phone3, :phone4
   attr_accessor :phone1, :phone2, :phone3, :phone4
   belongs_to :company
@@ -51,7 +51,7 @@ class Customer < ActiveRecord::Base
     self.phone.to_s.split('-')[2].split('/')[1]  if self.phone.present? and !self.phone.to_s.split('-')[2].nil?
   end
 
-  acts_as_gmappable
+ 
 
   def gmaps4rails_address
   "#{self.city}, #{self.state}, #{self.zip}"
