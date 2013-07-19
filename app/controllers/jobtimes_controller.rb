@@ -29,7 +29,7 @@ class JobtimesController < ApplicationController
     end
   end
 
-  def shedule
+  def jobtime_shedule
     @jobtime = Jobtime.new(params[:jobtime])
 
     @qty = @jobtime.qty.to_i.hours

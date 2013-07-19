@@ -1,4 +1,4 @@
-<%= form_for @jobtime,:url => shedule_jobtimes_path(@jobtime),:method => "POST" do |f| %>
+<%= form_for @jobtime,:url => jobtime_shedule_jobtimes_path(@jobtime),:html => {:method => "POST"} do |f| %>
 
   <% if @jobtime.errors.any? %>
     <div id ="error_explanation">
@@ -27,7 +27,7 @@
     <%= f.label :start_time, "Start Time" %>
     <%= f.datetime_select :start_time %>
     <%= f.label :qty, "Hours/Qty" %>
-    <%= f.text_field :qty, :placeholder => "Hours/Qty", :required => true %>
+    <%= f.text_field :qty, :placeholder => "Hours/Qty" %>
 
     <%= f.label :service, "Service Item" %>
     <%= f.select :service, options_for_select(Item.find_all_by_itemtype("Service").map{|item| [item.name, item.id]}, :selected => @jobtime.service) %>  <!-- later implement this with current_login.items("........") -->
