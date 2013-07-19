@@ -9,4 +9,5 @@
 
 (1..10).each do |i|
   Item.create(:itemtype => "SMO_item#{i}", :qty => i, :number => "SMOITEM#{i+1}", :name => "itemsmo#{i}", :description => "good", :unit_cost => i+20, :unit_price => i+10)
+  Item.create(:itemtype => "Service", :qty => i, :number => "Service#{i+1}", :name => "service_item#{i+1}", :description => "this is a service item #{i+1}", :unit_cost => i*10, :unit_price => (i*10)+1)
 end

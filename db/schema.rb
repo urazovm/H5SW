@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130717075228) do
+ActiveRecord::Schema.define(:version => 20130718100403) do
 
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -143,6 +143,11 @@ ActiveRecord::Schema.define(:version => 20130717075228) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "job_times", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "jobs", :force => true do |t|
     t.string   "reference_no",                                     :default => "",  :null => false
     t.datetime "due_date"
@@ -158,10 +163,10 @@ ActiveRecord::Schema.define(:version => 20130717075228) do
     t.datetime "created_at",                                                        :null => false
     t.datetime "updated_at",                                                        :null => false
     t.integer  "job_number"
-    t.string   "contact_details"
-    t.string   "note_type"
     t.integer  "customer_id"
     t.integer  "company_id"
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
     t.integer  "contact_id"
     t.integer  "jobsite_id"
     t.string   "name"
@@ -189,7 +194,6 @@ ActiveRecord::Schema.define(:version => 20130717075228) do
 
   create_table "jobtimes", :force => true do |t|
     t.string   "timetype"
-    t.datetime "jobdate"
     t.string   "qty"
     t.string   "user"
     t.string   "service"
@@ -201,6 +205,9 @@ ActiveRecord::Schema.define(:version => 20130717075228) do
     t.datetime "updated_at",  :null => false
     t.datetime "start_time"
     t.datetime "end_time"
+    t.boolean  "billable"
+    t.decimal  "cost"
+    t.decimal  "price"
   end
 
   create_table "notes", :force => true do |t|

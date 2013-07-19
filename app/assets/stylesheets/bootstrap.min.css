@@ -36,3 +36,10 @@ textarea{
     width: 120px;
 }
 
+#jobtime_start_time_1i, #jobtime_start_time_3i, #jobtime_start_time_4i, #jobtime_start_time_5i{
+    width: 75px;
+}
+#jobtime_start_time_2i{
+    width: 95px;
+}
+

@@ -1,5 +1,17 @@
 <table style="background: #F1F1F1">
   <%= form_for(@custom) do |f| %>
+    <% if @custom.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@custom.errors.count, "error") %> prohibited custom fields from being saved:</h2>
+
+        <ul>
+          <% @custom.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <%= hidden_field_tag "drop_ids" %>
     <tr style="background: #666; color: #FFF;">
       <td colspan="3">Select Customer/Job from the select field and create fields for it..</td>
@@ -39,7 +51,7 @@
       </td>
     </tr>
     <tr>
-      <td colspan="3"><%= f.submit :save, :style => "width: 80px; height: 37px", :onclck => "validates();" %> </td>
+      <td colspan="3"><%= f.submit :save, :style => "width: 80px; height: 37px"%> </td>
     </tr>
   <% end %>
 </table>

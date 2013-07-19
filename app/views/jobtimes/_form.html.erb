@@ -1,37 +1,47 @@
-<%= form_for(@jobtime) do |f| %>
+<%= form_for @jobtime,:url => jobtime_shedule_jobtimes_path(@jobtime),:html => {:method => "POST"} do |f| %>
 
-   <% if @jobtime.errors.any? %>
-     <div id ="error_explanation">
-     <h2><%= pluralize(@jobtime.errors.count,"error") %>Prohibited this time from being saved </h2>
+  <% if @jobtime.errors.any? %>
+    <div id ="error_explanation">
+      <h2><%= pluralize(@jobtime.errors.count,"error") %>Prohibited this time from being saved </h2>
 
-     <ul>
-       <% @jobtime.errors.full_messages.each do |msg| %>
-       <li><%= msg %></li>
-       <% end %>
-     </ul>
+      <ul>
+        <% @jobtime.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
     </div>
-   <% end %>
+  <% end %>
 
-      <%= f.hidden_field :job_id, :value => @job_id %>
-      <%= f.hidden_field :customer_id, :value => @customer_id %>
-      <%= f.hidden_field :jobsite_id, :value => @jobsite_id %>
+  <%= f.hidden_field :job_id, :value => @job_id %>
+  <%= f.hidden_field :customer_id, :value => @customer_id %>
+  <%= f.hidden_field :jobsite_id, :value => @jobsite_id %>
+  <%= f.hidden_field :company_id, :value => current_login.id %>
 
-      <div class = "field">
-        <%= f.label :timetype, "Type" %>
-        <%= f.text_field :timetype %>
-      </div>
+  <div class="span7">
+    <%= f.label :user, "Tech User" %>
+    <%= f.select :user, options_for_select(@tech_users ? @tech_users.map{|user| [user.name]} : [""], :selected => @jobtime.user) %>
 
-      <div class ="field">
-        <%= f.label :user %>
-        <%= f.text_field :user %>
-      </div>
+    <%= f.label :timetype, "Type" %>
+    <%= f.select :timetype, options_for_select([["Scheduled Time", "Scheduled Time"], ["Actual Time", "Actual Time"]], :selected => @jobtime.timetype) %>
 
-      <div class ="field">
-        <%= f.label :service %>
-        <%= f.text_field :service %>
-      </div>
+    <%= f.label :start_time, "Start Time" %>
+    <%= f.datetime_select :start_time %>
+    <%= f.label :qty, "Hours/Qty" %>
+    <%= f.text_field :qty, :placeholder => "Hours/Qty" %>
 
-      <div class ="actions">
-        <%= f.submit "Save", :class => "btn-success" %>
-      </div>
+    <%= f.label :service, "Service Item" %>
+    <%= f.select :service, options_for_select(Item.find_all_by_itemtype("Service").map{|item| [item.name, item.id]}, :selected => @jobtime.service) %>  <!-- later implement this with current_login.items("........") -->
+
+    <br />
+    <label for="jobtime_billable">
+      <%= f.check_box :billable, :checked => true %>
+      Billable ?
+    </label>
+
+    <br />
+    <div class ="actions">
+      <%= f.submit "Save", :class => "btn btn-success" %>
+    </div>
+  </div>
+
 <% end %>

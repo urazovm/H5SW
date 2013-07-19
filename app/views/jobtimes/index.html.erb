@@ -6,27 +6,31 @@
   <span id="min">mm</span>:
   <span id="sec">ss</span>
 </div>
-<hr>
+<hr />
 
 <%= render '/layouts/job_with_action' %>
 <%= render '/layouts/tab_panel_for_job' %>
 
 
-<%= button_tag "Add time", :style => "height:30px; width: 120px;"%>
-<%= button_tag "Add schedule", :style => "height:30px; width: 120px;"%>
-<hr>
+<%= link_to_function "Add time", ("alert('Click on start button to start your time'); $('#start').removeAttr('disabled');"), :class => "btn btn-small btn-primary" %>
+<%= link_to "Add schedule", new_jobtime_path, :class => "btn btn-small btn-primary" %>
+<hr />
 <table class ="table-striped">
   <tr style="text-align: left;">
+    <th>Type</th>
     <th>Date</th>
     <th>Qty</th>
     <th>Who</th>
+    <th>Service</th>
   </tr>
 
   <% @jobtimes.each do |jobtime| %>
     <tr>
-      <td><%=  jobtime.created_at %></td>
-      <td><%=  jobtime.qty %></td>
-      <td><%=  jobtime.user %></td>
+      <td><%= jobtime.timetype %></td>
+      <td><%= jobtime.start_time %></td>
+      <td><%= jobtime.qty %></td>
+      <td><%= jobtime.user %></td>
+      <td><%= jobtime.service != nil ? Item.find(jobtime.service).name : '' %></td>
     </tr>
   <% end %>
 
@@ -37,7 +41,7 @@
   function update() {
     var date = new Date()
     var hours = date.getHours()
-    if (hours < 10) hours = '0'+hours
+    if (hours < 10) hours = '0'+ hours
     document.getElementById('hour').innerHTML = hours
 
     var minutes = date.getMinutes()
@@ -66,6 +70,7 @@
     clearTimeout(timerId)
     end_time = date
     $("#stop").attr("disabled", "disabled");
+    $("#start").removeAttr("disabled");
     timerId = null
     $.ajax({
       url: '/jobtimes',

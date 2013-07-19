@@ -7,7 +7,6 @@ SMO::Application.routes.draw do
     end
   end
 
-  resources :jobs  
   resources :customers
   resources :jobsites do
     member do
@@ -44,7 +43,11 @@ SMO::Application.routes.draw do
 
   resources :inventories
 
-  resources :jobtimes
+  resources :jobtimes do
+    collection do
+      post :jobtime_shedule
+    end
+  end
   
   resources :notes
   devise_for :users
@@ -52,8 +55,6 @@ SMO::Application.routes.draw do
   resources :users
 
   match 'users/create' => "users#create",:as => :create_user
-
-
 
   get "dashboards/index"
   devise_for :companies
