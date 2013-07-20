@@ -143,11 +143,6 @@ ActiveRecord::Schema.define(:version => 20130718100403) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "job_times", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "jobs", :force => true do |t|
     t.string   "reference_no",                                     :default => "",  :null => false
     t.datetime "due_date"
@@ -163,10 +158,10 @@ ActiveRecord::Schema.define(:version => 20130718100403) do
     t.datetime "created_at",                                                        :null => false
     t.datetime "updated_at",                                                        :null => false
     t.integer  "job_number"
+    t.string   "contact_details"
+    t.string   "note_type"
     t.integer  "customer_id"
     t.integer  "company_id"
-    t.datetime "created_at",                                                  :null => false
-    t.datetime "updated_at",                                                  :null => false
     t.integer  "contact_id"
     t.integer  "jobsite_id"
     t.string   "name"
@@ -201,11 +196,11 @@ ActiveRecord::Schema.define(:version => 20130718100403) do
     t.integer  "jobsite_id"
     t.integer  "company_id"
     t.integer  "customer_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.datetime "start_time"
     t.datetime "end_time"
-    t.boolean  "billable"
+    t.boolean  "billable",    :default => true
     t.decimal  "cost"
     t.decimal  "price"
   end
