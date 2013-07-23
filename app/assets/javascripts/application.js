@@ -160,8 +160,8 @@ $(document).ready(function() {
     });
 
     $("#auto_complete_text").keyup(function(){
-        var n = $(this).val().split(',').length
-        var data = $(this).val().split(',')[n-1];
+           var n = $(this).val().split(',').length
+           var data = $(this).val().split(',')[n-1];
         $.ajax({
             url:'/items/autocomplete_items',
             data:{
@@ -186,3 +186,15 @@ function cancel_update(id,qty){
 }
 
 
+function inplace_edit_description(id){
+    $.ajax({
+        url:'/inventories/'+id+'/edit',
+        type:'GET'
+    });
+}
+
+
+
+function cancel(id,description){
+    $("#description_"+id).html('<div onclick="inplace_edit_description('+id+')">'+description+'</div>')
+}

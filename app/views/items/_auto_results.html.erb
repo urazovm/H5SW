@@ -33,6 +33,7 @@
     }
     $("#auto_complete_text").val(tex_val+''+item+',');
     $("#auto_results").hide();
+    $("#auto_complete_text").val('');
     $.ajax({
       url:'/items/create_inventory',
       data:{

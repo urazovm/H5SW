@@ -14,13 +14,12 @@
 
     <% contacts.each do |contact| %>
       <tr id="contact_<%= contact.id %>">
-        <td><%= contact.name %></td>
+        <td><%= link_to  contact.name, edit_contact_path(contact) %></td>
         <td><%= contact.role %></td>
         <td><%= contact.email %></td>
         <td><%= contact.mobile %></td>
         <td><%= contact.business %></td>
         <td><%= contact.twitter %></td>
-        <td><%= link_to image_tag("edit.png", :title => "Edit", :width => "24px", :height => "24px"), edit_contact_path(contact) %></td>
         <td><%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), contact, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
       </tr>
     <% end %>

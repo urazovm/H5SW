@@ -1,1 +1,2 @@
 $("#quantity_<%= @inventory.id %>").html('<%= escape_javascript render :partial => 'inventories/inventory',:locals => {:inventory => @inventory} %>')
+$("#description_<%= @inventory.id %>").html('<%= escape_javascript render :partial => 'inventories/inventory1',:locals => {:inventory => @inventory} %>')

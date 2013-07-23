@@ -121,7 +121,7 @@ class ApplicationController < ActionController::Base
         @json2 = Jobsite.all.to_gmaps4rails
       elsif session[:customer_id]!="All" && (session[:jobsite_id] == "All" || session[:jobsite_id] == "None")
         @json1 = Customer.find_by_id(session[:customer_id]).to_gmaps4rails
-        @json2 = Jobsite.all.to_gmaps4rails
+        @json2 = Jobsite.find_all_by_customer_id(session[:customer_id]).to_gmaps4rails
       elsif session[:customer_id]=="All" && (session[:jobsite_id] != "All" || session[:jobsite_id] != "None")
         @json1 = Customer.all.to_gmaps4rails
         @json2 = Jobsite.find_by_id(session[:jobsite_id]).to_gmaps4rails

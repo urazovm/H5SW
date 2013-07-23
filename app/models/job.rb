@@ -9,8 +9,8 @@ class Job < ActiveRecord::Base
   # Data validations
   validates :reference_no, :class_type, :status,  :sales_person, :assigned_to, :due_date, :sub_total, :presence => true
   validates :reference_no, :uniqueness => true
-  validates_numericality_of :sub_total, :greater_than => 0, :message => "must be greater than 0"
-  validates :sub_total, :format => { :with => /^[0-9]{1,5}((\.[0-9]{1,5})?)$/, :message => "should be a valid price less than 6 digit number" }
+  #validates_numericality_of :sub_total, :greater_than => 0, :message => "must be greater than 0"
+  #validates :sub_total, :format => { :with => /^[0-9]{1,5}((\.[0-9]{1,5})?)$/, :message => "should be a valid price less than 6 digit number" }
   validates :customer_id, :presence => true
 
   belongs_to :customer

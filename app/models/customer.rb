@@ -1,5 +1,5 @@
 class Customer < ActiveRecord::Base
-  acts_as_gmappable
+  acts_as_gmappable :check_process => false
   attr_accessible :company_id, :action,:types, :company_name, :parent_billing, :address1, :address2, :city, :state, :zip, :contact, :website, :business_type, :terms_client, :status, :account, :phone, :contact_id,:phone1, :phone2, :phone3, :phone4
   attr_accessor :phone1, :phone2, :phone3, :phone4
   belongs_to :company
@@ -20,7 +20,7 @@ class Customer < ActiveRecord::Base
   before_save :make_phone
   def self.search(search)
     if search
-      where('company_name LIKE?', "%#{search}%")
+      where('company_name ILIKE?', "%#{search}%")
     else
       scoped
     end

@@ -1,5 +1,10 @@
 <table id="sub_total" class ="table table-striped ">
   <tr>
+    <th colspan="7" style="background:#666; color: #FFF; font-weight: bold;">
+       Please Click On Quantity and Description to edit
+    </th>
+  </tr>
+  <tr>
     <th>Type</th>
     <th>Qty</th>
     <th>Number</th>
@@ -9,7 +14,7 @@
     <th>Action</th>
   </tr>
 
-  <% inventories.each do |inventory| %>
+  <% @inventories.each do |inventory| %>
     <tr>
       <td><%= inventory.itemtype %></td>
       <td id="quantity_<%= inventory.id %>"><div onclick="inplace_edit_quantity('<%= inventory.id %>')"><%= inventory.qty%></div>
@@ -17,7 +22,9 @@
       </td>
       <td><%= inventory.number %></td>
       <td><%= inventory.name %></td>
-      <td><%= inventory.description %></td>
+      <td id="description_<%= inventory.id %>"><div onclick="inplace_edit_description('<%= inventory.id %>')"><%= inventory.description%></div>
+        <div id="description_<%= inventory.id %>" style="display:none;"></div>
+      </td>
       <td class="inv_me"><%= inventory.subtotal %></td>
       <td><%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), inventory, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
     </tr>

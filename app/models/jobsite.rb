@@ -1,7 +1,8 @@
 class Jobsite < ActiveRecord::Base
   attr_accessible :name, :city, :state, :zip, :customer_id
-  acts_as_gmappable
+  acts_as_gmappable :check_process => false
 
+ 
   belongs_to :customer
   has_many :documents
   has_many :notes

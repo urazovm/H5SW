@@ -6,7 +6,7 @@ class Contact < ActiveRecord::Base
   belongs_to :company
 
   validates :name,  :presence => true
-  validates :email, :uniqueness => true
+  #validates :email, :uniqueness => true
   validates :customer_id, :presence => true
 
   def self.search(search)

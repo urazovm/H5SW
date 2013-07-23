@@ -23,5 +23,9 @@
     <%=  link_to_function "Billing", "alert('coming soon!'); return false;", :title => "billing page" %>
   </li>
 
+  <li class="<%= (params[:controller] == "items" && params[:action] == "index") ? 'active' : ''  %>" >
+    <%=  link_to "Items", items_path %>
+  </li>
+
 </ul>
 
