@@ -18,12 +18,13 @@
         <td><%= jobsite.city %></td>
         <td><%= jobsite.state %></td>
         <td><%= jobsite.zip %></td>
-        <td><%= link_to 'Edit', edit_jobsite_path(jobsite) %></td>
+        <td><%= link_to 'Edit', edit_jobsite_path(jobsite), :class => "btn btn-mini btn-primary" %></td>
       </tr>
     <% end %>
-      <tr>
-        <td colspan="4"><%= will_paginate @jobsites %></td>
-      </tr>
+     
   </table>
 </table>
 
+ <tr>
+     <td colspan="4"><%= will_paginate @jobsites %></td>
+</tr>
