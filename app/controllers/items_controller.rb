@@ -27,7 +27,7 @@ class ItemsController < ApplicationController
 
   def autocomplete_items
     @not_names = params[:not_list].split(',').join("','")
-    @items = Item.where("name ILIKE '#{params[:name].to_s.downcase}%' and name NOT IN ('#{@not_names}')" )
+    @items = Item.where("name ILIKE '%#{params[:name].to_s.downcase}%' and name NOT IN ('#{@not_names}')" )
     respond_to do |format|
       format.js
     end
