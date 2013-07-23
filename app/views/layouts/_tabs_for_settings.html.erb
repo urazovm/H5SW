@@ -12,7 +12,7 @@
   </li>
 
   <li class="<%= (params[:controller] == "customs" && params[:action] == "new" )? 'active' : '' %>" >
-    <%= link_to "Custom Fields", new_custom_path, :title => "custom page" %>
+    <%= link_to "Custom Fields", new_custom_path(:tab => "tab1"), :title => "custom page" %>
   </li>
 
   <li>
