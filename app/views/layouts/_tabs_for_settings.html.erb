@@ -15,10 +15,6 @@
     <%= link_to "Custom Fields", new_custom_path, :title => "custom page" %>
   </li>
 
-  <li class="<%= (params[:controller] == "jobtimes" && params[:action] == "new") ? 'active' : ''  %>">
-    <%= link_to "Job Schedule", new_jobtime_path, :title => "Create Job Schedules" %>
-  </li>
-
   <li>
     <%=  link_to_function "Billing", "alert('coming soon!'); return false;", :title => "billing page" %>
   </li>

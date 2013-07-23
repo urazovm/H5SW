@@ -2,7 +2,7 @@ class JobtimesController < ApplicationController
   before_filter :is_login?
   before_filter :session_types
   before_filter :gmap_json, :only => ["index"]
-  before_filter :find_id_by_role, :only => ["new", "create", "update", "edit"]
+  before_filter :find_users_by_role, :only => ["new", "create", "update", "edit"]
 
   def index
     @jobtimes = current_login.jobtimes.all
@@ -15,11 +15,13 @@ class JobtimesController < ApplicationController
   def create
     @start_time = params[:start_time].to_datetime.strftime("%Y-%m-%d %H:%M:%S")
     @end_time = params[:end_time].to_datetime.strftime("%Y-%m-%d %H:%M:%S")
+    @service = params[:service]
+
     @hours = ((@end_time.to_datetime-@start_time.to_datetime) * 24 ).to_i
     @minutes = ((@end_time.to_datetime-@start_time.to_datetime) * 24 * 60 ).to_i
     @seconds = ((@end_time.to_datetime-@start_time.to_datetime) * 24 * 60 * 60 ).to_i
     @quantity = @hours.to_s+':'+@minutes.to_s+':'+@seconds.to_s
-    @jobtime = Jobtime.new(:start_time => @start_time, :end_time => @end_time,:qty => @quantity,:company_id => current_login.id,:job_id => session[:job_id],:jobsite_id => session[:jobsite_id],:customer_id => session[:customer_id],:user => current_login.name, :timetype => "Actual Time")
+    @jobtime = Jobtime.new(:start_time => @start_time, :end_time => @end_time,:qty => @quantity,:company_id => current_login.id,:job_id => session[:job_id],:jobsite_id => session[:jobsite_id],:customer_id => session[:customer_id],:user => current_login.name, :timetype => "Actual Time", :service => @service)
     if @jobtime.save(:validate => false)
       respond_to do |format|
         format.js
@@ -77,8 +79,8 @@ class JobtimesController < ApplicationController
     end
   end
 
-  def find_id_by_role
-    @tech_role = current_login.roles.find_by_roll("Tech")
-    @tech_role ? @tech_users = current_login.users.find_all_by_role_id(@tech_role.id) : @tech_users = nil
+  def find_users_by_role
+      @tech_users = User.joins("left join roles on roles.id = users.role_id").where("users.company_id='#{current_login.id}' and roles.jobtimes = 'Read-Write' OR roles.jobtimes = 'Read-Only'")
+      @current_user = current_login.name
   end
 end

@@ -1,11 +1,11 @@
 <%= render '/layouts/tabs_for_settings' %>
 
 <ul class="nav nav-tabs" id="custom_tab">
-  <li class='active'>
-    <a href="#">Custom Tab 1</a>
+  <li class=<%= params[:tab]=="tab1" ? 'active' : '' %> >
+    <%= link_to "Custom Tab 1", new_custom_path(:tab => 'tab1') %>
   </li>
-  <li>
-    <a href="#">Custom Tab 2</a>
+  <li class=<%= params[:tab]=="tab2" ? 'active' : '' %> >
+    <%= link_to "Custom Tab 2", new_custom_path(:tab => 'tab2') %>
   </li>
 </ul>
 

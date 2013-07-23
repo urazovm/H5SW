@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130718100403) do
+ActiveRecord::Schema.define(:version => 20130722123248) do
 
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20130718100403) do
     t.string   "type"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "tab"
   end
 
   create_table "documents", :force => true do |t|
@@ -154,19 +155,15 @@ ActiveRecord::Schema.define(:version => 20130718100403) do
     t.string   "class_type",                                       :default => "",  :null => false
     t.string   "assigned_to",                                      :default => "",  :null => false
     t.string   "status",                                           :default => "",  :null => false
-    t.string   "job_contact",                                      :default => "",  :null => false
     t.string   "sales_person",                                     :default => "",  :null => false
     t.string   "summary"
     t.decimal  "sub_total",          :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.string   "add_items"
-    t.text     "notes"
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
     t.integer  "job_number"
     t.integer  "customer_id"
     t.integer  "company_id"
-    t.datetime "created_at",                                                  :null => false
-    t.datetime "updated_at",                                                  :null => false
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
     t.integer  "contact_id"
     t.integer  "jobsite_id"
     t.string   "name"
@@ -203,8 +200,8 @@ ActiveRecord::Schema.define(:version => 20130718100403) do
     t.integer  "customer_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.time     "start_time"
+    t.time     "end_time"
     t.boolean  "billable"
     t.decimal  "cost"
     t.decimal  "price"
@@ -232,6 +229,7 @@ ActiveRecord::Schema.define(:version => 20130718100403) do
     t.integer  "company_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.string   "jobtimes"
   end
 
   create_table "users", :force => true do |t|

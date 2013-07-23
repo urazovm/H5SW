@@ -121,7 +121,7 @@ class ApplicationController < ActionController::Base
         @json2 = Jobsite.all.to_gmaps4rails
       elsif session[:customer_id]!="All" && (session[:jobsite_id] == "All" || session[:jobsite_id] == "None")
         @json1 = Customer.find_by_id(session[:customer_id]).to_gmaps4rails
-        @json2 = Jobsite.all.to_gmaps4rails
+        @json2 = Jobsite.find_all_by_customer_id(session[:customer_id]).to_gmaps4rails
       elsif session[:customer_id]=="All" && (session[:jobsite_id] != "All" || session[:jobsite_id] != "None")
         @json1 = Customer.all.to_gmaps4rails
         @json2 = Jobsite.find_by_id(session[:jobsite_id]).to_gmaps4rails
@@ -197,9 +197,22 @@ def access_role?
           end
         end
 
+        #jobtimes role
+        @jobtime_role = @user_role.jobtimes
+        if @jobtime_role == "Read-Write"
+        elsif @jobtime_role == "None"
+          if params[:controller] == "jobtimes"
+            flash[:error] = @error_message
+            redirect_to dashboards_index_page
+          end
+        elsif @jobtime_role == "Read-Only"
+          if params[:controller] == "jobtimes" && params[:action] == "new"
+            flash[:error] = @error_message
+            redirect_to jobtimes_path
+          end
+        end
 
         #contacts role
-
         @contact_role =  @user_role.contacts
         if @contact_role == "All"
         elsif @contact_role == "None"

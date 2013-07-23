@@ -1,9 +1,12 @@
 class CustomsController < ApplicationController
   before_filter :is_login?
   before_filter :access_role?
+  before_filter :display_custom, :only => ["new", "create"]
   
   def index
-    @customs = Custom.where("type=? and company_id=?", params[:type],current_login.id)
+    if params[:type] && params[:tab]
+      @customs = Custom.where("type=? and tab=? and company_id=?", params[:type], params[:tab], current_login.id).order('created_at desc')
+    end
   end
 
   def new
@@ -12,6 +15,8 @@ class CustomsController < ApplicationController
 
   def create
     @custom = current_login.customs.new(params[:custom])
+    session[:type] = params[:custom][:type]
+    session[:tab] = params[:custom][:tab] != nil ? params[:custom][:tab] : params[:tab]
     if @custom.save
       if @custom.field == 'Dropdown List'
         params[:drop_ids].split(",").each do |dval|
@@ -24,7 +29,7 @@ class CustomsController < ApplicationController
         end
       end
       flash[:notice] = "Custom field created successfully."
-      redirect_to new_custom_path
+      redirect_to new_custom_path(:tab => session[:tab])
     else
       render 'new'
     end
@@ -46,5 +51,12 @@ class CustomsController < ApplicationController
       end
     end
   end
-  
+
+  def display_custom
+    if session[:type] && session[:tab]
+      @customs = Custom.where("type=? and tab=? and company_id=?", session[:type], params[:tab], current_login.id).order('created_at desc')
+    else
+      @customs = Custom.where("type='Customer' and tab=? and company_id=?", current_login.id).order('created_at desc')
+    end
+  end
 end

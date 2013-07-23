@@ -3,7 +3,6 @@
     <%= link_to "Job", new_job_path, :title => "Job new page"  %>
   </li>
 
-
    <li class =" <%= params[:controller] == "notes" ? 'active' : ''  %> ">
     <%= link_to "Notes", notes_path(:type => "Job"), :title => "list job notes" %>
   </li>
@@ -20,11 +19,11 @@
     <%= link_to "Documents", documents_path(:type => "Job"), :title => "list job documents" %>
   </li>
 
-  <li class = <%= (params[:controller] == "customs" && params[:type] == "Job") ? 'active' : '' %> >
-    <%= link_to "Custom", customs_path(:type => "Job"), :title => "Job custom page" %>
+  <li class = <%= params[:controller] == "customs" ? 'active' : '' %> >
+    <%= link_to "Custom", customs_path(:type => "Job", :tab => "tab1"), :title => "Job custom page" %>
   </li>
   
-  <li class = <%= params[:controller] == "job_histories" && (params[:action] == "new" || params[:action] == "edit" )? 'active' : '' %> >
+  <li class = <%= params[:controller] == "job_histories" ? 'active' : '' %> >
     <%= link_to_function "Job History", "alert('coming soon!'); return false;", :title => "Job history page" %>
   </li>
 </ul>
