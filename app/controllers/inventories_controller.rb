@@ -5,6 +5,7 @@ class InventoriesController < ApplicationController
   respond_to :html, :json, :js
   before_filter :session_types
   before_filter :gmap_json, :only => ["index"]
+  
 
   def index
     @inventories = current_login.inventories

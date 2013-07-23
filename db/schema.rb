@@ -144,11 +144,6 @@ ActiveRecord::Schema.define(:version => 20130722123248) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "job_times", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "jobs", :force => true do |t|
     t.string   "reference_no",                                     :default => "",  :null => false
     t.datetime "due_date"
@@ -160,6 +155,8 @@ ActiveRecord::Schema.define(:version => 20130722123248) do
     t.decimal  "sub_total",          :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.string   "add_items"
     t.integer  "job_number"
+    t.string   "contact_details"
+    t.string   "note_type"
     t.integer  "customer_id"
     t.integer  "company_id"
     t.datetime "created_at",                                                        :null => false
