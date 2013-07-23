@@ -198,11 +198,11 @@ ActiveRecord::Schema.define(:version => 20130722123248) do
     t.integer  "jobsite_id"
     t.integer  "company_id"
     t.integer  "customer_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.time     "start_time"
-    t.time     "end_time"
-    t.boolean  "billable"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.boolean  "billable",    :default => true
     t.decimal  "cost"
     t.decimal  "price"
   end

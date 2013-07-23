@@ -1,5 +1,10 @@
 <%= form_for(@user, :url => @user.new_record? ? create_user_path : user_path(@user), :remote => true) do |f| %>
-  <table width="100%;">
+  <table width="100%;" style="background: #F1F1F1;">
+    <tr style="border-bottom: 1px solid #CCC; text-align: left; background: #CCC;">
+      <th colspan="2">
+        <%= link_to "Add New User", users_path %>
+      </th>
+    </tr>
     <tr>
       <td colspan="2">
         <% if @user.errors.any? %>
@@ -59,7 +64,7 @@
       </td>
     </tr>
     <tr>
-      <td><%= f.submit "Save", :style => "padding: 5px 10px;" %></td>
+      <td><%= f.submit "Save", :class => "btn btn-success", :style => "padding: 5px 20px;" %></td>
     </tr>
   </table>
 <% end %>
