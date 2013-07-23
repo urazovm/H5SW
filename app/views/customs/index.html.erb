@@ -21,7 +21,8 @@
     <%= link_to "Custom Tab 2", customs_path(:type => params[:type], :tab => 'tab2') %>
   </li>
   <li>
-    <%= link_to "Add Fields", new_custom_path(:tab => params[:tab]) %>
+    <% tab = (params[:tab] ? params[:tab] : 'tab1') %>
+    <%= link_to "Add Fields", new_custom_path(:tab => tab) %>
   </li>
 </ul>
 

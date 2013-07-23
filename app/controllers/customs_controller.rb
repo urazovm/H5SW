@@ -56,7 +56,7 @@ class CustomsController < ApplicationController
     if session[:type] && session[:tab]
       @customs = Custom.where("type=? and tab=? and company_id=?", session[:type], params[:tab], current_login.id).order('created_at desc')
     else
-      @customs = Custom.where("type='Customer' and tab=? and company_id=?", current_login.id).order('created_at desc')
+      @customs = Custom.where("type='Customer' and tab=? and company_id=?", session[:tab], current_login.id).order('created_at desc')
     end
   end
 end
