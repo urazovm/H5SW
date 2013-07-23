@@ -30,7 +30,7 @@ class DocumentsController < ApplicationController
   end
   
   def get_documents    
-    @documents = search_by_session_type("document", current_login.documents, params[:type].to_s).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
+    @documents = search_by_session_type("document", current_login.documents, params[:type].to_s).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
   end
 
 end

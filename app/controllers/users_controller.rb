@@ -54,7 +54,7 @@ class UsersController < ApplicationController
 
   private
   def get_users
-    @users = current_login.users.order("created_at desc")
+    @users = current_login.users.order("created_at desc").paginate(:per_page => 10, :page => params[:page])
   end
 
 end

@@ -20,13 +20,13 @@
         <td><%= contact.mobile %></td>
         <td><%= contact.business %></td>
         <td><%= contact.twitter %></td>
-        <td><%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), contact, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+        <td><%= link_to "Delete", contact, method: :delete, data: { confirm: 'Are you sure?' }, remote: true, :class => "btn btn-mini btn-danger" %></td>
       </tr>
     <% end %>
+    <tr>
+      <td colspan="7">
+        <%= will_paginate @contacts %>
+      </td>
+    </tr>
   </table>
-  <tr>
-    <td colspan="8">
-      <%= will_paginate @contacts %>
-    </td>
-  </tr>
 </table>

@@ -5,7 +5,7 @@
   <%= form_tag :jobs, :method => 'get', :class => "form-search" do |f|  %>
 
     <%= text_field_tag :search, params[:search], :placeholder => "search by reference number", :class => "input-large search-query" %> &nbsp;
-    
+
     <%= button_tag :button, :style => "height:40px; width: 80px;"%>
     &nbsp;&nbsp;
     <%= select_tag :my_job, options_for_select([['My Jobs', 'my_jobs']]) %>
@@ -29,21 +29,21 @@
     </tr>
 
     <% @jobs.each do |job| %>
-      <tr class="<%= cycle('even', 'odd') %> ">
+      <tr>
         <td><%= link_to  job.reference_no, edit_job_path(job) %></td>
         <td><%= job.due_date %></td>
         <td><%= job.status %></td>
         <td><%= job.summary %></td>
 
         <td colspan="3">
-          <%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), job, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <%= link_to "Delete", job, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-mini btn-danger" %>
         </td>
       </tr>
     <% end %>
+    <tr>
+      <td colspan="5">
+        <%= will_paginate @jobs %>
+      </td>
+    </tr>
   </table>
-  <tr>
-    <td colspan="8">
-      <%= will_paginate @jobs %>
-    </td>
-  </tr>
 </table>

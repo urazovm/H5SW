@@ -7,7 +7,7 @@ class JobsController < ApplicationController
   before_filter :find_id_by_role, :only => ["new", "edit", "create", "update"]
 
   def index
-    @jobs = search_by_session(current_login.jobs.search(params[:search])).order("created_at desc").paginate(:per_page => 5, :page => params[:page])
+    @jobs = search_by_session(current_login.jobs.search(params[:search])).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
   end
 
   def show

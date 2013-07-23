@@ -26,7 +26,7 @@
         <div id="description_<%= inventory.id %>" style="display:none;"></div>
       </td>
       <td class="inv_me"><%= inventory.subtotal %></td>
-      <td><%= link_to image_tag("delete.png", :title => "Delete", :width => "24px", :height => "24px"), inventory, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+      <td><%= link_to "Delete", inventory, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => "btn btn-mini btn-danger" %></td>
     </tr>
   <% end %>
 </table>
