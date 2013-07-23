@@ -176,7 +176,7 @@ $(document).ready(function() {
 
 function inplace_edit_quantity(id){
     $.ajax({
-        url:'/inventories/'+id+'/edit',
+        url:'/inventories/'+id+'/edit?type=qty',
         type:'GET'
     });
 }
@@ -188,7 +188,7 @@ function cancel_update(id,qty){
 
 function inplace_edit_description(id){
     $.ajax({
-        url:'/inventories/'+id+'/edit',
+        url:'/inventories/'+id+'/edit?type="description"',
         type:'GET'
     });
 }
