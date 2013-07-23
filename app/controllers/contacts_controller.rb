@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
   before_filter :access_role?
   # GET /contacts
   def index
-   @contacts = search_by_session(current_login.contacts.search(params[:search])).order("created_at desc").paginate(:per_page =>5, :page => params[:page])
+   @contacts = search_by_session(current_login.contacts.search(params[:search])).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
   end
 
   # GET /contacts/1
