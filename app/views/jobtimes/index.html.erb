@@ -1,18 +1,22 @@
 <%= gmaps4rails(@json) %><br/><br/>
 <div id="clock">
+  <span style="margin-right: 10px;">
+    <%= select_tag :service, options_for_select(Item.find_all_by_itemtype("Service").map{|item| [item.name, item.id]}), :class => "span2"  %>
+  </span>
   <%= button_tag "Start", :onclick => "clockStart()",:id => "start"%>
   <%= button_tag "Stop", :onclick => "clockStop()",:disabled => true,:id => "stop" %>
   <span id="hour">hh</span>:
   <span id="min">mm</span>:
   <span id="sec">ss</span>
 </div>
+
 <hr />
 
 <%= render '/layouts/job_with_action' %>
 <%= render '/layouts/tab_panel_for_job' %>
 
 
-<%= link_to_function "Add time", ("alert('Click on start button to start your time'); $('#start').removeAttr('disabled');"), :class => "btn btn-small btn-primary" %>
+<%= link_to "Add time", new_jobtime_path(:time => "Actual"), :class => "btn btn-small btn-primary" %>
 <%= link_to "Add schedule", new_jobtime_path, :class => "btn btn-small btn-primary" %>
 <hr />
 <table class ="table-striped">
@@ -37,24 +41,31 @@
 </table>
 
 <script>
-  var timerId,start_time,end_time;
+  var timerId,start_time,end_time, service;
+    var hours = 0;
+    var minutes = 0;
+    var seconds = 0;
+  
   function update() {
-    var date = new Date()
-    var hours = date.getHours()
-    if (hours < 10) hours = '0'+ hours
-    document.getElementById('hour').innerHTML = hours
+    seconds++;
 
-    var minutes = date.getMinutes()
-    if (minutes < 10) minutes = '0'+minutes
-    document.getElementById('min').innerHTML = minutes
+    if(seconds>=60){
+      minutes++;
+      seconds=0;
+    }
+
+    if(minutes>=60){
+      hours++;
+      minutes=0;
+    }
+
+    document.getElementById('hour').innerHTML = hours;
+    document.getElementById('min').innerHTML = minutes;
+    document.getElementById('sec').innerHTML = seconds;
     
-    var seconds = date.getSeconds()
-    if (seconds < 10) seconds = '0'+seconds
-    document.getElementById('sec').innerHTML = seconds
-    timerId = setTimeout(update, 1000)
+    setTimeout(update, 1000);
   }
-
-
+    
   function clockStart() {
     var date = new Date()
     start_time = date
@@ -69,6 +80,7 @@
     var date = new Date()
     clearTimeout(timerId)
     end_time = date
+    service = $("#service").val();
     $("#stop").attr("disabled", "disabled");
     $("#start").removeAttr("disabled");
     timerId = null
@@ -76,7 +88,8 @@
       url: '/jobtimes',
       data:{
         start_time:start_time,
-        end_time:end_time
+        end_time:end_time,
+        service:service
       },
       method:'POST',
       success:function(data){}

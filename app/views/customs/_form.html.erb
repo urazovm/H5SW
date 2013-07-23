@@ -1,5 +1,6 @@
 <table style="background: #F1F1F1">
-  <%= form_for(@custom) do |f| %>
+  <%= form_for(@custom,:tab => params[:tab]) do |f| %>
+  <%= hidden_field_tag "tab",{},:value => params[:tab] %>
     <% if @custom.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@custom.errors.count, "error") %> prohibited custom fields from being saved:</h2>
@@ -13,6 +14,8 @@
     <% end %>
 
     <%= hidden_field_tag "drop_ids" %>
+    <%= f.hidden_field :tab, :value => params[:tab] %>
+
     <tr style="background: #666; color: #FFF;">
       <td colspan="3">Select Customer/Job from the select field and create fields for it..</td>
     </tr>
@@ -20,7 +23,7 @@
     <tr style="border-bottom: 1px solid #CCC;">
       <td colspan="3">
         Select Customer/Job first<br/>
-        <%= f.select :type, options_for_select([['Customer', 'Customer'], ['Job', 'Job']]), :selected => params[:custom_type] %>
+        <%= f.select :type, options_for_select([['Customer', 'Customer'], ['Job', 'Job']],:selected => session[:type]) %>
       </td>
     </tr>
     <tr>
@@ -55,6 +58,11 @@
     </tr>
   <% end %>
 </table>
+
+<div style="margin-top: 10px;">
+  <%= render 'customs' %>
+</div>
+
 <script>
   $(document).ready(function(){
     if($("#custom_field").val() == 'Dropdown List'){

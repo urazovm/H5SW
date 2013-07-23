@@ -1,5 +1,5 @@
 class Custom < ActiveRecord::Base
-  attr_accessible :field, :name, :company_id, :type
+  attr_accessible :field, :name, :company_id, :type, :tab
   belongs_to :company
   validates :name, :presence => true
   validates :type, :presence => true

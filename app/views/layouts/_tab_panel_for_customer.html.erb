@@ -1,5 +1,5 @@
 <ul class="nav nav-tabs" id="myTab">
-  <li class = <%= params[:controller] == "customers" || params[:action] == "new" ? 'active' : ''  %> >
+  <li class = <%= params[:controller] == "customers" ? 'active' : ''  %> >
     <%= link_to 'Customer', new_customer_path, :title => "Customer New Page" %>
   </li>
 
@@ -11,7 +11,7 @@
     <%= link_to "Notes", notes_path(:type => "Customer"), :title => "list customer notes" %>
   </li>
 
-  <li class = <%= params[:controller] == "contacts" && params[:action] == "index" ? 'active' : ''  %> >
+  <li class = <%= params[:controller] == "contacts" ? 'active' : ''  %> >
     <%= link_to "Contact", contacts_path, :title => "list contacts" %>
   </li>
 
@@ -20,7 +20,7 @@
   </li>
 
   <li class =" <%= (params[:controller] == "customs" && params[:type] == "Customer") ? 'active' : ''  %> ">
-    <%= link_to "Custom", customs_path(:type => "Customer"),  :title => "custom page" %>
+    <%= link_to "Custom", customs_path(:type => "Customer", :tab => "tab1"),  :title => "custom page" %>
   </li>
 
 </ul>

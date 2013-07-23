@@ -7,18 +7,21 @@
 
 <%= render '/layouts/customer_with_action' %>
 
-<% if params[:type] == "Job" || params[:type] == "job" %>
+<% if params[:type] == "Job" %>
   <%= render '/layouts/tab_panel_for_job' %>
 <% else %>
   <%= render  '/layouts/tab_panel_for_customer' %>
 <% end %>
 
 <ul class="nav nav-tabs" id="custom_tab">
-  <li class='active'>
-    <a href="#">Custom Tab 1</a>
+  <li class=<%= params[:tab]=="tab1" ? 'active' : '' %> >
+    <%= link_to "Custom Tab 1", customs_path(:type => params[:type], :tab => 'tab1') %>
+  </li>
+  <li class=<%= params[:tab]=="tab2" ? 'active' : '' %> >
+    <%= link_to "Custom Tab 2", customs_path(:type => params[:type], :tab => 'tab2') %>
   </li>
   <li>
-    <a href="#">Custom Tab 2</a>
+    <%= link_to "Add Fields", new_custom_path(:tab => params[:tab]) %>
   </li>
 </ul>
 

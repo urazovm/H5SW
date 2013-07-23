@@ -36,7 +36,11 @@
       <td><%= f.select :jobs, options_for_select([["All"],["Read-Only"],["Add/Read"],["None"]],:selected => @role.jobs) %></td>
     </tr>
 
-
+    <tr>
+      <td><%= f.label :jobtimes,"Jobtimes" %></td>
+      <td><%= f.select :jobtimes, options_for_select([["Read-Only"],["Read-Write"],["None"]],:selected => @role.jobtimes) %></td>
+    </tr>
+    
     <tr>
       <td><%= f.label :contacts,"Contacts" %></td>
       <td><%= f.select :contacts, options_for_select([["All"],["Read-Only"],["Add/Read"],["None"]],:selected => @role.contacts) %></td>

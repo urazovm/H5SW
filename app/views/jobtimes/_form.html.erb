@@ -19,10 +19,18 @@
 
   <div class="span7">
     <%= f.label :user, "Tech User" %>
-    <%= f.select :user, options_for_select(@tech_users ? @tech_users.map{|user| [user.name]} : [""], :selected => @jobtime.user) %>
+    <% if params[:time] %>
+      <%= f.select :user, options_for_select([@current_user])  %>
+    <% else %>
+      <%= f.select :user, options_for_select(@tech_users ? @tech_users.map{|user| [user.name]} : [""], :selected => @jobtime.user) %>
+    <% end %>
 
     <%= f.label :timetype, "Type" %>
-    <%= f.select :timetype, options_for_select([["Scheduled Time", "Scheduled Time"], ["Actual Time", "Actual Time"]], :selected => @jobtime.timetype) %>
+    <% if params[:time] %>
+      <%= f.select :timetype, options_for_select([["Actual Time", "Actual Time"]]) %>
+    <% else %>
+      <%= f.select :timetype, options_for_select([["Scheduled Time", "Scheduled Time"], ["Actual Time", "Actual Time"]], :selected => @jobtime.timetype) %>
+    <% end  %>
 
     <%= f.label :start_time, "Start Time" %>
     <%= f.datetime_select :start_time %>
