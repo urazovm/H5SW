@@ -5,4 +5,8 @@ class Inventory < ActiveRecord::Base
    belongs_to :job
    belongs_to :jobsite
    belongs_to :items
+
+   def subtotal
+    "$%.2f" % self[:subtotal]
+   end
 end

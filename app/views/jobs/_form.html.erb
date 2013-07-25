@@ -15,8 +15,10 @@
 
   <%= f.hidden_field :customer_id, :value => @customer_id %>
   <%= f.hidden_field :jobsite_id, :value => @jobsite_id %>
+  <%= f.hidden_field :company_id, :value => current_login.id %>
   <%= f.hidden_field :signature %>
 
+  
   <div class="field">
     <%= f.label :reference_no %>
     <%= f.text_field :reference_no %>
