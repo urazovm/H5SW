@@ -162,17 +162,18 @@ def access_role?
         if @customer_role == "All"
         elsif @customer_role == "None"
           if params[:controller] == "customers"
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to dashboards_index_path
           end
         elsif @customer_role == "Read-Only"
           if params[:controller] == "customers" && (params[:action] == "edit" || params[:action] == "new")
-            flash[:error] = @error_message
+            puts "cccccccccccccccccccc"
+            flash[:alert] = @error_message
             redirect_to customers_path
           end
         elsif @customer_role == "Add/Read"
           if params[:controller] == "customers" && params[:action] == "edit"
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to customers_path
           end
         end
@@ -182,17 +183,17 @@ def access_role?
         if @job_role == "All"
         elsif @job_role == "None"
           if params[:controller] == "jobs"
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to dashboards_index_path
           end
         elsif @job_role == "Read-Only"
           if params[:controller] == "jobs" && (params[:action] == "edit" || params[:action] == "new")
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to jobs_path
           end
         elsif @job_role == "Add/Read"
           if params[:controller] == "jobs" && params[:action] == "edit"
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to jobs_path
           end
         end
@@ -202,12 +203,12 @@ def access_role?
         if @jobtime_role == "Read-Write"
         elsif @jobtime_role == "None"
           if params[:controller] == "jobtimes"
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to dashboards_index_page
           end
         elsif @jobtime_role == "Read-Only"
           if params[:controller] == "jobtimes" && params[:action] == "new"
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to jobtimes_path
           end
         end
@@ -217,17 +218,17 @@ def access_role?
         if @contact_role == "All"
         elsif @contact_role == "None"
           if params[:controller] == "contacts"
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to dashboards_index_path
           end
         elsif @contact_role == "Read-Only"
           if params[:controller] == "contacts" && (params[:action] == "edit" || params[:action] == "new")
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to contacts_path
           end
         elsif @contact_role == "Add/Read"
           if params[:controller] == "contacts" && params[:action] == "edit"
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to contacts_path
           end
         end
@@ -239,17 +240,17 @@ def access_role?
         if @settings_role == "All"
         elsif @settings_role == "None"
           if params[:controller] == "users" || params[:controller] == "roles" || (params[:controller] == "customs" && params[:action] == "new") || (params[:controller] == "jobtimes" && params[:action] == "new")
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to dashboards_index_path
           end
         elsif @settings_role == "Read-Only"
           if params[:controller] == "users"
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to dashboards_index_path
           end
         elsif @settings_role == "Add/Read"
           if params[:controller] == "users"
-            flash[:error] = @error_message
+            flash[:alert] = @error_message
             redirect_to dashboards_index_path
           end
         end
