@@ -1,6 +1,10 @@
 <ul class="nav nav-tabs" id="myTab">
   <li class = <%= params[:controller] == "customers" ? 'active' : ''  %> >
-    <%= link_to 'Customer', new_customer_path, :title => "Customer New Page" %>
+    <% if session[:customer_id] && session[:customer_id] != "All" %>
+      <%= link_to 'Customer', edit_customer_path(session[:customer_id]), :title => "Customer Edit Page" %>
+    <% else %>
+      <%= link_to 'Customer', new_customer_path, :title => "Customer New Page" %>
+    <% end %>
   </li>
 
   <li class = <%= params[:controller] == "jobs" && params[:action] == "index" ? 'active' : ''  %> >

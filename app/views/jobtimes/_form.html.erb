@@ -26,11 +26,7 @@
     <% end %>
 
     <%= f.label :timetype, "Type" %>
-    <% if params[:time] %>
-      <%= f.select :timetype, options_for_select([["Actual Time", "Actual Time"]]) %>
-    <% else %>
-      <%= f.select :timetype, options_for_select([["Scheduled Time", "Scheduled Time"], ["Actual Time", "Actual Time"]], :selected => @jobtime.timetype) %>
-    <% end  %>
+    <%= f.select :timetype, options_for_select([["Scheduled Time", "Scheduled Time"], ["Actual Time", "Actual Time"]], :selected => @jobtime.timetype) %>
 
     <%= f.label :start_time, "Start Time" %>
     <%= f.datetime_select :start_time %>

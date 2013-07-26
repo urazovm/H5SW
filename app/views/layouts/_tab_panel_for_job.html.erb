@@ -1,9 +1,13 @@
 <ul class = "nav nav-tabs" id="job_tabs">
   <li class = <%= params[:controller] == "jobs" && (params[:action] == "new" || params[:action] == "edit" )? 'active' : '' %> >
-    <%= link_to "Job", new_job_path, :title => "Job new page"  %>
+    <% if session[:job_id] %>
+      <%= link_to "Job", edit_job_path(session[:job_id]), :title => "Job edit page" %>
+    <% else %>
+      <%= link_to "Job", new_job_path, :title => "Job new page"  %>
+    <% end %>
   </li>
 
-   <li class =" <%= params[:controller] == "notes" ? 'active' : ''  %> ">
+  <li class =" <%= params[:controller] == "notes" ? 'active' : ''  %> ">
     <%= link_to "Notes", notes_path(:type => "Job"), :title => "list job notes" %>
   </li>
 
@@ -22,7 +26,7 @@
   <li class = <%= params[:controller] == "customs" ? 'active' : '' %> >
     <%= link_to "Custom", customs_path(:type => "Job", :tab => "tab1"), :title => "Job custom page" %>
   </li>
-  
+
   <li class = <%= params[:controller] == "job_histories" ? 'active' : '' %> >
     <%= link_to_function "Job History", "alert('coming soon!'); return false;", :title => "Job history page" %>
   </li>

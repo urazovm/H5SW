@@ -17,7 +17,7 @@
   <% @inventories.each do |inventory| %>
     <tr>
       <td><%= inventory.itemtype %></td>
-      <td id="quantity_<%= inventory.id %>"><div onclick="inplace_edit_quantity('<%= inventory.id %>')"><%= inventory.qty%></div>
+      <td id="quantity_<%= inventory.id %>"><div onclick="inplace_edit_quantity('<%= inventory.id %>')"><span style="padding:5px; border: 1px solid #CCC; background: #F1F1F1;"><%= inventory.qty%></span></div>
         <div id="qty_<%= inventory.id %>" style="display:none;"></div>
       </td>
       <td><%= inventory.number %></td>

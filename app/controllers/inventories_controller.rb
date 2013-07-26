@@ -8,7 +8,7 @@ class InventoriesController < ApplicationController
   
 
   def index
-    @inventories = current_login.inventories
+    @inventories = Inventory.all
   end
 
   def new

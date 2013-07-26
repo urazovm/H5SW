@@ -1,6 +1,6 @@
 <table style="background: #F1F1F1">
   <%= form_for(@custom,:tab => params[:tab]) do |f| %>
-  <%= hidden_field_tag "tab",{},:value => params[:tab] %>
+    <%= hidden_field_tag "tab",{},:value => params[:tab] %>
     <% if @custom.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@custom.errors.count, "error") %> prohibited custom fields from being saved:</h2>
@@ -29,7 +29,7 @@
     <tr>
       <td><%= f.label :name, "Create a unique label for your custom field" %></td>
       <td><%= f.label :field, "Select a custom field" %></td>
-      <td>&nbsp;</td>
+      <td></td>
     </tr>
     <tr>
       <td><%= f.text_field :name, :placeholder => "Create a Label for your custom field" %></td>
@@ -43,15 +43,17 @@
         <div id="display_dropdown_values"></div>
       </td>
     </tr>
-    <tr id="add_drop_down_values" style="display:none;">
-      <td id="append_text"><%= text_field_tag "drop_down_value", nil, :placeholder => "Add Values for Dropdown List" %></td>
-      <td><%= link_to_function "Add More Values", "add_drop_value();", :class => "btn btn-small", :style => "padding-top: 8px; padding-bottom: 8px;" %></td>
-      <td>&nbsp;</td>
-    </tr>
     <tr>
-      <td colspan="3" style="color: red; display:none;" id="show_message">
-        After Adding values for this dropdown list, do not forget to save entire date (click on Save Button)
+      <td colspan="3">
+        <%= f.label "Enter value for custom field", :class => "value_label" %>
       </td>
+    </tr>
+    <tr id="add_drop_down_values">
+      <td id="append_text" colspan="2">
+        <%= text_field_tag "drop_down_value", nil, :placeholder => "Dropdown Values e.g: value 1, value 2, value 3, ......", :class => 'data' %>
+        <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer; display:none;", :id => "calendar_icon", :class => "datepicker" %>
+      </td>
+      <td><%#= link_to_function "Add More Values", "add_drop_value();", :class => "btn btn-small", :style => "padding-top: 8px; padding-bottom: 8px;" %></td>
     </tr>
     <tr>
       <td colspan="3"><%= f.submit :save, :style => "width: 80px; height: 37px"%> </td>
@@ -59,42 +61,61 @@
   <% end %>
 </table>
 
-<div style="margin-top: 10px;">
-  <%= render 'customs' %>
+<div id="display_values" style="margin-top: 10px;">
+  <%= render :partial => 'customs', :locals => {:customs => @customs} %>
 </div>
 
 <script>
-  $(document).ready(function(){
-    if($("#custom_field").val() == 'Dropdown List'){
-      $("tr#add_drop_down_values").show();
-      $("tr#show_message").show();
-    }
 
+  $(document).ready(function(){
     $("#custom_field").change(function(){
-      if($(this).val() == 'Dropdown List'){
-        $("tr#add_drop_down_values").show();
-        $("tr#show_message").show();
-      }else{
-        $("tr#add_drop_down_values").hide();
-        $("tr#show_message").hide();
+      if($("#custom_field").val() == 'Dropdown List'){
+        $(".value_label").html("Use comma(,) to enter multiple values for dropdown list");
+        $(".datepicker").hide();
+      }
+      if($("#custom_field").val() == "Text Box"){
+        $(".value_label").html("Enter value for Text field");
+        $(".datepicker").hide();
+      }
+      if($("#custom_field").val() == "Calendar"){
+        $(".value_label").html("Select a date for datepicker");
+        $(".datepicker").show();
       }
     });
+
+    $("#custom_type").change(function(){
+      $.ajax({
+        url:"/customs?type="+ $("#custom_type").val() +"&tab=<%= params[:tab] %>",
+        type:'GET',
+        dataType: 'script',
+        success: function(data){}
+      });
+    })
   });
 
-  function add_drop_value(){
-    var dr_val = $("#drop_down_value").val();
-    if(dr_val == ''){
-      alert('null value not allowed');
-      return false;
-    }else{
-      $.ajax({
-        url:"/customs/add_drop_values",
-        data:{
-          drop_val:dr_val
-        },
-        type:'GET',
-        success:function(data){}
-      });
-    }
-  }
+<%#*$("#custom_field").change(function(){%>
+<%#*if($(this).val() == 'Dropdown List'){%>
+<%#*$("tr#add_drop_down_values").show();%>
+<%#*}else{%>
+<%#*$("tr#add_drop_down_values").hide();%>
+<%#*}%>
+<%#*});%>
+<%#*});%>
+
+<%#*function add_drop_value(){%>
+<%#*var dr_val = $("#drop_down_value").val();%>
+<%#*if(dr_val == ''){%>
+<%#*alert('null value not allowed');%>
+<%#*return false;%>
+<%#*}else{%>
+<%#*$.ajax({%>
+<%#*url:"/customs/add_drop_values",%>
+<%#*data:{%>
+<%#*drop_val:dr_val%>
+<%#*},%>
+<%#*type:'GET',%>
+<%#*success:function(data){}%>
+<%#*});%>
+<%#*}%>
+<%#*}%>
 </script>

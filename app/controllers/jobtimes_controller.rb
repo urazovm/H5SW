@@ -17,9 +17,14 @@ class JobtimesController < ApplicationController
     @end_time = params[:end_time].to_datetime.strftime("%Y-%m-%d %H:%M:%S")
     @service = params[:service]
 
-    @hours = ((@end_time.to_datetime-@start_time.to_datetime) * 24 ).to_i
-    @minutes = ((@end_time.to_datetime-@start_time.to_datetime) * 24 * 60 ).to_i
-    @seconds = ((@end_time.to_datetime-@start_time.to_datetime) * 24 * 60 * 60 ).to_i
+    #@hours = ((@end_time.to_datetime-@start_time.to_datetime) * 24 ).to_i
+    #@minutes = ((@end_time.to_datetime-@start_time.to_datetime) * 24 * 60 ).to_i
+    #@seconds = ((@end_time.to_datetime-@start_time.to_datetime) * 24 * 60 * 60 ).to_i
+
+    @hours = params[:hours]
+    @minutes = params[:minutes]
+    @seconds = params[:seconds]
+
     @quantity = @hours.to_s+':'+@minutes.to_s+':'+@seconds.to_s
     @jobtime = Jobtime.new(:start_time => @start_time, :end_time => @end_time,:qty => @quantity,:company_id => current_login.id,:job_id => session[:job_id],:jobsite_id => session[:jobsite_id],:customer_id => session[:customer_id],:user => current_login.name, :timetype => "Actual Time", :service => @service)
     if @jobtime.save(:validate => false)
@@ -56,7 +61,6 @@ class JobtimesController < ApplicationController
       render :action => "new"
     end
   end
-  
 
   def edit
     @jobtime = Jobtime.find(params[:id])

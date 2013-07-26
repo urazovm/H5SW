@@ -42,8 +42,8 @@ SMO::Application.configure do
     :address              => "smtp.gmail.com",
     :port                 => 587,
     #:domain               => 'baci.lindsaar.net',
-    :user_name            => 'smartquotez@gmail.com',
-    :password             => 'dinemedia!@#',
+    :user_name            => 'h5sw.info@gmail.com',
+    :password             => 'hi5p@ssw0rd', #'dinemedia!@#',
     :authentication       => 'plain',
     :enable_starttls_auto => true
   }
