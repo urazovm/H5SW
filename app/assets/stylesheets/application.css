@@ -249,10 +249,6 @@ tr.odd{
 #hour, #min, #sec{
     font-weight: bold;
     font-size: 1.2em;
-    background: #E5E5E5;
-    padding: 3px 5px;
-    border-radius: 2px;
-    -moz-border-radius: 5px;
 }
 
 

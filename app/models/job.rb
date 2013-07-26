@@ -1,10 +1,6 @@
 class Job < ActiveRecord::Base
-  HEIGHT = 150
-  WIDTH = 300
-  
+   
   has_attached_file :image
-  
-
   attr_accessible :add_items, :assigned_to, :class_type, :due_date, :reference_no, :sales_person, :status, :sub_total, :summary, :job_number, :customer_id, :company_id, :contact_id, :jobsite_id, :name, :signature, :image
   # Data validations
   validates :reference_no, :class_type, :status,  :sales_person, :assigned_to, :due_date, :sub_total, :presence => true

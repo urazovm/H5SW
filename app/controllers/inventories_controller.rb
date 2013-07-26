@@ -2,13 +2,13 @@ class InventoriesController < ApplicationController
 
   before_filter :is_login?
 
-  respond_to :html, :json, :js
+  respond_to :html,:js
   before_filter :session_types
   before_filter :gmap_json, :only => ["index"]
   
 
   def index
-    @inventories = Inventory.all
+    @inventories = current_login.inventories.order("created_at")
   end
 
   def new
@@ -17,7 +17,6 @@ class InventoriesController < ApplicationController
 
   def edit
     @inventory = Inventory.find(params[:id])
-    render :layout => false
   end
 
   def create
@@ -34,9 +33,9 @@ class InventoriesController < ApplicationController
 
   def update
     @inventory = Inventory.find(params[:id])
-    @inventory.subtotal = (params[:inventory][:qty].to_i*@inventory.unit_price) if params[:inventory][:qty].present?
+    @inventory.subtotal = (params[:inventory][:qty].to_f*@inventory.unit_price) if params[:inventory][:qty].present?
     if @inventory.update_attributes(params[:inventory])
-      @inventories = current_login.inventories
+      @inventories = current_login.inventories.order("created_at")
       respond_with @inventory
     else
       render :action => "edit"

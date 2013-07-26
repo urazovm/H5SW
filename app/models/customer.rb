@@ -9,7 +9,6 @@ class Customer < ActiveRecord::Base
   
   has_many :documents, :as => :documentable
   has_many :notes, :as => :notable
-
   has_many :items
   has_many :jobtimes
 

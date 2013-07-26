@@ -14,29 +14,30 @@
     <th>Action</th>
   </tr>
 
-  <% @inventories.each do |inventory| %>
+  <% inventories.each do |inventory| %>
     <tr>
       <td><%= inventory.itemtype %></td>
-      <td id="quantity_<%= inventory.id %>"><div onclick="inplace_edit_quantity('<%= inventory.id %>')"><span style="padding:5px; border: 1px solid #CCC; background: #F1F1F1;"><%= inventory.qty%></span></div>
+      <td id="quantity_<%= inventory.id %>"><div onclick="inplace_edit_quantity('<%= inventory.id %>')"><span style ="color :blue; background-color:#EEEEEE; padding: 1px 5px; "><%= inventory.qty%></span></div>
         <div id="qty_<%= inventory.id %>" style="display:none;"></div>
       </td>
       <td><%= inventory.number %></td>
       <td><%= inventory.name %></td>
-      <td id="description_<%= inventory.id %>"><div onclick="inplace_edit_description('<%= inventory.id %>')"><%= inventory.description%></div>
+      <td id="description_<%= inventory.id %>"><div onclick="inplace_edit_description('<%= inventory.id %>')"><span style ="color :blue;  background-color:#EEEEEE; padding: 1px 5px;"><%= inventory.description%></span></div>
         <div id="description_<%= inventory.id %>" style="display:none;"></div>
       </td>
-      <td class="inv_me"><%= inventory.subtotal %></td>
+      <td class="inv_me"><%=  inventory.subtotal %></td>
       <td><%= link_to "Delete", inventory, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => "btn btn-mini btn-danger" %></td>
     </tr>
-  <% end %>
+   <% end %>
 </table>
+
 <script type="text/javascript">
   var tds = document.getElementById('sub_total').getElementsByTagName('td');
   var sum = 0;
-  for(var i = 0; i < tds.length; i ++) {
+  for(var i = 0; i < tds.length; i ++) {    
     if(tds[i].className == 'inv_me') {
-      sum += isNaN(tds[i].innerHTML) ? 0 : parseFloat(tds[i].innerHTML);
+      sum += isNaN(tds[i].innerHTML.slice(1)) ? 0 : parseFloat(tds[i].innerHTML.slice(1));
     }
   }
-  document.getElementById('sub_total').innerHTML += '<tr><td colspan="5"></td><td>' + sum + '</td><td>total</td></tr>';
+  document.getElementById('sub_total').innerHTML += '<tr style="font-weight:bold;"><td colspan="5"></td><td>$' + sum.toFixed(2) + '</td><td>Total</td></tr>';
 </script>

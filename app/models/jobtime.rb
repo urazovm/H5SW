@@ -7,5 +7,6 @@ class Jobtime < ActiveRecord::Base
 
    validates :job_id, :presence => true
    validates :customer_id, :presence => true
-   validates :qty, :presence => true, :numericality => {:only_integer => true}
+   validates :qty, :presence => true
+   validates_format_of :qty, :with => /^\d+\.*\d{0,2}$/
 end

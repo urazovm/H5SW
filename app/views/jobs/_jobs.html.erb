@@ -1,0 +1,16 @@
+<p><span style = "color:#0044cc; font-weight: bold;"> Job # : <%= params[:controller] == "jobs" && params[:action] == "new" ? '' : session[:job_id] %>  </span></p>
+<div style="width:435px; font-weight: bold;">
+  <p>
+    <% if @customer == nil %>
+      <span style="color:red">Please select customer for this job !</span><br/>
+    <% else %>
+      <%=  "Customer : " + @customer.company_name + ", " + @customer.address1 + ", " + @customer.city + ", " + @customer.state + ", " + @customer.zip.to_s %>
+    <% end %>
+  </p>
+  <p>
+    <% if @jobsite == nil %>
+    <% else %>
+      <%= "Job Site : " + @jobsite.name + ", " + @jobsite.city + ", " + @jobsite.state + ", " + @jobsite.zip %>
+    <% end %>
+  </p>
+</div>

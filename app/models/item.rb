@@ -7,4 +7,5 @@ class Item < ActiveRecord::Base
    has_many :inventory
 
    validates :name, :presence => true, :uniqueness => true
+   
 end
