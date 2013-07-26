@@ -1,4 +1,7 @@
+<% if params[:type] == 'Customer' %>
 <%= gmaps4rails(@json) %><br/><br/>
+<% else %>
+<% end %>
 <br/><br/>
 <%= render params[:type] == "Job" ?'/layouts/job_with_action' : "/layouts/customer_with_action" %>
 

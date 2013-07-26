@@ -1,4 +1,3 @@
-<%= gmaps4rails(@json) %><br/><br/>
 <div id="clock">
   <span style="margin-right: 10px;">
     <%= select_tag :service, options_for_select(Item.find_all_by_itemtype("Service").map{|item| [item.name, item.id]}), :class => "span2"  %>

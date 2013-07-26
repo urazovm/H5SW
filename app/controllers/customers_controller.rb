@@ -30,7 +30,6 @@ class CustomersController < ApplicationController
     @customer = Customer.new(params[:customer])
     @customer.company_id = current_login.id
 
-
     @phone1 = params[:customer][:phone1]
     @phone2 = params[:customer][:phone2]
     @phone3 = params[:customer][:phone3]
