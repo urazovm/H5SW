@@ -20,6 +20,7 @@ class JobsController < ApplicationController
   def edit
     @job = Job.find(params[:id])
     session[:customer_id] = @job.customer_id
+    session[:jobsite_id] = @job.jobsite_id
     session[:job_id] = @job.id
   end
 
