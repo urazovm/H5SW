@@ -23,7 +23,7 @@
     <tr style="border-bottom: 1px solid #CCC;">
       <td colspan="3">
         Select Customer/Job first<br/>
-        <%= f.select :type, options_for_select([['Customer', 'Customer'], ['Job', 'Job']],:selected => session[:type]) %>
+        <%= f.select :cus_type, options_for_select([['Customer', 'Customer'], ['Job', 'Job']],:selected => session[:type]) %>
       </td>
     </tr>
     <tr>

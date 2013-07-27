@@ -4,6 +4,7 @@ SMO::Application.routes.draw do
   resources :customs do
     collection do
       get :add_drop_values
+      put :update_position
     end
   end
 

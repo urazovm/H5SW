@@ -1,24 +1,53 @@
-<table style="background: #F1F1F1; margin-bottom: 10px;">
-  <% i=1 %>
+<% i=1 %>
+<script>
+  $(function() {
+    var fir_position;
+    var sec_position;
+    var cus_id;
+    $( "ul.droptrue" ).sortable({
+      connectWith: "ul",
+      start: function(event, ui) {
+        fir_position = ui.item.index()+1;
+        cus_id = ui.item.attr('data-order');
+      },
+      stop: function(event, ui) {
+        sec_position = ui.item.index()+1;
+        $.ajax({
+          url:"/customs/update_position",
+          data:{
+            pos_1:fir_position,
+            pos_2:sec_position,
+            id:cus_id            
+          },
+          type:'PUT',
+          dataType:'script',
+          success:function(data){}
+        });
+      }
+    });
+    $( "ul.dropfalse" ).sortable({
+      connectWith: "ul",
+      dropOnEmpty: false
+    });
+  });
+</script>
+<ul id="sortable" class="droptrue">
   <% customs.each do |custom| %>
-    <tr>
-      <td>
-        <%= custom.field ? custom.name : '' %>
-      </td>
-      <td>
-        <% @value = DropdownValue.find_by_custom_id(custom.id) %>
-        <% if custom.field == "Text Box" %>
-          <%= text_field_tag "textField",{}, :value => @value ? @value.drop_value : "" %>
-        <% elsif custom.field == "Dropdown List" %>
-          <%= select_tag "dropdownField", options_for_select(DropdownValue.where("custom_id= '#{custom.id}'").map{|dr| [dr.drop_value,dr.id]}), :style => "width: 436px" %>
-        <% elsif custom.field == "Calendar" %>
-          <%= text_field_tag "calendar#{i}", nil, :value => @value ? @value.drop_value : "", :class => 'data', :placeholder => Date.today %>&nbsp;
-          <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer;", :id => "calendar_icon#{i}", :class => "datepicker"%>
-        <% else %>
-          ''
-        <% end %>
-      </td>
-    </tr>
+    <li class="ui-state-default" data-order="<%= custom.id %>">
+      <%= custom.field ? custom.name : '' %>
+      <br />
+      <% @value = DropdownValue.find_by_custom_id(custom.id) %>
+      <% if custom.field == "Text Box" %>
+        <%= text_field_tag "textField",{}, :value => @value ? @value.drop_value : "" %>
+      <% elsif custom.field == "Dropdown List" %>
+        <%= select_tag "dropdownField", options_for_select(DropdownValue.where("custom_id= '#{custom.id}'").map{|dr| [dr.drop_value,dr.id]}), :style => "width: 436px" %>
+      <% elsif custom.field == "Calendar" %>
+        <%= text_field_tag "calendar#{i}", nil, :value => @value ? @value.drop_value : "", :class => 'data', :placeholder => Date.today %>&nbsp;
+        <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer;", :id => "calendar_icon#{i}", :class => "datepicker"%>
+      <% else %>
+        ''
+      <% end %>
+    </li>
     <% i=i+1 %>
   <% end %>
-</table>
+</ul>

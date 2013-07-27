@@ -13,6 +13,28 @@
 
 */
 
+/* Drag and drop css */
+#sortable{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    float: left;
+    margin-right: 10px;
+    /*background: #eee;*/
+    box-shadow: 2px 2px 2px 2px #999;
+    padding: 5px;
+    width: 98%;
+}
+
+#sortable li{
+    margin: 5px;
+    padding: 5px 20px;
+    font-size: 1.2em;
+    pointer:cursor;
+}
+
+/* end of drag and drop css*/
+
 
 td a:hover{
     background: transparent;
@@ -234,16 +256,16 @@ tr.odd{
     width :60px;
 }
 
-#hour{
-    color: red;
-}
-
-#min{
-    color: green;
-}
-
-#sec{
-    color: blue;
+.my-clock{
+    padding:5px; 
+    color: #666;
+    margin-left:5px;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow:0px 2px 4px 2px #999;
+    -moz-box-shadow:2px 4px 2px 2px #999;
+    -webkit-box-shadow:2px 4px 2px 2px #999;
 }
 
 #hour, #min, #sec{

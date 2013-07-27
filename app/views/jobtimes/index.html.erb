@@ -5,11 +5,12 @@
   </span>
   <%= button_tag "Start", :onclick => "clockStart()",:id => "start"%>
   <%= button_tag "Stop", :onclick => "clockStop()",:disabled => true,:id => "stop" %>
-  <span id="hour">hh</span>:
-  <span id="min">mm</span>:
-  <span id="sec">ss</span>
+  <span class="my-clock">
+    <span id="hour">0</span> Hrs : 
+    <span id="min">0</span> Min :
+    <span id="sec">0</span> Sec 
+  </span>
 </div>
-
 <hr />
 
 <%= render '/layouts/job_with_action' %>
@@ -37,19 +38,19 @@
       <td><%= jobtime.service != nil ? Item.find(jobtime.service).name : '' %></td>
     </tr>
   <% end %>
-    <tr>
-      <td colspan ="5">
-        <%= will_paginate %>
-      </td>
-    </tr>
+  <tr>
+    <td colspan ="5">
+      <%= will_paginate %>
+    </td>
+  </tr>
 
 </table>
 
 <script>
   var timerId,start_time,end_time, service;
-    var hours = 0;
-    var minutes = 0;
-    var seconds = 0;
+  var hours = 0;
+  var minutes = 0;
+  var seconds = 0;
 
   function update() {
     
