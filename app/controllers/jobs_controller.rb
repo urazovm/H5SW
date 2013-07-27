@@ -14,16 +14,14 @@ class JobsController < ApplicationController
   end
 
   def new
-     @job = Job.new
+    @job = Job.new
   end
 
   def edit
     @job = Job.find(params[:id])
-
-    session[:customer_id] = current_company.customers.find_by_id(@job.customer_id)
-    session[:jobsite_id] = Jobsite.find_by_id(@job.jobsite_id)
-    session_types
-    session_job_id
+    
+    session[:customer_id] = @job.customer_id
+    session[:jobsite_id] = @job.jobsite_id
   end
 
   def create
@@ -58,10 +56,11 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
 
     if @job.update_attributes(params[:job])
-
+      session[:customer_id] = @job.customer_id
+      session[:jobsite_id] = @job.jobsite_id
       session_job_id
 
-      redirect_to jobs_path(@job), :notice => "Job was successfully updated."
+      redirect_to jobs_path, :notice => "Job was successfully updated."
     else
       render :action => "edit"
     end

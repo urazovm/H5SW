@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
     
     @job_id ? @job_id == "All" ? nil : @job = Job.find(@job_id) : nil
     @customer_id ? @customer_id=="All" ? nil : @customer = Customer.find(@customer_id) : nil
-    @jobsite_id ? (@jobsite_id == "All" || @jobsite_id == "None") ? nil : @jobsite = Jobsite.find(@jobsite_id) : nil
+    @jobsite_id ? (@jobsite_id == "All" || @jobsite_id == "None" || @jobsite_id == 0) ? nil : @jobsite = Jobsite.find(@jobsite_id) : nil
   end
 
   #only applicable for jobsite
