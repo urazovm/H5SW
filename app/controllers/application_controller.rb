@@ -167,7 +167,6 @@ def access_role?
           end
         elsif @customer_role == "Read-Only"
           if params[:controller] == "customers" && (params[:action] == "edit" || params[:action] == "new")
-            puts "cccccccccccccccccccc"
             flash[:alert] = @error_message
             redirect_to customers_path
           end
@@ -234,7 +233,7 @@ def access_role?
         end
 
 
-        #settings/admin role
+        #settings_admin role
 
         @settings_role =  @user_role.settings_admin
         if @settings_role == "All"

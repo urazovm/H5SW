@@ -3,7 +3,6 @@ class JobsController < ApplicationController
   before_filter :access_role?
   
   before_filter :session_types, :except => ["index", "show"]
-  before_filter :gmap_json, :only => ["new","edit"]
   before_filter :find_id_by_role, :only => ["new", "edit", "create", "update"]
 
   def index
