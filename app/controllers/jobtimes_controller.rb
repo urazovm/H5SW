@@ -1,7 +1,6 @@
 class JobtimesController < ApplicationController
   before_filter :is_login?
   before_filter :session_types
-  before_filter :gmap_json, :only => ["index"]
   before_filter :find_users_by_role, :only => ["new", "create", "update", "edit"]
 
   def index

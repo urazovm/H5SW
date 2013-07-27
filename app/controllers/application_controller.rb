@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
     
     @job_id ? @job = Job.find(@job_id) : nil
     @customer_id ? @customer_id=="All" ? nil : @customer = Customer.find(@customer_id) : nil
-    @jobsite_id ? (@jobsite_id == "All" || @jobsite_id == "None") ? nil : @jobsite = Jobsite.find(@jobsite_id) : nil
+    @jobsite_id ? (@jobsite_id == "All" || @jobsite_id == "None" || @jobsite_id == 0) ? nil : @jobsite = Jobsite.find(@jobsite_id) : nil
   end
 
   #only applicable for jobsite
@@ -167,7 +167,6 @@ def access_role?
           end
         elsif @customer_role == "Read-Only"
           if params[:controller] == "customers" && (params[:action] == "edit" || params[:action] == "new")
-            puts "cccccccccccccccccccc"
             flash[:alert] = @error_message
             redirect_to customers_path
           end
@@ -234,7 +233,7 @@ def access_role?
         end
 
 
-        #settings/admin role
+        #settings_admin role
 
         @settings_role =  @user_role.settings_admin
         if @settings_role == "All"

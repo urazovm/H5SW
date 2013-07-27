@@ -1,29 +1,6 @@
-<br/><br/><br/><br/>
-<div id="dsh_box">
-  <table cellpadding="10px;" border="0">
-    <tr>
-      <td><%= link_to 'Customer',  customers_path %></td>
-      <td></td>
-      <td></td>
-      <td><%= link_to 'Job',  jobs_path %></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><%= link_to 'Contact',  contacts_path %></td>
-      <td></td>
-      <td></td>
-      <td><%= link_to_function "Calender","alert('coming soon!'); return false;" %></td>
-    </tr>
-  </table>
-</div>
 
-<style>
-  td{
-    font-size: 20px;
-  }
-</style>
+<%= stylesheet_link_tag "gmaps4rails_1" %>
+
+<table div ="gmap">
+   <%= gmaps4rails(@json) %>
+</table>

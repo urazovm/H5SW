@@ -4,7 +4,11 @@
     <meta charset="utf-8" />
     <title>SMO</title>
     <%= stylesheet_link_tag    "application","datepicker", :media => "all" %>
+<<<<<<< HEAD
     <%= stylesheet_link_tag 'gmaps4rails', "http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" %>
+=======
+    <%= stylesheet_link_tag    'gmaps4rails' %>
+>>>>>>> 1cd707bef50173b1a14936b0c397cbee6f02a4fe
     <%= javascript_include_tag "application","autocomplete-rails","bootstrap-datepicker","signature" %>
     <%= csrf_meta_tags %>
   </head>
@@ -26,6 +30,9 @@
                 </li>
                 <li>
                   <%= link_to "Contacts", contacts_path %>
+                </li>
+                <li>
+                  <%= link_to_function "Calender", "alert('coming soon!'); :return => false" %>
                 </li>
               </ul>
               <ul class="nav pull-right">
@@ -55,6 +62,7 @@
           <strong><%= alert %></strong>
         </div>
       <% end %>
+      
       <%= yield %>
       <%= yield :scripts %>
     </div>
