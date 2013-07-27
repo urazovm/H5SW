@@ -17,9 +17,14 @@
 
   <br />
   <% if params[:controller]=="customers" && (params[:action]=="new" || params[:action]=="index") %>
-  
+
   <% elsif params[:controller]=="jobsites" && params[:action]=="index" %>
 
+  <% elsif params[:controller]=="jobs" && params[:action]=="edit" %>
+    <div id="jobsite">
+      <% @jobsites = Jobsite.find_all_by_customer_id(@customer.id) if !@customer.nil? %>
+      Job Site &nbsp; : <%= select_tag :jobsite_id, options_for_select(["None"]+["All"]+@jobsites.map{|job| [job.name,job.id]}, :selected => session[:jobsite_id]), :onchange => "getJobsiteId(this)" %>
+    </div>
   <% else %>
     <div id="jobsite">
       <% @jobsites = Jobsite.find_all_by_customer_id(session[:customer_id]) %>
