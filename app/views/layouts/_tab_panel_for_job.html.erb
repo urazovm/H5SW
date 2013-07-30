@@ -24,7 +24,7 @@
   </li>
 
   <li class = <%= params[:controller] == "customs" ? 'active' : '' %> >
-    <%= link_to "Custom", customs_path(:type => "Job", :tab => "tab1"), :title => "Job custom page" %>
+    <%= link_to "Custom", customs_path(:type => "Job", :tab => Tab.find_by_tab_type("Job").id), :title => "Job custom page" %>
   </li>
 
   <li class = <%= params[:controller] == "job_histories" ? 'active' : '' %> >

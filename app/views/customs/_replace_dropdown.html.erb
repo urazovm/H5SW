@@ -1,0 +1,41 @@
+<% @value = DropdownValue.find_by_custom_id(custom.id) %>
+<% if custom.field == "Text Box" %>
+  <%= text_field_tag "textField",{}, :value => @value ? @value.drop_value : "", :onfocus => "javascript:show_edit_form('#{custom.id}','#{@value.id}')" %>
+<% elsif custom.field == "Dropdown List" %>
+    <% dropvalue = DropdownValue.find_by_custom_id(custom.id).drop_value.split(',').each %>
+  <%= select_tag "dropdownField", options_for_select(dropvalue.each do |drop|[drop] end), :style => "width: 436px" %>
+  <%= link_to_function "Edit Values", "update_dropdown_values('#{custom.id}')", :class => "btn btn-mini btn-primary", :style => "color:white" %>
+<% elsif custom.field == "Calendar" %>
+  <%= text_field_tag "calendar", nil, :value => @value ? @value.drop_value : "",:onfocus => "javascript:show_edit_form('#{custom.id}','#{@value.id}')", :class => 'data' %>&nbsp;
+  <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer;", :id => "calendar_icon", :class => "datepicker"%>
+<% else %>
+  ''
+<% end %>
+
+<span style="float: right; margin-top: 14px;">
+  <%= link_to "Delete", custom, :remote => true, :confirm => "Are you sure to delete?", :method => :delete, :class => "btn btn-mini btn-primary" , :style => "color:white;"%>&nbsp;
+  <%= link_to_function "Hide", "status_false('#{custom.id}');", :class => "btn btn-mini btn-primary" , :style => "color:white;"%>
+</span>
+
+<script>
+  function update_dropdown_values(id){
+    $.ajax({
+      url:"/customs/edit_dropdown",
+      data:{
+        cus_id:id
+      },
+      type:'GET',
+      dataType:'script',
+      success:function(data){}
+    });
+  }
+
+  function status_false(id){
+    $.ajax({
+      url:'/customs/'+id+'/update_status/',
+      type:'PUT',
+      dataType:'script',
+      success:function(data){}
+    });
+  }
+</script>

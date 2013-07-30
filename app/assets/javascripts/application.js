@@ -174,6 +174,13 @@ $(document).ready(function() {
     });
 });
 
+function inplace_edit(id, type){
+    $.ajax({
+       url:'/customs/'+id+'/edit?type='+type,
+       type: 'GET'
+    });
+}
+
 function inplace_edit_quantity(id){
     $.ajax({
         url:'/inventories/'+id+'/edit?type=qty',

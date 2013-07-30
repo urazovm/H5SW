@@ -14,16 +14,15 @@
 <% end %>
 
 <ul class="nav nav-tabs" id="custom_tab">
-  <li class=<%= params[:tab]=="tab1" ? 'active' : '' %> >
-    <%= link_to "Custom Tab 1", customs_path(:type => params[:type], :tab => 'tab1') %>
-  </li>
-  <li class=<%= params[:tab]=="tab2" ? 'active' : '' %> >
-    <%= link_to "Custom Tab 2", customs_path(:type => params[:type], :tab => 'tab2') %>
-  </li>
-  <li>
+  <% @tabs.each do |tab| %>
+    <li class=<%= (@default_tab.to_i == tab.id) ? 'active' : '' %> >
+      <%= link_to tab.name, customs_path(:type => params[:type], :tab => tab.id) %>
+    </li>
+  <% end %>
+    <li>
     <% tab = (params[:tab] ? params[:tab] : 'tab1') %>
-    <%= link_to "Add Fields", new_custom_path(:tab => tab) %>
+    <%= link_to "Add Fields", new_custom_path(:tab => @default_tab, :type => params[:type]) %>
   </li>
 </ul>
-
+  
 <%=  render :partial => 'customs', :locals => {:customs => @customs} %>
