@@ -1,12 +1,12 @@
 <%= render '/layouts/tabs_for_settings' %>
 
+<%# Tabs available for both customer and jobs%>
 <ul class="nav nav-tabs" id="custom_tab">
-  <li class=<%= params[:tab]=="tab1" ? 'active' : '' %> >
-    <%= link_to "Custom Tab 1", new_custom_path(:tab => 'tab1') %>
-  </li>
-  <li class=<%= params[:tab]=="tab2" ? 'active' : '' %> >
-    <%= link_to "Custom Tab 2", new_custom_path(:tab => 'tab2') %>
-  </li>
+  <% @tabs.each do |tab| %>
+    <li class=<%= (params[:tab].to_i == tab.id) ? 'active' : '' %> >
+      <%= link_to (tab.name+" - #{tab.tab_type} "), new_custom_path(:tab => tab.id, :type => tab.tab_type) %>
+    </li>
+  <% end %>
 </ul>
 
 <%= render 'form' %>

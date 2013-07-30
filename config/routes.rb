@@ -5,6 +5,14 @@ SMO::Application.routes.draw do
     collection do
       get :add_drop_values
       put :update_position
+      get :get_dropdown_values
+      get :edit_dropdown
+    end
+
+    member do
+      put :update_dropdown_values
+      put :update_dropdown
+      put :update_status
     end
   end
 

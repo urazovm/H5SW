@@ -24,7 +24,7 @@
   </li>
 
   <li class =" <%= (params[:controller] == "customs" && params[:type] == "Customer") ? 'active' : ''  %> ">
-    <%= link_to "Custom", customs_path(:type => "Customer", :tab => "tab1"),  :title => "custom page" %>
+    <%= link_to "Custom", customs_path(:type => "Customer", :tab => Tab.find_by_tab_type("Customer").id),  :title => "custom page" %>
   </li>
 
 </ul>

@@ -72,6 +72,7 @@ class JobsitesController < ApplicationController
     render :nothing => true
   end
 
+
   def show_jobsite
     session[:customer_id] = params[:id]
     session[:jobsite_id] = "All"
@@ -91,3 +92,6 @@ class JobsitesController < ApplicationController
   end
 
 end
+
+
+

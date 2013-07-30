@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130726143329) do
+ActiveRecord::Schema.define(:version => 20130729150026) do
 
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -83,11 +83,12 @@ ActiveRecord::Schema.define(:version => 20130726143329) do
     t.string   "name"
     t.string   "field"
     t.integer  "company_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "tab"
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.string   "cus_type"
     t.integer  "position"
+    t.integer  "tab_id"
+    t.boolean  "status",     :default => true
   end
 
   create_table "documents", :force => true do |t|
@@ -145,25 +146,26 @@ ActiveRecord::Schema.define(:version => 20130726143329) do
     t.datetime "updated_at",  :null => false
   end
 
+  create_table "job_times", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "jobs", :force => true do |t|
     t.string   "reference_no",                                     :default => "",  :null => false
     t.datetime "due_date"
     t.string   "class_type",                                       :default => "",  :null => false
     t.string   "assigned_to",                                      :default => "",  :null => false
     t.string   "status",                                           :default => "",  :null => false
-    t.string   "job_contact",                                      :default => "",  :null => false
     t.string   "sales_person",                                     :default => "",  :null => false
     t.string   "summary"
     t.decimal  "sub_total",          :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.string   "add_items"
-    t.text     "notes"
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
     t.integer  "job_number"
-    t.string   "contact_details"
-    t.string   "note_type"
     t.integer  "customer_id"
     t.integer  "company_id"
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
     t.integer  "contact_id"
     t.integer  "jobsite_id"
     t.string   "name"
@@ -230,6 +232,14 @@ ActiveRecord::Schema.define(:version => 20130726143329) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.string   "jobtimes"
+  end
+
+  create_table "tabs", :force => true do |t|
+    t.string   "name"
+    t.string   "tab_type"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

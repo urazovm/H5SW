@@ -1,6 +1,7 @@
 <table style="background: #F1F1F1">
-  <%= form_for(@custom,:tab => params[:tab]) do |f| %>
-    <%= hidden_field_tag "tab",{},:value => params[:tab] %>
+  <%= form_for(@custom,  :url => customs_path(:tab => @tab.id, :type => @tab.tab_type)) do |f| %>
+
+  <%# Validation %>
     <% if @custom.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@custom.errors.count, "error") %> prohibited custom fields from being saved:</h2>
@@ -13,24 +14,38 @@
       </div>
     <% end %>
 
-    <%= hidden_field_tag "drop_ids" %>
-    <%= f.hidden_field :tab, :value => params[:tab] %>
+  <%#= hidden_field_tag "drop_ids" %>
+    <%= f.hidden_field :company_id, :value => current_login.id %>
 
     <tr style="background: #666; color: #FFF;">
       <td colspan="3">Select Customer/Job from the select field and create fields for it..</td>
     </tr>
-    <tr><td colspan="2">&nbsp;</td></tr>
-    <tr style="border-bottom: 1px solid #CCC;">
-      <td colspan="3">
-        Select Customer/Job first<br/>
-        <%= f.select :cus_type, options_for_select([['Customer', 'Customer'], ['Job', 'Job']],:selected => session[:type]) %>
-      </td>
+
+    <tr>
+      <td colspan="3">&nbsp;</td>
     </tr>
+
+    <tr style="text-align:left;">
+      <th>Change Your Custom Tab Label</th>
+      <th></th>
+    </tr>
+
+    <tr style="border-bottom: 1px solid #CCC;">
+      <td>
+        <%= text_field_tag :tab_name, nil, :value => @tab.name %>
+      </td>
+      <td>
+        <%= f.hidden_field :tab_id, :value => @tab.id %>
+      </td>
+      <td></td>
+    </tr>
+
     <tr>
       <td><%= f.label :name, "Create a unique label for your custom field" %></td>
       <td><%= f.label :field, "Select a custom field" %></td>
       <td></td>
     </tr>
+
     <tr>
       <td><%= f.text_field :name, :placeholder => "Create a Label for your custom field" %></td>
       <td>
@@ -38,23 +53,23 @@
       </td>
       <td></td>
     </tr>
+
     <tr>
       <td colspan="3">
         <div id="display_dropdown_values"></div>
       </td>
     </tr>
-    <tr>
-      <td colspan="3">
-        <%= f.label "Enter value for custom field", :class => "value_label" %>
-      </td>
-    </tr>
+
     <tr id="add_drop_down_values">
       <td id="append_text" colspan="2">
+        <%= f.label "Enter value for custom field" %>
         <%= text_field_tag "drop_down_value", nil, :placeholder => "Dropdown Values e.g: value 1, value 2, value 3, ......", :class => 'data' %>
-        <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer; display:none;", :id => "calendar_icon", :class => "datepicker" %>
+        <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer; display:none;", :id => "calendar_icon1", :class => "datepicker" %>
+        <span class="value_label" style="color:red; display: none;">NOTE: Use commas(,) to seperate multiple values</span>
       </td>
       <td><%#= link_to_function "Add More Values", "add_drop_value();", :class => "btn btn-small", :style => "padding-top: 8px; padding-bottom: 8px;" %></td>
     </tr>
+
     <tr>
       <td colspan="3"><%= f.submit :save, :style => "width: 80px; height: 37px"%> </td>
     </tr>
@@ -70,16 +85,16 @@
   $(document).ready(function(){
     $("#custom_field").change(function(){
       if($("#custom_field").val() == 'Dropdown List'){
-        $(".value_label").html("Use comma(,) to enter multiple values for dropdown list");
-        $(".datepicker").hide();
+        $(".value_label").show();
+        $("#calendar_icon1").hide();
       }
       if($("#custom_field").val() == "Text Box"){
-        $(".value_label").html("Enter value for Text field");
-        $(".datepicker").hide();
+        $(".value_label").hide();
+        $("#calendar_icon1").hide();
       }
       if($("#custom_field").val() == "Calendar"){
-        $(".value_label").html("Select a date for datepicker");
-        $(".datepicker").show();
+        $(".value_label").hide();
+        $("#calendar_icon1").show();
       }
     });
 
