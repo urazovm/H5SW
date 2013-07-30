@@ -189,7 +189,7 @@ function inplace_edit_quantity(id){
 }
 
 function cancel_update(id,qty){
-    $("#quantity_"+id).html('<div onclick="inplace_edit_quantity('+id+')">'+qty+'</div>')
+    $("#quantity_"+id).html('<div onclick="inplace_edit_quantity('+id+')"><span style ="color :blue; background-color:#EEEEEE; padding: 1px 5px; ">'+qty+'</span></div>')
 }
 
 
@@ -203,5 +203,5 @@ function inplace_edit_description(id){
 
 
 function cancel(id,description){
-    $("#description_"+id).html('<div onclick="inplace_edit_description('+id+')">'+description+'</div>')
+    $("#description_"+id).html('<div onclick="inplace_edit_description('+id+')"><span style ="color :blue; background-color:#EEEEEE; padding: 1px 5px; ">'+description+'</span></div>')
 }
