@@ -71,4 +71,23 @@ class JobsitesController < ApplicationController
     session[:jobsite_id] = params[:id]
     render :nothing => true
   end
+
+  def show_jobsite
+    session[:customer_id] = params[:id]
+    session[:jobsite_id] = "All"
+    @customer = Customer.find(session[:customer_id])
+    @jobsites = Jobsite.find_all_by_customer_id(session[:customer_id])
+  end
+
+ 
+
+  def get_jobsite
+    @customer = Customer.find_by_id(session[:customer_id])
+    session[:jobsite_id] = params[:id]
+    @jobsite = Jobsite.find_by_id(session[:jobsite_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

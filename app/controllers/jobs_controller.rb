@@ -19,6 +19,8 @@ class JobsController < ApplicationController
 
   def edit
     @job = Job.find(params[:id])
+    @customer = Customer.find_by_id(@job.customer_id)
+    @jobsite = Jobsite.find_by_id(@job.jobsite_id)
     session[:customer_id] = @job.customer_id
     session[:jobsite_id] = @job.jobsite_id
     session[:job_id] = @job.id
@@ -54,10 +56,9 @@ class JobsController < ApplicationController
 
   def update
     @job = Job.find(params[:id])
-
+    params[:job][:customer_id] = session[:customer_id]
+    params[:job][:jobsite_id] = session[:jobsite_id]
     if @job.update_attributes(params[:job])
-      session[:customer_id] = @job.customer_id
-      session[:jobsite_id] = @job.jobsite_id
       session_job_id
 
       redirect_to jobs_path, :notice => "Job was successfully updated."
@@ -89,4 +90,14 @@ class JobsController < ApplicationController
     @sales_role = current_login.roles.find_by_roll("Sales")
     @sales_role ? @sales_users = current_login.users.find_all_by_role_id(@sales_role.id) : @sales_users = nil
   end
+
+  def close_job
+    @jobs = search_by_session(current_login.jobs.search(params[:search])).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
+    @job = Job.find(params[:id])
+    @job.update_attribute(:status, "closed")
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

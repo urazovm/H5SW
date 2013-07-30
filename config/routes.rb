@@ -13,6 +13,8 @@ SMO::Application.routes.draw do
     member do
       get :ajax_show
       get :get_id
+      get :show_jobsite
+      get :get_jobsite
     end
   end
 
@@ -29,6 +31,7 @@ SMO::Application.routes.draw do
   resources :jobs do
     member do
       get :job_pdf
+      put :close_job
     end
 
   end

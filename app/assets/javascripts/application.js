@@ -59,7 +59,7 @@ function getJobsiteId(s){
         url: '/jobsites/'+ jQuery(s).val() + '/get_id',
         dataType: 'script',
         success: function(data){            
-            window.location.reload(true);            
+         window.location.reload(true);            
         }
     });   
 }
@@ -197,4 +197,26 @@ function inplace_edit_description(id){
 
 function cancel(id,description){
     $("#description_"+id).html('<div onclick="inplace_edit_description('+id+')"><span style ="color :blue; background-color:#EEEEEE; padding: 1px 5px; ">'+description+'</span></div>')
+}
+
+
+function getShowJobsite(s){
+    $.ajax({
+        type: 'GET',
+        url: '/jobsites/'+ jQuery(s).val() + '/show_jobsite',
+        dataType: 'script',
+        success: function(data){
+        //            
+        }
+    });
+}
+
+function getJobsitesId(s){
+    $.ajax({
+        url: '/jobsites/'+ jQuery(s).val() + '/get_jobsite',
+        dataType: 'script',
+        success: function(data){
+//          window.location.reload(true);
+        }
+    });
 }

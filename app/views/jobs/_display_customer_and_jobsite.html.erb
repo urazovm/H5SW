@@ -1,0 +1,16 @@
+<div style="width:435px; font-weight: bold;" id="display_customer_and_jobsite">
+  <p>
+    <% if @customer == nil %>
+      <span style="color:red">Please select customer for this job !</span><br/>
+    <% else %>
+      <%=  "Customer : " + @customer.company_name + ", " + @customer.address1 + ", " + @customer.city + ", " + @customer.state + ", " + @customer.zip.to_s %>
+    <% end %>
+  </p>
+
+  <p>
+    <% if @jobsite == nil %>
+    <% else %>
+      <%= "Job Site : " + @jobsite.name + ", " + @jobsite.city + ", " + @jobsite.state + ", " + @jobsite.zip %>
+    <% end %>
+  </p>
+</div>
