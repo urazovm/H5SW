@@ -19,6 +19,102 @@
 //= require_tree .
 
 
+/* Javascript for Timer*/
+
+var timerId,start_time,end_time, service;
+
+function initialDate(){
+    if(typeof(localStorage.initialTime) == "undefined" || localStorage.initialTime == 'null' || typeof(initialTime) == "undefined" || initialTime == 'null'){
+        startDate = new Date();
+        localStorage.start_time = startDate;
+        localStorage.initialTime =  startDate.getTime(startDate);
+        initialTime = localStorage.initialTime;
+    }
+}  
+
+$(document).ready(function(){
+    initialTime = localStorage.initialTime;
+    if(typeof(localStorage.initialTime) == "undefined" || localStorage.initialTime == 'null' || typeof(initialTime) == "undefined" || initialTime == 'null'){
+        $("#stop").attr("disabled", "disabled");
+        $("#start").removeAttr("disabled");
+    }
+    else{
+        $("#start").attr("disabled", "disabled");
+        $("#stop").removeAttr("disabled");
+        update();
+    }
+});
+
+function update(){
+    initialTime = localStorage.initialTime;
+
+    currentDate = new Date();
+
+    diff = parseInt(new Date().getTime()) - initialTime;
+    s=parseInt((diff/1000)%60),
+    m=parseInt((diff/(1000*60))%60),
+    h=parseInt((diff/(1000*60*60))%24);
+
+    document.getElementById('hour').innerHTML = h<10?'0'+h:h;
+    document.getElementById('min').innerHTML = m<10?'0'+m:m;
+    document.getElementById('sec').innerHTML = s<10?'0'+s:s;
+
+    timerId = setTimeout(update, 1000);
+}
+
+
+function clockStart() {
+    var date = new Date();
+    start_time = date;
+
+    $("#start").attr("disabled", "disabled");
+    $("#stop").removeAttr("disabled");
+
+    if (timerId) return
+    initialDate();
+    update();
+}
+
+
+function clockStop() {
+    var date = new Date();
+
+    clearTimeout(timerId);
+    localStorage.initialTime = null;
+    $("#stop").attr("disabled", "disabled");
+    $("#start").removeAttr("disabled");
+    timerId = null
+
+    end_time = date
+    service = $("#service").val();
+    
+    $.ajax({
+        url: '/jobtimes',
+        data:{
+            start_time:localStorage.start_time,
+            end_time:end_time,
+            service:service,
+            hours:h,
+            minutes:m,
+            seconds:s
+        },
+        method:'POST',
+        success:function(data){}
+    });
+}
+
+/* end of Timer function  */
+
+
+
+
+
+
+
+
+
+
+
 function GetContact(s){
     $.ajax({
         url :'/contacts/'+jQuery(s).val()+'/ajax_show',
@@ -59,7 +155,7 @@ function getJobsiteId(s){
         url: '/jobsites/'+ jQuery(s).val() + '/get_id',
         dataType: 'script',
         success: function(data){            
-         window.location.reload(true);            
+            window.location.reload(true);
         }
     });   
 }
@@ -160,8 +256,8 @@ $(document).ready(function() {
     });
 
     $("#auto_complete_text").keyup(function(){
-           var n = $(this).val().split(',').length
-           var data = $(this).val().split(',')[n-1];
+        var n = $(this).val().split(',').length
+        var data = $(this).val().split(',')[n-1];
         $.ajax({
             url:'/items/autocomplete_items',
             data:{
@@ -176,8 +272,8 @@ $(document).ready(function() {
 
 function inplace_edit(id, type){
     $.ajax({
-       url:'/customs/'+id+'/edit?type='+type,
-       type: 'GET'
+        url:'/customs/'+id+'/edit?type='+type,
+        type: 'GET'
     });
 }
 
@@ -223,7 +319,7 @@ function getJobsitesId(s){
         url: '/jobsites/'+ jQuery(s).val() + '/get_jobsite',
         dataType: 'script',
         success: function(data){
-//          window.location.reload(true);
+        //          window.location.reload(true);
         }
     });
 }

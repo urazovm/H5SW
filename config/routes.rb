@@ -69,6 +69,7 @@ SMO::Application.routes.draw do
   match 'users/create' => "users#create",:as => :create_user
 
   get "dashboards/index"
+
   devise_for :companies
 
   authenticated :company do

@@ -256,6 +256,20 @@ tr.odd{
     width :60px;
 }
 
+#clock{
+    width:500px;
+    margin:auto;
+    background: #F1F1F1;
+    text-align: center;
+    border: 1px solid #CCC;
+    -moz-box-shadow:2px 2px 2px 2px #999;
+    -webkit-box-shadow:2px 2px 2px 2px #999;
+    box-shadow:2px 2px 2px 2px #999;
+    border-radius:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+}
+
 .my-clock{
     padding:5px; 
     color: #666;
@@ -263,9 +277,9 @@ tr.odd{
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-    box-shadow:0px 2px 4px 2px #999;
-    -moz-box-shadow:2px 4px 2px 2px #999;
-    -webkit-box-shadow:2px 4px 2px 2px #999;
+   -moz-box-shadow:1px 1px 1px 1px #999;
+    -webkit-box-shadow:1px 1px 1px 1px #999;
+    box-shadow:1px 1px 1px 1px #999;
 }
 
 #hour, #min, #sec{

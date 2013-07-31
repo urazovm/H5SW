@@ -1,16 +1,4 @@
-<div id="clock">
-  <span style="margin-right: 10px;">
-    <%= select_tag :service, options_for_select(Item.find_all_by_itemtype("Service").map{|item| [item.name, item.id]}), :class => "span2"  %>
-  </span>
-  <%= button_tag "Start", :onclick => "clockStart()",:id => "start"%>
-  <%= button_tag "Stop", :onclick => "clockStop()",:disabled => true,:id => "stop" %>
-  <span class="my-clock">
-    <span id="hour">0</span> Hrs : 
-    <span id="min">0</span> Min :
-    <span id="sec">0</span> Sec 
-  </span>
-</div>
-<hr />
+<%= render '/layouts/timer' %>
 
 <%= render '/layouts/job_with_action' %>
 <%= render '/layouts/tab_panel_for_job' %>
@@ -45,65 +33,10 @@
 
 </table>
 
+
+
 <script>
-  var timerId,start_time,end_time, service;
-  var hours = 0;
-  var minutes = 0;
-  var seconds = 0;
-
-  function update() {
-    
-    seconds++;
-
-    if(seconds>=60){
-      minutes++;
-      seconds=0;
-    }
-
-    if(minutes>=60){
-      hours++;
-      minutes=0;
-    }
-
-    document.getElementById('hour').innerHTML = hours;
-    document.getElementById('min').innerHTML = minutes;
-    document.getElementById('sec').innerHTML = seconds;
-    
-    setTimeout(update, 1000);
-  }
-    
-  function clockStart() {
-    var date = new Date()
-    start_time = date
-    $("#start").attr("disabled", "disabled");
-    $("#stop").removeAttr("disabled");
-    if (timerId) return
-    update()
-  }
-
-
-  function clockStop() {
-    var date = new Date()
-    clearTimeout(timerId)
-    end_time = date
-    service = $("#service").val();
-    $("#stop").attr("disabled", "disabled");
-    $("#start").removeAttr("disabled");
-    timerId = null
-    $.ajax({
-      url: '/jobtimes',
-      data:{
-        start_time:start_time,
-        end_time:end_time,
-        service:service,
-        hours:hours,
-        minutes:minutes,
-        seconds:seconds
-      },
-      method:'POST',
-      success:function(data){}
-    });
-  }
+  
 </script>
 
 
