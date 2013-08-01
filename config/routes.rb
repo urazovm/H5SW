@@ -7,9 +7,12 @@ SMO::Application.routes.draw do
       put :update_position
       get :get_dropdown_values
       get :edit_dropdown
+      get :new_tab
+      post :create_tab
     end
 
     member do
+      put :update_tab
       put :update_dropdown_values
       put :update_dropdown
       put :update_status

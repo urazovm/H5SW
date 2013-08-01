@@ -24,7 +24,12 @@
   </li>
 
   <li class = <%= params[:controller] == "customs" ? 'active' : '' %> >
-    <%= link_to "Custom", customs_path(:type => "Job", :tab => Tab.find_by_tab_type("Job").id), :title => "Job custom page" %>
+    <% tab = current_login.tabs.find_by_tab_type("Job") %>
+    <% if tab.present? %>
+      <%= link_to "Custom Fields", customs_path(:type => "Job", :tab => tab.id ), :title => "custom page" %>
+    <% else %>
+      <%= link_to "Custom Fields", new_tab_customs_path(:type=> "Job"), :title => "Create tabs for job" %>
+    <% end %>
   </li>
 
   <li class = <%= params[:controller] == "job_histories" ? 'active' : '' %> >

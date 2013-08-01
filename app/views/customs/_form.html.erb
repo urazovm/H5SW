@@ -32,7 +32,8 @@
 
     <tr style="border-bottom: 1px solid #CCC;">
       <td>
-        <%= text_field_tag :tab_name, nil, :value => @tab.name %>
+        <%= text_field_tag :tab_name, nil, :value => @tab.name, :class => "span5" %>
+        <%= link_to_function "update", "update_tab();", :class => "btn btn-mini btn-primary", :remote => true  %>
       </td>
       <td>
         <%= f.hidden_field :tab_id, :value => @tab.id %>
@@ -81,7 +82,20 @@
 </div>
 
 <script>
-
+  function update_tab(){
+    var tab = $("#tab_name").val();
+    $.ajax({
+      url:'/customs/<%= @tab.id %>/update_tab',
+      type:"PUT",
+      dataType:"script",
+      data:{
+        updated_name:tab,
+        type:'<%= params[:type] %>'
+      },
+      success: function(data){}
+    });
+  }
+  
   function display_this(){
       if($("#custom_field").val() == 'Dropdown List'){
         $(".value_label").show();

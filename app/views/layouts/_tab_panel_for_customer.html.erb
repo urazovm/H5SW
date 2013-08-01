@@ -24,7 +24,12 @@
   </li>
 
   <li class =" <%= (params[:controller] == "customs" && params[:type] == "Customer") ? 'active' : ''  %> ">
-    <%= link_to "Custom", customs_path(:type => "Customer", :tab => Tab.find_by_tab_type("Customer").id),  :title => "custom page" %>
+    <% tab = current_login.tabs.find_by_tab_type("Customer") %>
+    <% if tab.present? %>
+      <%= link_to "Custom Fields", customs_path(:type => "Customer", :tab => tab.id ), :title => "custom page" %>
+    <% else %>
+      <%= link_to "Custom Fields", new_tab_customs_path(:type=> "Customer"), :title => "Create tabs for Customer" %>
+    <% end %>
   </li>
 
 </ul>
