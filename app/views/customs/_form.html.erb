@@ -49,7 +49,7 @@
     <tr>
       <td><%= f.text_field :name, :placeholder => "Create a Label for your custom field" %></td>
       <td>
-        <%= f.select :field, options_for_select([['Text Box', 'Text Box'], ['Dropdown List', 'Dropdown List'], ['Calendar', 'Calendar']]), {} %>
+        <%= f.select :field, options_for_select([['Text Box', 'Text Box'], ['Dropdown List', 'Dropdown List'], ['Calendar', 'Calendar']]), {}, :onchange => "display_this();" %>
       </td>
       <td></td>
     </tr>
@@ -82,8 +82,7 @@
 
 <script>
 
-  $(document).ready(function(){
-    $("#custom_field").change(function(){
+  function display_this(){
       if($("#custom_field").val() == 'Dropdown List'){
         $(".value_label").show();
         $("#calendar_icon1").hide();
@@ -96,7 +95,6 @@
         $(".value_label").hide();
         $("#calendar_icon1").show();
       }
-    });
 
     $("#custom_type").change(function(){
       $.ajax({
@@ -106,31 +104,5 @@
         success: function(data){}
       });
     })
-  });
-
-<%#*$("#custom_field").change(function(){%>
-<%#*if($(this).val() == 'Dropdown List'){%>
-<%#*$("tr#add_drop_down_values").show();%>
-<%#*}else{%>
-<%#*$("tr#add_drop_down_values").hide();%>
-<%#*}%>
-<%#*});%>
-<%#*});%>
-
-<%#*function add_drop_value(){%>
-<%#*var dr_val = $("#drop_down_value").val();%>
-<%#*if(dr_val == ''){%>
-<%#*alert('null value not allowed');%>
-<%#*return false;%>
-<%#*}else{%>
-<%#*$.ajax({%>
-<%#*url:"/customs/add_drop_values",%>
-<%#*data:{%>
-<%#*drop_val:dr_val%>
-<%#*},%>
-<%#*type:'GET',%>
-<%#*success:function(data){}%>
-<%#*});%>
-<%#*}%>
-<%#*}%>
+  }
 </script>

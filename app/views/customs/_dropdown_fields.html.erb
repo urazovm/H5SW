@@ -3,7 +3,7 @@
   <% if custom.field == "Text Box" %>
     <%= f.text_field "drop_value" %>
   <% elsif custom.field == "Dropdown List" %>
-    <% dropvalue = DropdownValue.find_by_custom_id(custom.id).drop_value.split(',').each %>
+    <% dropvalue = DropdownValue.find_by_custom_id_and_company_id(custom.id, current_login.id).drop_value.split(',').each %>
     <%= select_tag "dropdownField", options_for_select(dropvalue.each do |drop|[drop] end), :style => "width: 436px" %>
   <% elsif custom.field == "Calendar" %>
     <%= f.text_field "drop_value", :value => @value ? @value.drop_value : "", :class => 'data', :placeholder => Date.today %>&nbsp;

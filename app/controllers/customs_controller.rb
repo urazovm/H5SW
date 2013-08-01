@@ -48,7 +48,7 @@ class CustomsController < ApplicationController
       @change_tab_name.update_attributes(:name => params[:tab_name])
       
       #save values for textbox, dropdown or calendar
-      DropdownValue.create(:custom_id => @custom.id, :drop_value => params[:drop_down_value])
+      DropdownValue.create(:custom_id => @custom.id, :company_id => @custom.company_id, :drop_value => params[:drop_down_value])
 
       flash[:notice] = "Custom field created successfully."
       redirect_to new_custom_path(:tab => @tab.id, :type => @tab.tab_type)
@@ -59,7 +59,7 @@ class CustomsController < ApplicationController
 
   def edit
     @custom = Custom.find(params[:id])
-    @dropdown_values = DropdownValue.find_by_custom_id(params[:id])
+    @dropdown_values = DropdownValue.find_by_custom_id_and_company_id(params[:id], current_login.id)
   end
 
   def update
@@ -73,13 +73,13 @@ class CustomsController < ApplicationController
 
   def get_dropdown_values
     @custom = Custom.find(params[:custom_id])
-    @drop_downvalue = DropdownValue.find(params[:dropdown_id])
+    @drop_downvalue = current_login.dropdown_values.find(params[:dropdown_id])
     render
   end
 
   def update_dropdown_values
     @custom = Custom.find(params[:dropdown_value][:custom_id])
-    @drop_downvalue = DropdownValue.find(params[:id])
+    @drop_downvalue = current_login.dropdown_values.find(params[:id])
     @drop_downvalue.update_attributes(params[:dropdown_value])
     render
   end
@@ -101,12 +101,12 @@ class CustomsController < ApplicationController
   def edit_dropdown
     @custom_id = params[:cus_id]
     @custom = Custom.find(params[:cus_id])
-    @dropdown_values =  DropdownValue.find_by_custom_id(params[:cus_id]).drop_value
+    @dropdown_values =  DropdownValue.find_by_custom_id_and_company_id(params[:cus_id], current_login.id).drop_value
   end
 
   def update_dropdown
     @custom = Custom.find(params[:id])
-    @dropdown_value = DropdownValue.find_by_custom_id(params[:id])
+    @dropdown_value = DropdownValue.find_by_custom_id_and_company_id(params[:id], current_login.id)
     @dropdown_value.update_attribute(:drop_value, params[:dropdown_value])
   end
   #end of updation of update dropdown values

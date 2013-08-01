@@ -23,16 +23,36 @@
 
 var timerId,start_time,end_time, service;
 
-function initialDate(){
-    if(typeof(localStorage.initialTime) == "undefined" || localStorage.initialTime == 'null' || typeof(initialTime) == "undefined" || initialTime == 'null'){
-        startDate = new Date();
-        localStorage.start_time = startDate;
-        localStorage.initialTime =  startDate.getTime(startDate);
-        initialTime = localStorage.initialTime;
-    }
-}  
+$(document).ready(function() {
+    
+    /* Activating Best In Place */
+    $('.datepicker').datepicker()
+    .on('changeDate', function(e){
+        var y = e.date.getFullYear(),
+        _m = e.date.getMonth() + 1,
+        m = (_m > 9 ? _m : '0'+_m),
+        _d = e.date.getDate(),
+        d = (_d > 9 ? _d : '0'+_d);
+        $(this).prev('input.data').val(y + '-' + m + '-' + d);
+    });
 
-$(document).ready(function(){
+    $("#auto_complete_text").keyup(function(){
+        var n = $(this).val().split(',').length
+        var data = $(this).val().split(',')[n-1];
+        $.ajax({
+            url:'/items/autocomplete_items',
+            data:{
+                name:data,
+                not_list:$(this).val()
+            },
+            type:'GET',
+            success:function(data){}
+        });
+    });
+});
+
+
+function loadTimer(){
     initialTime = localStorage.initialTime;
     if(typeof(localStorage.initialTime) == "undefined" || localStorage.initialTime == 'null' || typeof(initialTime) == "undefined" || initialTime == 'null'){
         $("#stop").attr("disabled", "disabled");
@@ -43,7 +63,17 @@ $(document).ready(function(){
         $("#stop").removeAttr("disabled");
         update();
     }
-});
+
+}
+
+function initialDate(){
+    if(typeof(localStorage.initialTime) == "undefined" || localStorage.initialTime == 'null' || typeof(initialTime) == "undefined" || initialTime == 'null'){
+        startDate = new Date();
+        localStorage.start_time = startDate;
+        localStorage.initialTime =  startDate.getTime(startDate);
+        initialTime = localStorage.initialTime;
+    }
+}  
 
 function update(){
     initialTime = localStorage.initialTime;
@@ -240,34 +270,6 @@ $(document).ajaxStart(function(){
 });
 $(document).ajaxStop(function(){
     $('#ajax_loader_big_div').hide();
-});
-
-
-$(document).ready(function() {
-    /* Activating Best In Place */
-    $('.datepicker').datepicker()
-    .on('changeDate', function(e){
-        var y = e.date.getFullYear(),
-        _m = e.date.getMonth() + 1,
-        m = (_m > 9 ? _m : '0'+_m),
-        _d = e.date.getDate(),
-        d = (_d > 9 ? _d : '0'+_d);
-        $(this).prev('input.data').val(y + '-' + m + '-' + d);
-    });
-
-    $("#auto_complete_text").keyup(function(){
-        var n = $(this).val().split(',').length
-        var data = $(this).val().split(',')[n-1];
-        $.ajax({
-            url:'/items/autocomplete_items',
-            data:{
-                name:data,
-                not_list:$(this).val()
-            },
-            type:'GET',
-            success:function(data){}
-        });
-    });
 });
 
 function inplace_edit(id, type){

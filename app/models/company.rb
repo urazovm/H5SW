@@ -21,4 +21,6 @@ class Company < ActiveRecord::Base
   has_many :customs
   has_many :inventories
   has_many :jobtimes
+  has_many :tabs
+  has_many :dropdown_values
 end
