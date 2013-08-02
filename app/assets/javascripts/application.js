@@ -53,8 +53,8 @@ $(document).ready(function() {
 
 
 function loadTimer(){
-    initialTime = localStorage.initialTime;
-    if(typeof(localStorage.initialTime) == "undefined" || localStorage.initialTime == 'null' || typeof(initialTime) == "undefined" || initialTime == 'null'){
+    initialTime =  sessionStorage.initialTime;
+    if(typeof( sessionStorage.initialTime) == "undefined" ||  sessionStorage.initialTime == 'null' || typeof(initialTime) == "undefined" || initialTime == 'null'){
         $("#stop").attr("disabled", "disabled");
         $("#start").removeAttr("disabled");
     }
@@ -67,16 +67,16 @@ function loadTimer(){
 }
 
 function initialDate(){
-    if(typeof(localStorage.initialTime) == "undefined" || localStorage.initialTime == 'null' || typeof(initialTime) == "undefined" || initialTime == 'null'){
+    if(typeof( sessionStorage.initialTime) == "undefined" ||  sessionStorage.initialTime == 'null' || typeof(initialTime) == "undefined" || initialTime == 'null'){
         startDate = new Date();
-        localStorage.start_time = startDate;
-        localStorage.initialTime =  startDate.getTime(startDate);
-        initialTime = localStorage.initialTime;
+         sessionStorage.start_time = startDate;
+         sessionStorage.initialTime =  startDate.getTime(startDate);
+        initialTime =  sessionStorage.initialTime;
     }
 }  
 
 function update(){
-    initialTime = localStorage.initialTime;
+    initialTime =  sessionStorage.initialTime;
 
     currentDate = new Date();
 
@@ -110,7 +110,7 @@ function clockStop() {
     var date = new Date();
 
     clearTimeout(timerId);
-    localStorage.initialTime = null;
+     sessionStorage.initialTime = null;
     $("#stop").attr("disabled", "disabled");
     $("#start").removeAttr("disabled");
     timerId = null
@@ -121,7 +121,7 @@ function clockStop() {
     $.ajax({
         url: '/jobtimes',
         data:{
-            start_time:localStorage.start_time,
+            start_time: sessionStorage.start_time,
             end_time:end_time,
             service:service,
             hours:h,
