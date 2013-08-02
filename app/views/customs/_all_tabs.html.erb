@@ -5,4 +5,7 @@
       <%= link_to (tab.name+" - #{tab.tab_type} "), new_custom_path(:tab => tab.id, :type => tab.tab_type) %>
     </li>
   <% end %>
+    <li>
+      <%= link_to "[+]New Tab", new_tab_customs_path(:type=> "Customer") %>
+    </li>
 </ul>
