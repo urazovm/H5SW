@@ -1,6 +1,6 @@
 SMO::Application.routes.draw do  
   get "settings/index"
-
+  
   resources :customs do
     collection do
       get :add_drop_values
@@ -73,7 +73,7 @@ SMO::Application.routes.draw do
 
   get "dashboards/index"
 
-  devise_for :companies
+  devise_for :companies, :controllers => {:sessions => 'sessions'}
 
   authenticated :company do
     root :to => "dashboards#index"
@@ -86,8 +86,39 @@ SMO::Application.routes.draw do
   unauthenticated :company do
     devise_scope :company do
       get "/" => "devise/sessions#new"
+      post "api/sign_in", :to => "api/sessions#create"
+      delete "api/sign_out", :to => "api/sessions#destroy"
+      post "api/sign_up", :to => "api/registrations#create"
+      get "sign_out", :to => "devise/sessions#destroy", :as => "logout"
     end
   end
+
+
+  # routes for api
+  namespace :api do
+    resources :dashboards
+    resources :contacts 
+    resources :jobs do
+      member do
+        put :close_job
+      end
+    end
+    resources :customs do
+      collection do
+        post  :create_tab
+      end
+      member do
+        put   :update_tab
+        put   :update_dropdown_values
+        put   :update_dropdown
+        put   :update_status
+      end
+    end
+  end
+
+  # end of routes for api
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

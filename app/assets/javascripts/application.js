@@ -272,9 +272,9 @@ $(document).ajaxStop(function(){
     $('#ajax_loader_big_div').hide();
 });
 
-function inplace_edit(id, type){
+function inplace_edit(id){
     $.ajax({
-        url:'/customs/'+id+'/edit?type='+type,
+        url:'/customs/'+id+'/edit',
         type: 'GET'
     });
 }

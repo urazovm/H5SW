@@ -24,7 +24,7 @@ class CustomsController < ApplicationController
     @custom = current_login.customs.new
   end
 
-  def create
+  def create 
     display_this_in_new_and_create
     #all the parameters from new form
     @custom = current_login.customs.new(params[:custom])
@@ -57,11 +57,13 @@ class CustomsController < ApplicationController
     end
   end
 
+  # edit your label
   def edit
     @custom = Custom.find(params[:id])
     @dropdown_values = DropdownValue.find_by_custom_id_and_company_id(params[:id], current_login.id)
   end
 
+  # update your label
   def update
     @custom = Custom.find(params[:id])
     if @custom.update_attributes(params[:custom])
@@ -77,6 +79,7 @@ class CustomsController < ApplicationController
     render
   end
 
+  # update textfield, or calendar values  
   def update_dropdown_values
     @custom = Custom.find(params[:dropdown_value][:custom_id])
     @drop_downvalue = current_login.dropdown_values.find(params[:id])
@@ -115,6 +118,7 @@ class CustomsController < ApplicationController
     @customs = Custom.where("tab_id=? AND company_id=? AND status=?", params[:tab].to_i, current_login.id, true).order('position asc')
   end
 
+  # update the position of the custom fields
   def update_position
     @custom = Custom.find(params[:id])
     if params[:pos_1] != params[:pos_2]
@@ -147,7 +151,7 @@ class CustomsController < ApplicationController
     @tab = Tab.new(params[:tab])
 
     if @tabs && @tabs.count >= 2
-      flash[:error] = "sorry"
+      flash[:error] = "sorry cannot create more tabs"
       render 'new_tab'
     else
       if @tab.save
@@ -160,7 +164,7 @@ class CustomsController < ApplicationController
   end
 
   def update_tab
-     @tabs = current_login.tabs.order("created_at asc")
+    @tabs = current_login.tabs.order("created_at asc")
     @tab = Tab.find(params[:id])
     @tab.update_attribute(:name, params[:updated_name])
   end

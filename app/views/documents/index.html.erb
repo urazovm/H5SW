@@ -1,4 +1,7 @@
+<% if params[:controller]=="documents" && params[:type]=="Customer"  %>
+<% else %>
 <%= render '/layouts/timer' %>
+<% end %>
 
 <% if params[:type] == 'Customer' %>
 <%= gmaps4rails(@json) %><br/><br/>

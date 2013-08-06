@@ -55,8 +55,7 @@ class ContactsController < ApplicationController
     @business2 = params[:contact][:business2]
     @business3 = params[:contact][:business3]
     @business4 = params[:contact][:business4]
-    if @contact.update_attributes(params[:contact])
-      
+    if @contact.update_attributes(params[:contact])     
       @update_status = true
     else
       @update_status = false

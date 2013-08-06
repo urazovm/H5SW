@@ -1,7 +1,10 @@
-<%= render '/layouts/timer' %>
+<% if params[:controller]=="notes" && params[:type]=="Customer" %>
+<% else %>
+  <%= render '/layouts/timer' %>
+<% end %>
 
 <% if params[:type]== 'Customer' %>
-<%= gmaps4rails(@json) %><br/><br/>
+  <%= gmaps4rails(@json) %><br/><br/>
 <% else %>
 <% end %>
 <br/><br/>

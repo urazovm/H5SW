@@ -39,7 +39,7 @@
   <% customs.each do |custom| %>
     <li class="ui-state-default" data-order="<%= custom.id %>" id="li<%= custom.id %>">
       <span id="label<%= custom.id %>">
-        <%= label_tag custom.name, nil, :id=> "label#{custom.id}", :onclick => "inplace_edit(#{custom.id}, 'label');" %>
+        <%= label_tag custom.name, nil, :id=> "label#{custom.id}", :onclick => "inplace_edit(#{custom.id});" %>
       </span>
       <div id="custom_field_updation_<%= custom.id %>">
         <%= render :partial => 'customs/replace_dropdown',:locals => {:custom => custom} %>

@@ -3,12 +3,12 @@ class Company < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :phone_number
   validates :name, :presence => true, :uniqueness => true
-  validates :phone_number, :presence =>true,:numericality => {:only_integer => true, :message => "Please Enter Valid Phone Number" }
+  validates :phone_number, :presence =>true, :numericality => {:only_integer => true, :message => "Please Enter Valid Phone Number" }
 
   has_many :customers
   has_many :jobs
@@ -23,4 +23,6 @@ class Company < ActiveRecord::Base
   has_many :jobtimes
   has_many :tabs
   has_many :dropdown_values
+
+  before_save :ensure_authentication_token
 end
