@@ -6,7 +6,7 @@ class Company < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :phone_number
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :name, :phone_number, :access_token, :access_secret, :realm_id
   validates :name, :presence => true, :uniqueness => true
   validates :phone_number, :presence =>true,:numericality => {:only_integer => true, :message => "Please Enter Valid Phone Number" }
 

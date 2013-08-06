@@ -29,7 +29,15 @@ SMO::Application.routes.draw do
     end
   end
 
-  resources :settings
+  resources :settings do
+    collection do 
+      get :accounting
+      match :authenticate
+      match :oauth_callback
+      match :dis_quickbooks
+      match :bluedot
+    end
+  end
 
   resources :roles
   
