@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs" id="myTab">
-  <li class>
-    <%= link_to_function "Accounting", "alert('coming soon!'); return false;", :title => "list accounting" %>
+  <li class="<%= (params[:controller] == "settings" && params[:action] == "accounting") ? "active" : "" %>">
+    <%= link_to "Accounting", accounting_settings_path, :title => "list accounting" %>
   </li>
 
   <li class=<%= params[:controller] == "users" ? 'active' : ''  %>>
