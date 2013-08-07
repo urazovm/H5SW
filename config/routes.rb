@@ -104,6 +104,25 @@ SMO::Application.routes.draw do
 
   # routes for api
   namespace :api do
+    resources :customers
+    resources :jobsites
+    resources :notes
+    resources :documents
+
+    resources :items do
+      collection do
+        get :autocomplete_items
+        get :create_inventory
+      end
+    end
+    resources :inventories
+    resources :jobtimes do
+      collection do
+        post :jobtime_shedule
+      end
+    end
+
+
     resources :dashboards
     resources :contacts 
     resources :jobs do
@@ -123,10 +142,8 @@ SMO::Application.routes.draw do
       end
     end
   end
-
+  
   # end of routes for api
-
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
