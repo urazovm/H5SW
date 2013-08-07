@@ -82,9 +82,35 @@ SMO::Application.routes.draw do
   unauthenticated :company do
     devise_scope :company do
       get "/" => "devise/sessions#new"
+      post "api/sign_in", :to => "api/sessions#create"
+      delete "api/sign_out", :to => "api/sessions#destroy"
+      post "api/sign_up", :to => "api/registrations#create"
+    end
+  end
+  
+  
+  namespace :api do
+    resources :customers 
+    resources :jobsites 
+    resources :notes
+    resources :documents 
+    
+    resources :items do
+      collection do
+      get :autocomplete_items
+      get :create_inventory
+      end
+    end
+    
+    resources :inventories 
+    resources :jobtimes do
+      collection do
+        post :jobtime_shedule
+      end
     end
   end
 
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
