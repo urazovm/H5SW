@@ -1,0 +1,15 @@
+<%= render :partial => "layouts/tabs_for_settings" %>
+<% if current_login.access_token.nil? && current_login.access_secret.nil? && current_login.realm_id.nil? %>
+<!-- somewhere in your document include the Javascript -->
+<script type="text/javascript" src="https://appcenter.intuit.com/Content/IA/intuit.ipp.anywhere.js"></script>
+
+<!-- configure the Intuit object: 'grantUrl' is a URL in your application which kicks off the flow, see below -->
+<script>
+  intuit.ipp.anywhere.setup({menuProxy: '/path/to/blue-dot', grantUrl: "<%= authenticate_settings_url %>"});
+</script>
+
+<!-- this will display a button that the user clicks to start the flow -->
+<ipp:connectToIntuit></ipp:connectToIntuit>
+<% else %>
+<%= button_to "Disconnect from Quickbooks", {:controller => "settings", :action => "dis_quickbooks"} %>
+<% end %>

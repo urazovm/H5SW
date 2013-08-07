@@ -5,18 +5,18 @@ class CustomsController < ApplicationController
   
   def index
     if params[:type].present? && params[:type] =="Job"
-      @default_tab = (params[:tab] ? params[:tab] : Tab.find_by_tab_type("Job").id)
+      @default_tab = (params[:tab] ? params[:tab] : current_login.tabs.find_by_tab_type("Job").id)
     else
-      @default_tab = (params[:tab] ? params[:tab] : Tab.first.id)
+      @default_tab = (params[:tab] ? params[:tab] : current_login.tabs.first.id)
     end
 
-    @tabs = Tab.where("tab_type=?", params[:type]).order("created_at asc")
+    @tabs = current_login.tabs.where("tab_type=?", params[:type]).order("created_at asc")
     @customs = Custom.where("tab_id=? and company_id=? and status=?", @default_tab.to_i, current_login.id, true).order('position asc')
   end
 
   def display_this_in_new_and_create
-    @tabs = Tab.order("created_at asc")
-    @tab = Tab.find(params[:tab])
+    @tabs = current_login.tabs.order("created_at asc")
+    @tab = current_login.tabs.find(params[:tab])
   end
 
   def new
@@ -44,11 +44,11 @@ class CustomsController < ApplicationController
     if @custom.save
       
       #update tab name
-      @change_tab_name = Tab.find(params[:tab])
+      @change_tab_name = current_login.tabs.find(params[:tab])
       @change_tab_name.update_attributes(:name => params[:tab_name])
       
       #save values for textbox, dropdown or calendar
-      DropdownValue.create(:custom_id => @custom.id, :drop_value => params[:drop_down_value])
+      DropdownValue.create(:custom_id => @custom.id, :company_id => @custom.company_id, :drop_value => params[:drop_down_value])
 
       flash[:notice] = "Custom field created successfully."
       redirect_to new_custom_path(:tab => @tab.id, :type => @tab.tab_type)
@@ -59,7 +59,7 @@ class CustomsController < ApplicationController
 
   def edit
     @custom = Custom.find(params[:id])
-    @dropdown_values = DropdownValue.find_by_custom_id(params[:id])
+    @dropdown_values = DropdownValue.find_by_custom_id_and_company_id(params[:id], current_login.id)
   end
 
   def update
@@ -73,13 +73,13 @@ class CustomsController < ApplicationController
 
   def get_dropdown_values
     @custom = Custom.find(params[:custom_id])
-    @drop_downvalue = DropdownValue.find(params[:dropdown_id])
+    @drop_downvalue = current_login.dropdown_values.find(params[:dropdown_id])
     render
   end
 
   def update_dropdown_values
     @custom = Custom.find(params[:dropdown_value][:custom_id])
-    @drop_downvalue = DropdownValue.find(params[:id])
+    @drop_downvalue = current_login.dropdown_values.find(params[:id])
     @drop_downvalue.update_attributes(params[:dropdown_value])
     render
   end
@@ -101,12 +101,12 @@ class CustomsController < ApplicationController
   def edit_dropdown
     @custom_id = params[:cus_id]
     @custom = Custom.find(params[:cus_id])
-    @dropdown_values =  DropdownValue.find_by_custom_id(params[:cus_id]).drop_value
+    @dropdown_values =  DropdownValue.find_by_custom_id_and_company_id(params[:cus_id], current_login.id).drop_value
   end
 
   def update_dropdown
     @custom = Custom.find(params[:id])
-    @dropdown_value = DropdownValue.find_by_custom_id(params[:id])
+    @dropdown_value = DropdownValue.find_by_custom_id_and_company_id(params[:id], current_login.id)
     @dropdown_value.update_attribute(:drop_value, params[:dropdown_value])
   end
   #end of updation of update dropdown values
@@ -135,4 +135,34 @@ class CustomsController < ApplicationController
       format.js
     end
   end
+
+  # actions for creating tabs
+  def new_tab
+    @tabs = current_login.tabs.where("tab_type=?", params[:type]).order("created_at asc")
+    @tab = Tab.new
+  end
+
+  def create_tab
+    @tabs = current_login.tabs.where("tab_type=?", params[:type]).order("created_at asc")
+    @tab = Tab.new(params[:tab])
+
+    if @tabs && @tabs.count >= 2
+      flash[:error] = "sorry"
+      render 'new_tab'
+    else
+      if @tab.save
+        flash[:notice] = "Custom Tab for #{params[:type]} created successfully"
+        redirect_to new_tab_customs_path(:type=> params[:type])
+      else
+        render 'new_tab'
+      end
+    end
+  end
+
+  def update_tab
+     @tabs = current_login.tabs.order("created_at asc")
+    @tab = Tab.find(params[:id])
+    @tab.update_attribute(:name, params[:updated_name])
+  end
+  # end of the action for creating tabs
 end

@@ -7,9 +7,12 @@ SMO::Application.routes.draw do
       put :update_position
       get :get_dropdown_values
       get :edit_dropdown
+      get :new_tab
+      post :create_tab
     end
 
     member do
+      put :update_tab
       put :update_dropdown_values
       put :update_dropdown
       put :update_status
@@ -26,7 +29,15 @@ SMO::Application.routes.draw do
     end
   end
 
-  resources :settings
+  resources :settings do
+    collection do 
+      get :accounting
+      match :authenticate
+      match :oauth_callback
+      match :dis_quickbooks
+      match :bluedot
+    end
+  end
 
   resources :roles
   
@@ -69,6 +80,7 @@ SMO::Application.routes.draw do
   match 'users/create' => "users#create",:as => :create_user
 
   get "dashboards/index"
+
   devise_for :companies
 
   authenticated :company do

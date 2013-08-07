@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130801071950) do
-
+ActiveRecord::Schema.define(:version => 20130805110306) do
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
@@ -33,6 +32,9 @@ ActiveRecord::Schema.define(:version => 20130801071950) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "authentication_token"
+    t.string   "access_token"
+    t.string   "access_secret"
+    t.string   "realm_id"
   end
 
   add_index "companies", ["confirmation_token"], :name => "index_companies_on_confirmation_token", :unique => true
@@ -111,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20130801071950) do
     t.integer  "custom_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "inventories", :force => true do |t|
@@ -237,9 +240,9 @@ ActiveRecord::Schema.define(:version => 20130801071950) do
   create_table "tabs", :force => true do |t|
     t.string   "name"
     t.string   "tab_type"
-    t.integer  "position"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "company_id"
   end
 
   create_table "users", :force => true do |t|

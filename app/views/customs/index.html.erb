@@ -4,6 +4,10 @@
     overflow: hidden;
   }
 </style>
+<% if params[:controller]=="customs" && params[:type]=="Customer" %>
+<% else %>
+  <%= render '/layouts/timer' %>
+<% end %>
 
 <%= render '/layouts/customer_with_action' %>
 
@@ -19,10 +23,10 @@
       <%= link_to tab.name, customs_path(:type => params[:type], :tab => tab.id) %>
     </li>
   <% end %>
-    <li>
+  <li>
     <% tab = (params[:tab] ? params[:tab] : 'tab1') %>
     <%= link_to "Add Fields", new_custom_path(:tab => @default_tab, :type => params[:type]) %>
   </li>
 </ul>
-  
+
 <%=  render :partial => 'customs', :locals => {:customs => @customs} %>
