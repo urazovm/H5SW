@@ -1,4 +1,3 @@
 <script type="text/javascript">
-  alert("Qb Auth Successful");
-  top.window.location.href = "<%= accounting_settings_path %>";
+  window.opener.location.reload(true);self.close();
 </script>
