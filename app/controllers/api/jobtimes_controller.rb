@@ -11,9 +11,7 @@ class Api::JobtimesController < Api::BaseController
     end
   end
  
-  
-  #curl -X POST -d 'jobtime[user]=sowmya&jobtime[timetype]=Scheduled Time&jobtime[start_time]=2013-08-06 07:01:00 &jobtime[qty]=2&jobtime[service]=89&jobtime[billable]=true&jobtime[customer_id]=64&jobtime[jobsite_id]=39&jobtime[job_id]=241&api_key=ypVSipVXC2Yd377jz58A' http://localhost:3000/api/jobtimes/jobtime_shedule.json
-  #curl -X POST -d 'jobtime[user]=sowmya&jobtime[timetype]=Scheduled Time&jobtime[start_time]=2013-08-06 07:01:00 &jobtime[qty]=2&jobtime[service]=89&jobtime[billable]=true&jobtime[customer_id]=64&jobtime[jobsite_id]=39&jobtime[job_id]=241&api_key=ypVSipVXC2Yd377jz58A' http://localhost:3000/api/jobtimes/jobtime_shedule.xml
+#curl -X POST -d 'jobtime[timetype]=Scheduled Time&jobtime[qty]=2&jobtime[user]=Amrutha&jobtime[service]=11&jobtime[job_id]=103&jobtime[customer_id]=37&jobtime[start_time]=2013-08-10 09:07:00&jobtime[end_time]=2013-08-10 11:07:00&jobtime[billable]=true&api_key=HKp1jVJ2Ypsj3tnyy6oA' http://localhost:3000/api/jobtimes/jobtime_shedule.json
   def jobtime_shedule
     @jobtime = Jobtime.new(params[:jobtime])
 
@@ -32,7 +30,7 @@ class Api::JobtimesController < Api::BaseController
     else
       @jobtime.price = 0
     end
-
+    puts @jobtime.errors.inspect
     if @jobtime.save
       response_message = {:message => "Time was scheduled successfully.",:jobtime => @jobtime }
     else

@@ -13,7 +13,7 @@ class Customer < ActiveRecord::Base
   has_many :jobtimes
 
 
-  validates:company_name, :presence => true
+  validates:company_name,:city, :state, :zip, :presence => true
 
   validates :account, :uniqueness => true
   before_save :make_phone

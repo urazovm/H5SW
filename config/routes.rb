@@ -91,6 +91,14 @@ SMO::Application.routes.draw do
     root :to => "dashboards#index"
   end
 
+  unauthenticated :user do
+    devise_scope :user do
+      post "api/users/sign_in", :to => "api/users_sessions#create"
+      delete "api/users/sign_out", :to => "api/users_sessions#destroy"
+      post "api/users/sign_up", :to => "api/registrations#users_create"
+    end
+  end
+  
   unauthenticated :company do
     devise_scope :company do
       get "/" => "devise/sessions#new"
@@ -100,7 +108,6 @@ SMO::Application.routes.draw do
       get "sign_out", :to => "devise/sessions#destroy", :as => "logout"
     end
   end
-
 
   # routes for api
   namespace :api do

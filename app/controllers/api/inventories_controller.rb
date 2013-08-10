@@ -20,7 +20,7 @@ class Api::InventoriesController < Api::BaseController
     @inventory.company_id = current_company.id
      @inventory.subtotal = (params[:inventory][:qty].to_f*@inventory.unit_price) if params[:inventory][:qty].present?
     if @inventory.save
-      response_message = { :message => "items created successfully" ,:inventory => @inventory}
+      response_message = { :message => "Item was created successfully." ,:inventory => @inventory}
     else
       response_message = { :message => "Please try again."}
     end

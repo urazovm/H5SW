@@ -14,12 +14,13 @@ class Api::DocumentsController < Api::BaseController
   
   # curl -X POST -F document=/home/rails/Documents/smo/SMO-23jun13.pdf -F 'document[documentable_type]=Job&api_key=ypVSipVXC2Yd377jz58A'  http://localhost:3000/api/documents.json
   def create
-   @document = current_company.documents.new(params[:documents])
+   @document = current_company.documents.new(params[:document])
     if @document.save
       response_message = {:message => "Document uploaded successfully.", :document => @document}
     else
       response_message = {:message => "Please Try Again."}
     end
+    puts @document.errors.inspect
     respond_to do |format|
       format.xml{ render :xml => response_message }
       format.json{ render :json => response_message }
