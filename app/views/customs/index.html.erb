@@ -23,10 +23,34 @@
       <%= link_to tab.name, customs_path(:type => params[:type], :tab => tab.id) %>
     </li>
   <% end %>
-  <li>
-    <% tab = (params[:tab] ? params[:tab] : 'tab1') %>
-    <%= link_to "Add Fields", new_custom_path(:tab => @default_tab, :type => params[:type]) %>
-  </li>
 </ul>
 
-<%=  render :partial => 'customs', :locals => {:customs => @customs} %>
+<%#= Just display all the custom fields matching search criteria %>
+
+<ul id="sortable" class="droptrue">
+  <h5 style="margin-top:0px; background: #666; color: #FFF; padding:5px;">
+    <%= "List of custom fields for #{params[:type]}" %>
+  </h5>
+  <%=  @customs.count==0 ? "No custom fields are created yet. Create your custom fields now!" : '' %>
+  <% @customs.each do |custom| %>
+    <li class="ui-state-default" id="li<%= custom.id %>">
+      <span id="label<%= custom.id %>">
+        <%= label_tag custom.name, nil, :id=> "label#{custom.id}" %>
+      </span>
+      <div id="custom_field_updation_<%= custom.id %>">
+        <% @value = DropdownValue.find_by_custom_id_and_company_id(custom.id, current_login.id) %>
+        <% if custom.field == "Text Box" %>
+          <%= text_field_tag "textField",{}, :value => @value ? @value.drop_value : "" %>
+        <% elsif custom.field == "Dropdown List" %>
+          <% dropvalue = DropdownValue.find_by_custom_id_and_company_id(custom.id, current_login.id).drop_value.split(',').each %>
+          <%= select_tag "dropdownField", options_for_select(dropvalue.each do |drop|[drop] end), :style => "width: 436px" %>
+        <% elsif custom.field == "Calendar" %>
+          <%= text_field_tag "calendar", nil, :value => @value ? @value.drop_value : "", :class => 'data' %>&nbsp;
+          <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer;", :id => "calendar_icon", :class => "datepicker"%>
+        <% else %>
+          ''
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>

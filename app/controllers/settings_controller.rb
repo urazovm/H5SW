@@ -1,7 +1,9 @@
 class SettingsController < ApplicationController
-   before_filter :is_login?
+  before_filter :is_login?
   before_filter :access_role?
+  
   def index
+    
   end
   
   def accounting
@@ -35,9 +37,9 @@ class SettingsController < ApplicationController
   def dis_quickbooks
     if signed_in?
       current_login.update_attributes({
-          :access_token => " ",
-          :access_secret => " ",
-          :realm_id => " "
+          :access_token => nil,
+          :access_secret => nil,
+          :realm_id => nil
         })
       redirect_to accounting_settings_path
     end

@@ -1,7 +1,7 @@
 require 'oauth'
 
-QB_KEY = "qyprdutWkaEu4IVlgcjBVUmv8k38Tc"
-QB_SECRET = "u5DWQIDBcmNDyN1MCkUxmPyD2MoynOvgKlyay9mI"
+QB_KEY = "qyprdwinkpyxSyzmkxQPPomFSsidiN"
+QB_SECRET = "mBtHNGM8EcUjG411cELzo51NNdHqCzxBjJaBeKbG"
 
 $qb_oauth_consumer = OAuth::Consumer.new(QB_KEY, QB_SECRET, {
     :site                 => "https://oauth.intuit.com",

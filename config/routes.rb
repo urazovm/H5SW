@@ -1,6 +1,8 @@
 SMO::Application.routes.draw do  
   get "settings/index"
-  
+
+  resources :quickbooks
+
   resources :customs do
     collection do
       get :add_drop_values

@@ -15,8 +15,8 @@ class CustomsController < ApplicationController
   end
 
   def display_this_in_new_and_create
-    @tabs = current_login.tabs.order("created_at asc")
-    @tab = current_login.tabs.find(params[:tab])
+    @tabs = current_login.tabs.where("tab_type=? OR tab_type=?", "Customer", "Job").order("created_at asc")
+    @tab = current_login.tabs.find_by_id(params[:tab])
   end
 
   def new

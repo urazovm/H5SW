@@ -42,7 +42,6 @@ class InventoriesController < ApplicationController
     end
   end
 
-
   def destroy
     @inventory = Inventory.find(params[:id])
     if @inventory.destroy

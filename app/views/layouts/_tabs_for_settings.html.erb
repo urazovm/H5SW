@@ -11,7 +11,7 @@
     <%= link_to "Roles", roles_path, :title => "list roles" %>
   </li>
 
-  <li class="<%= (params[:controller] == "customs" && params[:action] == "new" )? 'active' : '' %>" >
+  <li class="<%= (params[:controller] == "customs" && (params[:action] == "new" || params[:action]=="new_tab") )? 'active' : '' %>" >
     <% tab = current_login.tabs.first %>
     <% if tab.present? %>
       <%= link_to "Custom Fields", new_custom_path(:tab => tab.id, :type => tab.tab_type), :title => "custom page" %>

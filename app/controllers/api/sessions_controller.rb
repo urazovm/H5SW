@@ -2,7 +2,7 @@ class Api::SessionsController < Devise::SessionsController
   skip_before_filter :verify_authenticity_token
   
   
-  #curl -X POST -d 'company[email]=SMO@gmail.com&company[password]=123123123' http://localhost:3000/api/sign_in.json
+  # curl -X POST -d 'type="Company"&company[email]=SMO@gmail.com&company[password]=123123123' http://localhost:3000/api/sign_in.json
   def create
     resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
     sign_in(resource_name, resource)
