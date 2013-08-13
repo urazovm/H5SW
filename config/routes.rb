@@ -52,6 +52,10 @@ SMO::Application.routes.draw do
       get :job_pdf
       put :close_job
     end
+    
+    collection do
+      get :my_jobs
+    end
 
   end
 

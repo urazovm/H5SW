@@ -13,6 +13,13 @@
 
 */
 
+/* style for search filter */
+#my_job > select {
+    margin-left: 260px;
+    margin-top: -55px;
+}
+/* end style for search filter */
+
 /* Drag and drop css */
 #sortable{
     list-style-type: none;

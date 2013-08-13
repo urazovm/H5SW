@@ -27,7 +27,7 @@ class Api::DocumentsController < Api::BaseController
     end
   end
   
-  #curl -X DELETE -d 'api_key=ypVSipVXC2Yd377jz58A' http://localhost:3000/api/documents/id.json
+#curl -X POST -F api_key="3GCwifyMXudbS9UpBAyc" -F document[documentable_type]="Job" -F document[document]=@"/home/rails/Documents/SMO-23jun13.pdf" http://localhost:3000/api/documents.json
   def destroy
     @document = Document.find(params[:id])
     if @document.destroy

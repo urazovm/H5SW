@@ -5,7 +5,7 @@ class Api::UsersSessionsController < Devise::SessionsController
     sign_in(resource_name, resource)
     respond_to do |format|
       format.json {
-        return render :json => { :authentication_token => resource.authentication_token, :company_id => resource.id }, :status => :created
+        return render :json => { :authentication_token => resource.authentication_token, :user_id => resource.id }, :status => :created
       }
     end
   end

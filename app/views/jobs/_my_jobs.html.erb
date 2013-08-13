@@ -1,0 +1,36 @@
+<table class="table">
+  <table class="table table-striped">
+    <tr>
+      <th colspan="5">
+        <%= link_to "Add New Job", new_job_path %>
+      </th>
+    </tr>
+    <tr>
+      <th>Reference no</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Summary</th>
+      <th >Action</th>
+    </tr>
+
+    <% @jobs.each do |job| %>
+      <tr>
+        <td><%= link_to  job.reference_no, edit_job_path(job) %></td>
+        <td><%= job.due_date %></td>
+        <td><%= job.status %></td></div>
+        <td><%= job.summary %></td>
+        <td>
+          <%= link_to "Delete", job, :method => :delete, :confirm => 'Are you sure?', :class => "btn btn-mini btn-danger" %>
+          <%= job.status == 'closed' ? " " : (link_to "close",close_job_job_path(job), :method => :put, :remote => true, :class => "btn btn-mini btn-primary") %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="6">
+        <%= will_paginate @jobs %>
+      </td>
+    </tr>
+  </table>
+</table>
+
+ 

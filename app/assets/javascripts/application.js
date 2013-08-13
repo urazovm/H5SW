@@ -325,3 +325,74 @@ function getJobsitesId(s){
         }
     });
 }
+
+$(function () {
+    $('#jobs_search').submit(function () {
+    $.get(this.action, $(this).serialize(), null, 'script');
+    return false;
+  });
+});
+
+
+$(function() {
+  $("#jobs_search input").keyup(function() {
+    $.get($("#jobs_search").attr("action"), $("#jobs_search").serialize(), null, "script");
+    return false;
+  });
+});
+
+
+$(function () {
+    $('#customers_search').submit(function () {
+    $.get(this.action, $(this).serialize(), null, 'script');
+    return false;
+  });
+});
+
+
+$(function() {
+  $("#customers_search input").keyup(function() {
+    $.get($("#customers_search").attr("action"), $("#customers_search").serialize(), null, "script");
+    return false;
+  });
+});
+
+$(function () {
+    $('#contacts_search').submit(function () {
+    $.get(this.action, $(this).serialize(), null, 'script');
+    return false;
+  });
+});
+
+
+$(function() {
+  $("#contacts_search input").keyup(function() {
+    $.get($("#contacts_search").attr("action"), $("#contacts_search").serialize(), null, "script");
+    return false;
+  });
+});
+
+
+function reload_with_new_param(param, value){
+    var per_page_added = false;
+    var url = window.location.href;
+    var base_url = window.location.href.indexOf('?') > 0 ? window.location.href.split("?")[0] :  window.location.href
+    var new_params = "";
+    var params = window.location.href.indexOf('?') > 0 ? window.location.href.split("?")[1] : ""
+    if(params != ""){
+        var parts = params.indexOf('&') > 0 ? params.split("&") : new Array(params)
+        for (var i = 0; i < parts.length; i++ )
+        {
+            if( parts[i].split("=")[0] == param){
+                per_page_added = true
+                new_params = new_params + (new_params == 0 ? "?"+param+"="+value : "&"+param+"="+value)
+            }else{
+                if(parts[i].split("=")[0] != param){
+                    new_params = new_params + (new_params == 0 ? "?"+parts[i] : "&"+parts[i])
+                }
+            }
+        }
+        new_params = !per_page_added ? (new_params != 0 ? new_params+"&"+param+"="+value : "?+param+"+value ) : new_params
+    }
+    window.location.href = base_url + (new_params == 0 ? "?"+param+"="+value : new_params)
+}

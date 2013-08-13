@@ -1,0 +1,39 @@
+ <table class="table">
+  <table class="table table-striped" >
+    <tr>
+      <th colspan="9">
+        <%= link_to "Add New", new_customer_path %>
+      </th>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Contact</th>
+      <th>Email</th>
+      <th>Jobs</th>
+      <th>Options</th> 
+    </tr>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= link_to  customer.company_name, edit_customer_path(customer) %></td>
+        <td><%= customer.types %></td>
+        <td>
+          <% customer.contact_id ? contact = Contact.find(customer.contact_id) : '' %>
+          <%= contact ? contact.name : '-' %>
+        </td>
+        <td><%= contact ? contact.email : '-' %> </td>
+        <td style="text-align: center;"><%= customer.id ? Job.where("customer_id=?", customer.id).count : '0' %> </td>
+        <td>
+          <%= link_to image_tag("add_contact.png", :title => "Add Contact", :width => "24px", :height => "24px"), new_contact_path(:cust_id => customer) %>
+          |<%= link_to image_tag("add_jobsite.png", :title => "Add Job Site", :width => "24px", :height => "24px"), new_jobsite_path(:cust_id => customer) %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="6">
+        <%= will_paginate @customers %>
+      </td>
+    </tr>
+  </table>
+</table>
+
