@@ -1,5 +1,5 @@
 <%= render :partial => "layouts/tabs_for_settings" %>
-<% if current_login.access_token.nil? && current_login.access_secret.nil? && current_login.realm_id.nil? %>
+<% if current_login.access_token.blank? && current_login.access_secret.blank? && current_login.realm_id.blank? %>
 <!-- somewhere in your document include the Javascript -->
 <script type="text/javascript" src="https://appcenter.intuit.com/Content/IA/intuit.ipp.anywhere.js"></script>
 

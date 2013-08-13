@@ -32,10 +32,10 @@ ActiveRecord::Schema.define(:version => 20130809100032) do
     t.string   "phone_number"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.string   "authentication_token"
     t.string   "access_token"
     t.string   "access_secret"
     t.string   "realm_id"
+    t.string   "authentication_token"
   end
 
   add_index "companies", ["confirmation_token"], :name => "index_companies_on_confirmation_token", :unique => true
