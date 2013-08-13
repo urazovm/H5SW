@@ -2,9 +2,9 @@ class Api::JobtimesController < Api::BaseController
   before_filter :is_login?
   skip_before_filter :verify_authenticity_token
   
-  #curl -X GET -d 'api_key=ypVSipVXC2Yd377jz58A' http://localhost:3000/api/jobtimes.json
+  #curl -X GET -d 'job_id=248&api_key=XYBxz9Fyxx5pWwQsoE1a' http://localhost:3000/api/jobtimes.xml
   def index
-    @jobtimes = current_company.jobtimes.all
+    @jobtimes = current_company.jobtimes.find_all_by_job_id(params[:job_id])
     respond_to do |format|
       format.xml {render :xml => @jobtimes }
       format.json { render :json => @jobtimes }

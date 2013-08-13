@@ -5,7 +5,17 @@ class Api::JobsController < Api::BaseController
   # List of Jobs
   # curl -X GET -d 'api_key=E7tDAFxoiqneXMuhfpaq' http://localhost:3000/api/jobs.json
   def index
-    @jobs = current_company.jobs
+   if params[:my_job] == 'all jobs'
+      @jobs = search_by_session(current_login.jobs.search(params[:search])).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
+    elsif params[:my_job]== 'unassigned jobs'
+      @jobs = search_by_session(current_login.jobs.search(params[:search]).where(:assigned_to => "NULL")).paginate(:per_page => 10, :page => params[:page])
+    elsif params[:my_job] == 'my jobs'
+      @jobs = search_by_session(current_login.jobs.search(params[:search]).where("status='open' AND assigned_to != 'NULL'")).paginate(:per_page => 10, :page => params[:page])
+    elsif params[:my_job] == 'closed jobs'
+      @jobs = search_by_session(current_login.jobs.search(params[:search]).where(:status => "closed")).paginate(:per_page => 10, :page => params[:page])
+    else
+      @jobs = search_by_session(current_login.jobs.search(params[:search])).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
+    end
 
     respond_to do |format|
       format.xml {render :xml => @jobs}

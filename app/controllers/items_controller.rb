@@ -37,10 +37,10 @@ class ItemsController < ApplicationController
     if @items
       for item in @items
         if Inventory.exists?(:name => item.name, :company_id => current_login.id, :customer_id => session[:customer_id], :job_id => session[:job_id], :jobsite_id => session[:jobsite_id])
-          @inventories = current_login.inventories
+          @inventories = current_login.inventories.find_all_by_job_id(session[:job_id])
         else
           Inventory.create(:itemtype => item.itemtype,:qty => item.qty,:name => item.name, :number => item.number, :description => item.description, :unit_price => item.unit_price, :unit_cost => item.unit_cost, :company_id => current_login.id, :job_id => session[:job_id], :jobsite_id => session[:jobsite_id], :customer_id => session[:customer_id], :subtotal => (item.qty.nil? || item.unit_price.nil?) ? " " : (item.qty.to_f*item.unit_price.to_f) )
-          @inventories = current_login.inventories
+          @inventories = current_login.inventories.find_all_by_job_id(session[:job_id])
         end
       end      
     end

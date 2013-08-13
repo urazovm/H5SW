@@ -5,7 +5,7 @@ class Api::InventoriesController < Api::BaseController
   #curl -X GET -d 'api_key=ypVSipVXC2Yd377jz58A' http://localhost:3000/api/inventories.json
   #curl -X GET -d 'api_key=ypVSipVXC2Yd377jz58A' http://localhost:3000/api/inventories.xml
   def index
-    @inventories = current_company.inventories.all
+    @inventories = current_company.inventories.find_all_by_job_id(params[:job_id])
     respond_to do |format|
       format.xml{ render :xml => @inventories }
       format.json{ render :json => @inventories }
