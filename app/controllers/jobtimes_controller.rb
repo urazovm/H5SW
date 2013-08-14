@@ -4,7 +4,8 @@ class JobtimesController < ApplicationController
   before_filter :find_users_by_role, :only => ["new", "create", "update", "edit"]
 
   def index
-    @jobtimes = current_login.jobtimes.paginate(:per_page =>10, :page => params[:page])
+    #@jobtimes = current_login.jobtimes.paginate(:per_page =>10, :page => params[:page])
+    @jobtimes = current_login.jobtimes.find_all_by_job_id(session[:job_id])
   end
 
   def new

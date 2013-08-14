@@ -25,12 +25,7 @@
       <td><%= jobtime.service != nil ? Item.find(jobtime.service).name : '' %></td>
     </tr>
   <% end %>
-  <tr>
-    <td colspan ="5">
-      <%= will_paginate %>
-    </td>
-  </tr>
-
+  
 </table>
 
 

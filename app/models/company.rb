@@ -21,8 +21,6 @@ class Company < ActiveRecord::Base
   has_many :customs
   has_many :inventories
   has_many :jobtimes
-  
-  before_save :ensure_authentication_token
   has_many :tabs
   has_many :dropdown_values
 

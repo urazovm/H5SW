@@ -5,7 +5,7 @@ class Api::InventoriesController < Api::BaseController
   #curl -X GET -d 'api_key=ypVSipVXC2Yd377jz58A' http://localhost:3000/api/inventories.json
   #curl -X GET -d 'api_key=ypVSipVXC2Yd377jz58A' http://localhost:3000/api/inventories.xml
   def index
-    @inventories = current_company.inventories.all
+    @inventories = current_company.inventories.find_all_by_job_id(params[:job_id])
     respond_to do |format|
       format.xml{ render :xml => @inventories }
       format.json{ render :json => @inventories }
@@ -20,7 +20,7 @@ class Api::InventoriesController < Api::BaseController
     @inventory.company_id = current_company.id
      @inventory.subtotal = (params[:inventory][:qty].to_f*@inventory.unit_price) if params[:inventory][:qty].present?
     if @inventory.save
-      response_message = { :message => "items created successfully" ,:inventory => @inventory}
+      response_message = { :message => "Item was created successfully." ,:inventory => @inventory}
     else
       response_message = { :message => "Please try again."}
     end

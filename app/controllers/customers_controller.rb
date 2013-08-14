@@ -5,7 +5,7 @@ class CustomersController < ApplicationController
 
   # GET /customers
   def index
-    @customers = current_login.customers.search(params[:search]).paginate(:per_page => 10, :page => params[:page])
+    @customers = current_login.customers.search(params[:search]).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
   end
 
   # GET /customers/1

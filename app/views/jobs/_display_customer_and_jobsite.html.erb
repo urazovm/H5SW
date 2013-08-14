@@ -3,14 +3,14 @@
     <% if @customer == nil %>
       <span style="color:red">Please select customer for this job !</span><br/>
     <% else %>
-      <%=  "Customer : " + @customer.company_name + ", " + @customer.address1 + ", " + @customer.city + ", " + @customer.state + ", " + @customer.zip.to_s %>
+      <%= link_to ("Customer : " + @customer.company_name + ", " + @customer.address1 + ", " + @customer.city + ", " + @customer.state + ", " + @customer.zip.to_s), edit_customer_path(@customer) %>
     <% end %>
   </p>
 
   <p>
     <% if @jobsite == nil %>
     <% else %>
-      <%= "Job Site : " + @jobsite.name + ", " + @jobsite.city + ", " + @jobsite.state + ", " + @jobsite.zip %>
+      <%= link_to ("Job Site : " + @jobsite.name + ", " + @jobsite.city + ", " + @jobsite.state + ", " + @jobsite.zip), edit_jobsite_path(@jobsite) %>
     <% end %>
   </p>
 </div>

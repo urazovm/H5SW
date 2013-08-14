@@ -32,11 +32,11 @@
   </div>
   <div class="field">
     <%= f.label :assigned_to %>
-    <%= f.select :assigned_to, options_for_select(@tech_users ? @tech_users.map{|user| [user.name]} : [""], :selected => @job.assigned_to) %>
+    <%= f.select :assigned_to, options_for_select(["NULL"]+(@tech_users ? @tech_users.map{|user| [user.name]} : [""]), :selected => @job.assigned_to) %>
   </div>
   <div class="field">
     <%= f.label :status %>
-    <%= f.select :status, options_for_select([["waiting"]]) %>
+    <%= f.select :status, options_for_select([["open"]]) %>
   </div>
   <div class="field">
     <%= label_tag :job_contact %>

@@ -2,8 +2,8 @@ class Api::ItemsController < Api::BaseController
   before_filter :is_login?
   skip_before_filter :verify_authenticity_token
   
-  #curl -X GET -d 'api_key=ypVSipVXC2Yd377jz58A' http://localhost:3000/api/items/autocomplete_items.json
-  #curl -X GET -d 'api_key=ypVSipVXC2Yd377jz58A' http://localhost:3000/api/items/autocomplete_items.xml
+  #curl -X GET -d 'name=item_smo1&api_key=ypVSipVXC2Yd377jz58A' http://localhost:3000/api/items/autocomplete_items.json
+  #curl -X GET -d 'name=item_smo1&api_key=ypVSipVXC2Yd377jz58A' http://localhost:3000/api/items/autocomplete_items.xml
   def autocomplete_items
     @items = Item.where("name ILIKE '%#{params[:name].to_s.downcase}%'and name NOT IN ('#{@not_names}')" )
     respond_to do |format|

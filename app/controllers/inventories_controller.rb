@@ -6,7 +6,8 @@ class InventoriesController < ApplicationController
   before_filter :session_types
   
   def index
-    @inventories = current_login.inventories.order("created_at")
+   # @inventories = current_login.inventories.order("created_at")
+   @inventories = current_login.inventories.find_all_by_job_id(session[:job_id])
   end
 
   def new
