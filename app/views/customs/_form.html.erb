@@ -50,7 +50,7 @@
     <tr>
       <td><%= f.text_field :name, :placeholder => "Create a Label for your custom field" %></td>
       <td>
-        <%= f.select :field, options_for_select([['Text Box', 'Text Box'], ['Dropdown List', 'Dropdown List'], ['Calendar', 'Calendar']]), {}, :onchange => "display_this();" %>
+        <%= f.select :field, options_for_select([['Text Box', 'Text Box'], ['Dropdown List', 'Dropdown List'], ['Calendar', 'Calendar'], ['Legend', 'Legend']]), {}, :onchange => "display_this();" %>
       </td>
       <td></td>
     </tr>
@@ -62,13 +62,17 @@
     </tr>
 
     <tr id="add_drop_down_values">
-      <td id="append_text" colspan="2">
+      <td id="append_text" colspan="3">
         <%= f.label "Enter value for custom field" %>
-        <%= text_field_tag "drop_down_value", nil, :placeholder => "Dropdown Values e.g: value 1, value 2, value 3, ......", :class => 'data' %>
+        <span id="text">
+          <%= text_field_tag "drop_down_value", nil, :placeholder => "Dropdown Values e.g: value 1, value 2, value 3, ......", :class => 'data' %>
+        </span>
+        <span id="textarea" style="display:none">
+          <%= text_area_tag "drop_down_value1", nil, :placeholder => "Enter your legend here..."%>
+        </span>
         <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer; display:none;", :id => "calendar_icon1", :class => "datepicker" %>
-        <span class="value_label" style="color:red; display: none;">NOTE: Use commas(,) to seperate multiple values</span>
+        <div class="value_label" style="color:red; display: none;">NOTE: Use commas(,) to seperate multiple values</div>
       </td>
-      <td><%#= link_to_function "Add More Values", "add_drop_value();", :class => "btn btn-small", :style => "padding-top: 8px; padding-bottom: 8px;" %></td>
     </tr>
 
     <tr>
@@ -97,18 +101,30 @@
   }
   
   function display_this(){
-      if($("#custom_field").val() == 'Dropdown List'){
-        $(".value_label").show();
-        $("#calendar_icon1").hide();
-      }
-      if($("#custom_field").val() == "Text Box"){
-        $(".value_label").hide();
-        $("#calendar_icon1").hide();
-      }
-      if($("#custom_field").val() == "Calendar"){
-        $(".value_label").hide();
-        $("#calendar_icon1").show();
-      }
+    if($("#custom_field").val() == 'Dropdown List'){
+      $(".value_label").show();
+      $("#calendar_icon1").hide();
+      $("#textarea").hide();
+      $("#text").show();
+    }
+    if($("#custom_field").val() == "Text Box"){
+      $(".value_label").hide();
+      $("#calendar_icon1").hide();
+      $("#textarea").hide();
+      $("#text").show();
+    }
+    if($("#custom_field").val() == "Calendar"){
+      $(".value_label").hide();
+      $("#calendar_icon1").show();
+      $("#textarea").hide();
+      $("#text").show();
+    }
+    if($("#custom_field").val() == "Legend"){
+      $("#textarea").show();
+      $("#text").hide();
+      $("#calendar_icon1").hide();
+      $(".value_label").hide();
+    }
 
     $("#custom_type").change(function(){
       $.ajax({

@@ -47,8 +47,10 @@
         <% elsif custom.field == "Calendar" %>
           <%= text_field_tag "calendar", nil, :value => @value ? @value.drop_value : "", :class => 'data' %>&nbsp;
           <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer;", :id => "calendar_icon", :class => "datepicker"%>
+        <% elsif custom.field == "Legend" %>
+          <%= @value.drop_value %>
         <% else %>
-          ''
+          
         <% end %>
       </div>
     </li>

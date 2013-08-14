@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130805110306) do
+ActiveRecord::Schema.define(:version => 20130812114548) do
 
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(:version => 20130805110306) do
   end
 
   create_table "dropdown_values", :force => true do |t|
-    t.string   "drop_value"
+    t.text     "drop_value"
     t.integer  "custom_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

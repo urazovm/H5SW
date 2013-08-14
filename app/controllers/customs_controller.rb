@@ -24,6 +24,7 @@ class CustomsController < ApplicationController
     @custom = current_login.customs.new
   end
 
+  
   def create 
     display_this_in_new_and_create
     #all the parameters from new form
@@ -48,7 +49,12 @@ class CustomsController < ApplicationController
       @change_tab_name.update_attributes(:name => params[:tab_name])
       
       #save values for textbox, dropdown or calendar
-      DropdownValue.create(:custom_id => @custom.id, :company_id => @custom.company_id, :drop_value => params[:drop_down_value])
+      if params[:custom][:field] == "Legend"
+        dropdown_value = params[:drop_down_value1]
+      else
+        dropdown_value = params[:drop_down_value]
+      end
+      DropdownValue.create(:custom_id => @custom.id, :company_id => @custom.company_id, :drop_value => dropdown_value)
 
       flash[:notice] = "Custom field created successfully."
       redirect_to new_custom_path(:tab => @tab.id, :type => @tab.tab_type)

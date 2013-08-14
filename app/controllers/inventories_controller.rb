@@ -5,8 +5,6 @@ class InventoriesController < ApplicationController
   respond_to :html,:js
   before_filter :session_types
   
-  
-
   def index
     @inventories = current_login.inventories.order("created_at")
   end
