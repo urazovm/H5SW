@@ -22,7 +22,7 @@
     <%= form_tag :documents, :method => 'get', :class => "form-search" do |f|  %>
     <%= text_field_tag :search, params[:search], :placeholder => "Search", :class => "input-large search-query" %> &nbsp;
     <%= hidden_field_tag :type ,params[:type] %>
-    <%= button_tag "search", :style => "height:40px; width: 80px;" %>
+    <%= submit_tag :Search, :class => "btn btn-mini btn-primary",:style => "width:60px; height:30px" %>  
 <% end %>
 </div>
 <hr />
