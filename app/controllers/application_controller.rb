@@ -115,7 +115,7 @@ class ApplicationController < ActionController::Base
   end
 
   def gmap_json
-    if !session[:customer_id].nil? && !session[:jobsite_id].nil?
+    if !session[:customer_id].nil? && !session[:jobsite_id].nil? && session[:jobsite_id] != 0
       if session[:customer_id]=="All" && (session[:jobsite_id] == "All" || session[:jobsite_id] == "None")
         @json1 = Customer.all.to_gmaps4rails
         @json2 = Jobsite.all.to_gmaps4rails
