@@ -35,6 +35,7 @@ class CustomersController < ApplicationController
     @phone3 = params[:customer][:phone3]
     @phone4 = params[:customer][:phone4]
     if @customer.save
+      push_to_quickbook(@customer, "create")
       flash[:notice] = "Customer was successfully created."
       redirect_to customers_path
     else
@@ -67,5 +68,53 @@ class CustomersController < ApplicationController
       flash[:error] = "Customer deletion is failed. please try again."
     end
     redirect_to customers_url
+  end
+
+  #push into quickbook
+  def push_to_quickbook(customers, action)
+    #push data to quickbook
+    oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, current_login.access_token, current_login.access_secret)
+
+    #creating customer in quickbooks
+    customer_service = Quickeebooks::Online::Service::Customer.new
+    customer_service.access_token = oauth_client
+    customer_service.realm_id = current_login.realm_id
+    customer_service.list
+
+    #check whether to create new or update existing customer
+    if action=="create"
+      customer = Quickeebooks::Online::Model::Customer.new
+    else
+      customer = customer_service.fetch_by_id(params[:id])
+    end
+
+    customer.name = @customer.company_name
+    #customer.email = Quickeebooks::Online::Model::Email.new(@customer.email)
+
+    address = Quickeebooks::Online::Model::Address.new
+    address.line1 = @customer.address1
+    address.line2 = @customer.address2
+    address.city = @customer.city
+    address.country_sub_division_code = @customer.state
+    address.postal_code = @customer.zip
+    customer.addresses = [address]
+
+    phone1 = Quickeebooks::Online::Model::Phone.new
+    phone1.device_type = "Primary"
+    phone1.free_form_number = @customer.phone
+    phone2 = Quickeebooks::Online::Model::Phone.new
+    phone2.device_type = "Mobile"
+    phone2.free_form_number = @customer.phone
+    customer.phones = [phone1, phone2]
+
+    website = Quickeebooks::Online::Model::WebSite.new
+    website.uri = @customer.website
+    customer.web_site = website
+
+    if action == "create"
+      customer_service.create(customer)
+    elsif action == "update"
+      customer_service.update(customer)
+    end
   end
 end
