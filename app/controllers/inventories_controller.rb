@@ -34,7 +34,7 @@ class InventoriesController < ApplicationController
     @inventory = Inventory.find(params[:id])
     @inventory.subtotal = (params[:inventory][:qty].to_f*@inventory.unit_price) if params[:inventory][:qty].present?
     if @inventory.update_attributes(params[:inventory])
-      @inventories = current_login.inventories.order("created_at")
+      @inventories = current_login.inventories.find_all_by_job_id(session[:job_id])
       respond_with @inventory
     else
       render :action => "edit"

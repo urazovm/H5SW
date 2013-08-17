@@ -7,11 +7,11 @@ class JobsitesController < ApplicationController
   end
 
   def new
-    params[:cust_id] ? session[:customer_id] = params[:cust_id] : ''
-    params[:cust_id] ? session[:jobsite_id] = nil : ''
+    params[:cust_id] ? session[:customer_id] = params[:cust_id] : ' '
+    params[:cust_id] ? session[:jobsite_id] = nil : ' '
 
     @jobsite = Jobsite.new
-    session[:customer_id] ? @customer_id = session[:customer_id] : ''
+    session[:customer_id] ? @customer_id = session[:customer_id] : ' '
   end
 
 
