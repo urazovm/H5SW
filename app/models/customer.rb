@@ -13,7 +13,9 @@ class Customer < ActiveRecord::Base
   has_many :jobtimes
 
 
-  validates:company_name,:city, :state, :zip, :presence => true
+  validates :company_name,:city, :state, :zip, :presence => true
+  validates :website, :format => URI::regexp(%w(http https))
+  validates :company_name, :uniqueness => {:scope => :company_id, :message => "already exists, try with another name"}
 
   validates :account, :uniqueness => true
   before_save :make_phone
@@ -58,5 +60,4 @@ class Customer < ActiveRecord::Base
   def gmaps4rails_infowindow
     "Customer: <br/><b>Name:&nbsp;</b> #{self.company_name}<br /><b>City:&nbsp;</b>#{self.city}<br /><b>State:&nbsp;</b> #{self.state}<br /><b>Zip:&nbsp;</b> #{self.zip}<br /> <b>Phone:&nbsp;</b>#{self.phone}<br />"
   end
-
 end
