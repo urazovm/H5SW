@@ -1,15 +1,27 @@
 <% @value = DropdownValue.find_by_custom_id_and_company_id(custom.id, current_login.id) %>
+
 <% if custom.field == "Text Box" %>
   <%= text_field_tag "textField",{}, :value => @value ? @value.drop_value : "", :onfocus => "javascript:show_edit_form('#{custom.id}','#{@value.id}')" %>
+
 <% elsif custom.field == "Dropdown List" %>
   <% dropvalue = DropdownValue.find_by_custom_id_and_company_id(custom.id, current_login.id).drop_value.split(',').each %>
   <%= select_tag "dropdownField", options_for_select(dropvalue.each do |drop|[drop] end), :style => "width: 436px" %>
   <%= link_to_function "Edit Values", "update_dropdown_values('#{custom.id}')", :class => "btn btn-mini btn-primary", :style => "color:white" %>
+
 <% elsif custom.field == "Calendar" %>
   <%= text_field_tag "calendar", nil, :value => @value ? @value.drop_value : "",:onfocus => "javascript:show_edit_form('#{custom.id}','#{@value.id}')", :class => 'data' %>&nbsp;
   <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer;", :id => "calendar_icon", :class => "datepicker"%>
+
 <% elsif custom.field == "Legend" %>
-  <pre><%= @value.drop_value %></pre>
+  <pre onclick="javascript:show_edit_form(<%= custom.id %>, <%= @value.id %>)"><%= @value.drop_value %></pre>
+  <br/>
+
+<% elsif custom.field == "Table" %>
+  <div id="create_table_fields">
+    <%= render :partial => 'create_table_fields', :locals => {:custom => custom} %>
+  </div>
+  <br/>
+
 <% else %>
   ''
 <% end %>
@@ -20,37 +32,93 @@
 </span>
 
 <script>
-  $(document).ready(function() {
-    /* Activating Best In Place */
-    $('.datepicker').datepicker()
-    .on('changeDate', function(e){
-      var y = e.date.getFullYear(),
-      _m = e.date.getMonth() + 1,
-      m = (_m > 9 ? _m : '0'+_m),
-      _d = e.date.getDate(),
-      d = (_d > 9 ? _d : '0'+_d);
-      $(this).prev('input.data').val(y + '-' + m + '-' + d);
+    $(document).ready(function() {
+      /* Activating Best In Place */
+      $('.datepicker').datepicker()
+              .on('changeDate', function(e) {
+        var y = e.date.getFullYear(),
+                _m = e.date.getMonth() + 1,
+                m = (_m > 9 ? _m : '0' + _m),
+                _d = e.date.getDate(),
+                d = (_d > 9 ? _d : '0' + _d);
+        $(this).prev('input.data').val(y + '-' + m + '-' + d);
+      });
     });
-  });
-  
-  function update_dropdown_values(id){
-    $.ajax({
-      url:"/customs/edit_dropdown",
-      data:{
-        cus_id:id
-      },
-      type:'GET',
-      dataType:'script',
-      success:function(data){}
-    });
-  }
 
-  function status_false(id){
-    $.ajax({
-      url:'/customs/'+id+'/update_status/',
-      type:'PUT',
-      dataType:'script',
-      success:function(data){}
-    });
-  }
+    function update_dropdown_values(id) {
+      $.ajax({
+        url: "/customs/edit_dropdown",
+        data: {
+          cus_id: id
+        },
+        type: 'GET',
+        dataType: 'script',
+        success: function(data) {
+        }
+      });
+    }
+
+    function status_false(id) {
+      $.ajax({
+        url: '/customs/' + id + '/update_status/',
+        type: 'PUT',
+        dataType: 'script',
+        success: function(data) {
+        }
+      });
+    }
+
+    function display_row(custom_id) {
+      var datas = new Array();
+      for (var i = 0; i < 11; i++) {
+        val = document.getElementById("fields_" + (i + 1)).value;
+        datas[i] = val == "" ? "-" : val;
+      }
+      fields = datas.join(",");
+
+      $.ajax({
+        url: '/customs/create_table_fields',
+        data: {
+          custom_id: custom_id,
+          drop_value: fields
+        },
+        type: 'POST',
+        dataType: 'script',
+        success: function(data) {
+        }
+      });
+    }
+
+    function edit_row_values(value_id) {
+      $.ajax({
+        url: '/customs/edit_table',
+        data: {
+          id: value_id
+        },
+        type: 'GET',
+        dataType: 'script',
+        success: function(data) {
+        }
+      });
+    }
+
+    function update_rows(id) {
+      var datas = new Array();
+      for(var i=0; i<11; i++){
+       value = document.getElementById("fields_"+(i+1)).value;
+       value = (value==" " || value=="") ? "-" : value;
+       datas[i] = value
+      }      
+      fields = datas.join(",");
+      $.ajax({
+        url: '/customs/' + id + '/update_table',
+        data: {
+          drop_value: fields
+        },
+        type: 'PUT',
+        dataType: 'script',
+        success: function(data) {
+        }
+      });
+    }
 </script>

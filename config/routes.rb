@@ -12,6 +12,7 @@ SMO::Application.routes.draw do
       get :new_tab
       post :create_tab
       get :edit_table
+      post :create_table_fields
     end
 
     member do
@@ -20,6 +21,7 @@ SMO::Application.routes.draw do
       put :update_dropdown
       put :update_status
       put :update_table
+      delete :delete_table
     end
   end
 

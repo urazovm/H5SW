@@ -40,7 +40,7 @@
       <div id="custom_field_updation_<%= custom.id %>">
         <% @value = DropdownValue.find_by_custom_id_and_company_id(custom.id, current_login.id) %>
         <% if custom.field == "Text Box" %>
-          <%= text_field_tag "textField",{}, :value => @value ? @value.drop_value : "" %>
+          <%= text_field_tag "textField", @value.drop_value %>
         <% elsif custom.field == "Dropdown List" %>
           <% dropvalue = DropdownValue.find_by_custom_id_and_company_id(custom.id, current_login.id).drop_value.split(',').each %>
           <%= select_tag "dropdownField", options_for_select(dropvalue.each do |drop|[drop] end), :style => "width: 436px" %>
@@ -48,7 +48,18 @@
           <%= text_field_tag "calendar", nil, :value => @value ? @value.drop_value : "", :class => 'data' %>&nbsp;
           <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer;", :id => "calendar_icon", :class => "datepicker"%>
         <% elsif custom.field == "Legend" %>
-          <%= @value.drop_value %>
+          <%= text_area_tag "drop_value", @value.drop_value, :rows => 5 %>
+        <% elsif custom.field == "Table" %>
+          <% values = current_login.dropdown_values.where("custom_id=?",custom.id).order("created_at") %>
+          <table class ="table-striped">
+        <% values.each do |value| %>
+        <tr class="bold_me" id="tr_<%= value.id %>">
+          <% value.drop_value.split(',').each do |row| %>
+            <td><%= row %></td>
+              <% end %>
+        </tr>
+        <% end %>  
+        </table>
         <% else %>
           
         <% end %>
@@ -56,3 +67,19 @@
     </li>
   <% end %>
 </ul>
+
+<style>
+  input.small_row{
+    margin: 0;
+    padding: 5px;
+    width: 60px;
+  }
+  input.mini_row{
+    margin: 0;
+    padding: 5px;
+    width: 20px;
+  }
+  .bold_me{
+    cursor: pointer;
+  }
+</style>

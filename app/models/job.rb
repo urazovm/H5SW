@@ -19,7 +19,7 @@ class Job < ActiveRecord::Base
 
   def self.search(search)
     if search
-      where('reference_no LIKE?', "%#{search}%")
+      where('reference_no ILIKE? OR status ILIKE? OR summary ILIKE?', "%#{search}%","%#{search}%","%#{search}%" )
     else
       scoped
     end
