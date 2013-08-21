@@ -17,7 +17,6 @@ class Contact < ActiveRecord::Base
     end
   end
 
-
   def make_mobile
     if (@mobile1.present? and @mobile2.present? and @mobile3.present?) and !@mobile4.present?
       self.mobile = @mobile1.to_s+"-"+@mobile2.to_s+"-"+@mobile3.to_s
