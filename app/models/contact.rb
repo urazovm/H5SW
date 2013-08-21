@@ -11,7 +11,7 @@ class Contact < ActiveRecord::Base
 
   def self.search(search)
     if search
-      where('name LIKE?', "%#{search}%")
+      where('name ILIKE? OR role ILIKE? OR business LIKE? OR email ILIKE? OR twitter ILIKE? OR mobile LIKE?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
     else
       scoped
     end

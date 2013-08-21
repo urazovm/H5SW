@@ -51,18 +51,36 @@ class CustomsController < ApplicationController
       #save values for textbox, dropdown or calendar
       if params[:custom][:field] == "Legend"
         dropdown_value = params[:drop_down_value1]
+      elsif params[:custom][:field] == "Table"
+        check_for_empty_params        
+        dropdown_value = [params[:field_1], params[:field_2], params[:field_3],params[:field_4], params[:field_5], params[:field_6],params[:field_7], params[:field_8], params[:field_9],params[:field_10], params[:field_11]].join(", ")        
       else
         dropdown_value = params[:drop_down_value]
       end
       DropdownValue.create(:custom_id => @custom.id, :company_id => @custom.company_id, :drop_value => dropdown_value)
-
+      
       flash[:notice] = "Custom field created successfully."
       redirect_to new_custom_path(:tab => @tab.id, :type => @tab.tab_type)
     else
       render 'new'
     end
   end
-
+  
+  def check_for_empty_params
+    params[:field_1] = params[:field_1]=="" ? "-" : params[:field_1]
+    params[:field_2] = params[:field_2]=="" ? "-" : params[:field_2]
+    params[:field_3] = params[:field_3]=="" ? "-" : params[:field_3]
+    params[:field_4] = params[:field_4]=="" ? "-" : params[:field_4]
+    params[:field_5] = params[:field_5]=="" ? "-" : params[:field_5]
+    params[:field_6] = params[:field_6]=="" ? "-" : params[:field_6]
+    params[:field_7] = params[:field_7]=="" ? "-" : params[:field_7]
+    params[:field_8] = params[:field_8]=="" ? "-" : params[:field_8]
+    params[:field_9] = params[:field_9]=="" ? "-" : params[:field_9]
+    params[:field_10] = params[:field_10]=="" ? "-" : params[:field_10]
+    params[:field_11] = params[:field_11]=="" ? "-" : params[:field_11]
+  end
+  
+  
   # edit your label
   def edit
     @custom = Custom.find(params[:id])
@@ -175,4 +193,34 @@ class CustomsController < ApplicationController
     @tab.update_attribute(:name, params[:updated_name])
   end
   # end of the action for creating tabs
+  
+  
+  
+  # CRUD table field
+  def create_table_fields
+    DropdownValue.create(:custom_id => params[:custom_id], :company_id => current_login.id, :drop_value => params[:drop_value])
+    @custom = Custom.find(params[:custom_id])
+  end
+  # end CRUD table field
+  
+  def edit_table
+    @dropdown_value = current_login.dropdown_values.find(params[:id])
+    @values = @dropdown_value.drop_value.split(",")
+    render
+  end
+  
+  def update_table
+    @dropdown_value = current_login.dropdown_values.find(params[:id])
+    @dropdown_value.update_attribute(:drop_value, params[:drop_value])
+    @custom = Custom.find(@dropdown_value.custom_id)
+    render
+  end
+  
+  def delete_table
+    @dropdown_value = current_login.dropdown_values.find(params[:id])
+    @dropdown_value.destroy
+    respond_to do |format|
+      format.js
+    end
+   end
 end

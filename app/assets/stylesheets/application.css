@@ -14,6 +14,7 @@
 */
 
 /* style for search filter */
+
 #my_job > select {
     margin-left: 260px;
     margin-top: -55px;
@@ -284,7 +285,7 @@ tr.odd{
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
-   -moz-box-shadow:1px 1px 1px 1px #999;
+    -moz-box-shadow:1px 1px 1px 1px #999;
     -webkit-box-shadow:1px 1px 1px 1px #999;
     box-shadow:1px 1px 1px 1px #999;
 }
@@ -294,3 +295,7 @@ tr.odd{
     font-size: 1.2em;
 }
 
+#table123, .Row {
+    width :30px;
+    height :15px;
+}

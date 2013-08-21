@@ -1,3 +1,5 @@
+
+
 <table style="background: #F1F1F1">
   <%= form_for(@custom,  :url => customs_path(:tab => @tab.id, :type => @tab.tab_type)) do |f| %>
 
@@ -50,7 +52,7 @@
     <tr>
       <td><%= f.text_field :name, :placeholder => "Create a Label for your custom field" %></td>
       <td>
-        <%= f.select :field, options_for_select([['Text Box', 'Text Box'], ['Dropdown List', 'Dropdown List'], ['Calendar', 'Calendar'], ['Legend', 'Legend']]), {}, :onchange => "display_this();" %>
+        <%= f.select :field, options_for_select([['Text Box', 'Text Box'], ['Dropdown List', 'Dropdown List'], ['Calendar', 'Calendar'], ['Legend', 'Legend'],['Table','Table']]), {}, :onchange => "display_this();" %>
       </td>
       <td></td>
     </tr>
@@ -66,15 +68,48 @@
         <%= f.label "Enter value for custom field" %>
         <span id="text">
           <%= text_field_tag "drop_down_value", nil, :placeholder => "Dropdown Values e.g: value 1, value 2, value 3, ......", :class => 'data' %>
+          <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer; display:none;", :id => "calendar_icon1", :class => "datepicker" %>
         </span>
         <span id="textarea" style="display:none">
           <%= text_area_tag "drop_down_value1", nil, :placeholder => "Enter your legend here..."%>
         </span>
-        <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer; display:none;", :id => "calendar_icon1", :class => "datepicker" %>
-        <div class="value_label" style="color:red; display: none;">NOTE: Use commas(,) to seperate multiple values</div>
+
+        <style>
+          input.small_row{
+            margin: 0;
+            padding: 5px;
+            width: 60px;
+          }
+          input.mini_row{
+            margin: 0;
+            padding: 5px;
+            width: 20px;
+          }
+          .bold_me{
+            cursor: pointer;
+          }
+        </style>
+        <script>
+          $("tr.bold_me:first").css("font-weight", "bold");
+        </script>
+        <table id="table123" style="display:none; width:100%" >
+          <tr>
+            <td><%= text_field_tag :field_1, nil, :class => "small_row", :placeholder => "value" %></td>
+            <td><%= text_field_tag :field_2, nil, :class => "small_row", :placeholder => "value" %></td>
+            <td><%= text_field_tag :field_3, nil, :class => "mini_row", :placeholder => "value" %></td>
+            <td><%= text_field_tag :field_4, nil, :class => "mini_row", :placeholder => "value" %></td>
+            <td><%= text_field_tag :field_5, nil, :class => "mini_row", :placeholder => "value" %></td>
+            <td><%= text_field_tag :field_6, nil, :class => "mini_row", :placeholder => "value" %></td>
+            <td><%= text_field_tag :field_7, nil, :class => "mini_row", :placeholder => "value" %></td>
+            <td><%= text_field_tag :field_8, nil, :class => "mini_row", :placeholder => "value" %></td>
+            <td><%= text_field_tag :field_9, nil, :class => "mini_row", :placeholder => "value" %></td>
+            <td><%= text_field_tag :field_10, nil, :class => "mini_row", :placeholder => "value" %></td>
+            <td><%= text_field_tag :field_11, nil, :class => "small_row", :placeholder => "value" %></td>
+          </tr>
+        </table>
+        <div class="alert alert-info" id="value_label">NOTE: Use commas(,) to seperate multiple values. E.g: USA, Canada, Japan, Koria, China</div>
       </td>
     </tr>
-
     <tr>
       <td colspan="3"><%= f.submit :save, :style => "width: 80px; height: 37px"%> </td>
     </tr>
@@ -86,53 +121,73 @@
 </div>
 
 <script>
-  function update_tab(){
+  function update_tab() {
     var tab = $("#tab_name").val();
     $.ajax({
-      url:'/customs/<%= @tab.id %>/update_tab',
-      type:"PUT",
-      dataType:"script",
-      data:{
-        updated_name:tab,
-        type:'<%= params[:type] %>'
+      url: '/customs/<%= @tab.id %>/update_tab',
+      type: "PUT",
+      dataType: "script",
+      data: {
+        updated_name: tab,
+        type: '<%= params[:type] %>'
       },
-      success: function(data){}
+      success: function(data) {
+      }
     });
   }
-  
-  function display_this(){
-    if($("#custom_field").val() == 'Dropdown List'){
-      $(".value_label").show();
+
+  $(document).ready(function() {
+    display_this();
+  });
+
+  function display_this() {
+    $("#value_label").html("NOTE: Use commas(,) to seperate multiple values. E.g: USA, Canada, Japan, Koria, China");
+    if ($("#custom_field").val() == 'Dropdown List') {
+      $("#value_label").show();
       $("#calendar_icon1").hide();
       $("#textarea").hide();
       $("#text").show();
+      $("#table123").hide();
     }
-    if($("#custom_field").val() == "Text Box"){
-      $(".value_label").hide();
+    if ($("#custom_field").val() == "Text Box") {
+      $("#value_label").hide();
       $("#calendar_icon1").hide();
       $("#textarea").hide();
       $("#text").show();
+      $("#table123").hide();
     }
-    if($("#custom_field").val() == "Calendar"){
-      $(".value_label").hide();
+    if ($("#custom_field").val() == "Calendar") {
+      $("#value_label").hide();
       $("#calendar_icon1").show();
       $("#textarea").hide();
       $("#text").show();
+      $("#table123").hide();
     }
-    if($("#custom_field").val() == "Legend"){
+    if ($("#custom_field").val() == "Legend") {
       $("#textarea").show();
       $("#text").hide();
       $("#calendar_icon1").hide();
-      $(".value_label").hide();
+      $("#value_label").hide();
+      $("#table123").hide();
+    }
+    if ($("#custom_field").val() == "Table") {
+      $("#textarea").hide();
+      $("#text").hide();
+      $("#calendar_icon1").hide();
+      $("#value_label").html("Create heading of the table first. Once heading is created you can add more rows in the view section. Please scroll down after creating heading");
+      $("#value_label").show();
+      $("#table123").show();
     }
 
-    $("#custom_type").change(function(){
+    $("#custom_type").change(function() {
       $.ajax({
-        url:"/customs?type="+ $("#custom_type").val() +"&tab=<%= params[:tab] %>",
-        type:'GET',
+        url: "/customs?type=" + $("#custom_type").val() + "&tab=<%= params[:tab] %>",
+        type: 'GET',
         dataType: 'script',
-        success: function(data){}
+        success: function(data) {
+        }
       });
     })
   }
+
 </script>

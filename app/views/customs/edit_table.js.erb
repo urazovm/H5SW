@@ -1,1 +1,1 @@
-$("#custom_field_updation_<%= params[:cus_id] %>").html('<%= escape_javascript render :partial => '/customs/edit_table', :local => {:table_values => @table_values} %>');
+$("#display_table_fields").html('<%= escape_javascript render :partial => "customs/table_fields" %>');
