@@ -23,6 +23,7 @@ class CustomersController < ApplicationController
   def edit
     session[:customer_id] = params[:id]
     @customer = Customer.find(session[:customer_id])
+    @customer_old_name = @customer.company_name #required to find records from quickbook and for updation
   end
 
   # POST /customers
@@ -35,7 +36,7 @@ class CustomersController < ApplicationController
     @phone3 = params[:customer][:phone3]
     @phone4 = params[:customer][:phone4]
     if @customer.save
-      push_to_quickbook(@customer, "create")
+      push_to_quickbook(@customer)
       flash[:notice] = "Customer was successfully created."
       redirect_to customers_path
     else
@@ -52,6 +53,9 @@ class CustomersController < ApplicationController
     @phone4 = params[:customer][:phone4]
 
     if @customer.update_attributes(params[:customer])
+      
+      update_to_quickbooks(@customer)   #update in quickbooks also
+
       flash[:notice] = "Customer was successfully updated."
       redirect_to customers_path
     else
@@ -71,7 +75,7 @@ class CustomersController < ApplicationController
   end
 
   #push into quickbook
-  def push_to_quickbook(customers, action)
+  def push_to_quickbook(customers)
     #push data to quickbook
     oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, current_login.access_token, current_login.access_secret)
 
@@ -81,12 +85,7 @@ class CustomersController < ApplicationController
     customer_service.realm_id = current_login.realm_id
     customer_service.list
 
-    #check whether to create new or update existing customer
-    if action=="create"
-      customer = Quickeebooks::Online::Model::Customer.new
-    else
-      customer = customer_service.fetch_by_id(params[:id])
-    end
+    customer = Quickeebooks::Online::Model::Customer.new
 
     customer.name = @customer.company_name
     #customer.email = Quickeebooks::Online::Model::Email.new(@customer.email)
@@ -104,17 +103,60 @@ class CustomersController < ApplicationController
     phone1.free_form_number = @customer.phone
     phone2 = Quickeebooks::Online::Model::Phone.new
     phone2.device_type = "Mobile"
-    phone2.free_form_number = @customer.phone
+    phone2.free_form_number = @customer.phone 
     customer.phones = [phone1, phone2]
 
     website = Quickeebooks::Online::Model::WebSite.new
     website.uri = @customer.website
     customer.web_site = website
 
-    if action == "create"
-      customer_service.create(customer)
-    elsif action == "update"
-      customer_service.update(customer)
-    end
+    #create customer with these datas
+    customer_service.create(customer)
+    
+    filters = []
+    filters << Quickeebooks::Online::Service::Filter.new(:text, :field => 'name', :value => customer.name)
+    customer = customer_service.list(filters)
+    @customer = current_login.customers.find(@customer.id)
+    quickbook_customer_id = customer.entries.first.id
+
+    #update quickbook_customer_id field in customer table
+    @customer.update_attributes(:quickbook_customer_id => quickbook_customer_id)
+  end
+
+  def update_to_quickbooks(customers)
+    #push data to quickbook
+    oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, current_login.access_token, current_login.access_secret)
+
+    #creating customer in quickbooks
+    customer_service = Quickeebooks::Online::Service::Customer.new
+    customer_service.access_token = oauth_client
+    customer_service.realm_id = current_login.realm_id
+    customer_service.list
+
+#    filter customer with old customer_name
+#    filters = []
+#    filters << Quickeebooks::Online::Service::Filter.new(:text, :field => 'name', :value => params[:customer_name])
+#    customer = customer_service.list(filters)
+#    customer = customer.entries.first
+
+    customer = customer_service.fetch_by_id(@customer.quickbook_customer_id)
+
+    # update old values to new value here
+    customer.name = @customer.company_name
+    
+    #update addresses
+    customer.addresses.first.line1 = @customer.address1
+    customer.addresses.first.line2 = @customer.address2
+    customer.addresses.first.city = @customer.city
+    customer.addresses.first.country_sub_division_code = @customer.state
+    customer.addresses.first.postal_code = @customer.zip
+
+    #update phones
+    customer.phones.first.free_form_number = customer.phones.second.free_form_number = @customer.phone
+
+    #update website uri
+    customer.web_site.uri = @customer.website
+
+    customer_service.update(customer)
   end
 end

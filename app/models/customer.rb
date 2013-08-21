@@ -1,6 +1,6 @@
 class Customer < ActiveRecord::Base
   acts_as_gmappable :check_process => false
-  attr_accessible :company_id, :action,:types, :company_name, :parent_billing, :address1, :address2, :city, :state, :zip, :contact, :website, :business_type, :terms_client, :status, :account, :phone, :contact_id,:phone1, :phone2, :phone3, :phone4
+  attr_accessible :company_id, :action,:types, :company_name, :parent_billing, :address1, :address2, :city, :state, :zip, :contact, :website, :business_type, :terms_client, :status, :account, :phone, :contact_id,:phone1, :phone2, :phone3, :phone4, :quickbook_customer_id
   attr_accessor :phone1, :phone2, :phone3, :phone4
   belongs_to :company
   has_many :jobs
