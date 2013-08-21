@@ -21,7 +21,7 @@ class Customer < ActiveRecord::Base
   before_save :make_phone
    def self.search(search)
     if search
-      Customer.where('company_name ILIKE? OR types ILIKE?', "%#{search}%","%#{search}%")
+       Customer.where('company_name ILIKE? OR types ILIKE?', "%#{search}%","%#{search}%")
       #Customer.where('company_name ILIKE? OR types ILIKE?', "%#{search}%","%#{search}%").joins(:contacts).where('contacts.name = ? OR contacts.email = ?',search,search)
     else
       scoped
