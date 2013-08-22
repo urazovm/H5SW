@@ -43,6 +43,7 @@ SMO::Application.routes.draw do
       match :dis_quickbooks
       match :bluedot
       get   :sync_customer_data
+      get   :sync_items
     end
   end
 

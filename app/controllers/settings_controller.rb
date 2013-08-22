@@ -69,4 +69,8 @@ class SettingsController < ApplicationController
       end
     end
   end
+
+  def sync_items
+    
+  end
 end
