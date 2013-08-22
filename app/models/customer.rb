@@ -19,14 +19,15 @@ class Customer < ActiveRecord::Base
 
   #validates :account, :uniqueness => true
   before_save :make_phone
+  
    def self.search(search)
     if search
-       Customer.where('company_name ILIKE? OR types ILIKE?', "%#{search}%","%#{search}%")
-      #Customer.where('company_name ILIKE? OR types ILIKE?', "%#{search}%","%#{search}%").joins(:contacts).where('contacts.name = ? OR contacts.email = ?',search,search)
-    else
+      Customer.joins("left join contacts on contacts.id = customers.contact_id").where("customers.company_name ILIKE? OR customers.types ILIKE? OR contacts.name ILIKE? OR contacts.email ILIKE?", "%#{search}%", "%#{search}%","%#{search}%", "%#{search}%")
+     else
       scoped
     end
   end 
+
   def make_phone
     if (@phone1.present? and @phone2.present? and @phone3.present?) and !@phone4.present?
       self.phone = @phone1.to_s+"-"+@phone2.to_s+"-"+@phone3.to_s
