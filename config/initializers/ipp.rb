@@ -1,10 +1,11 @@
 require 'oauth'
 
 if Rails.env == "development"
+  QB_KEY =  "qyprdC06VQm8watUYMKISPYZwVC4tH"
+  QB_SECRET = "4a1uCsm6nBoPHcH7EEsoGepTLZmmE8kloJqmp4Xa"
+else
   QB_KEY = "qyprdOhQDFbwUwTtYzvlBoYNN83HiZ"
   QB_SECRET = "p6nfDdWlkEXmI2ck4SEMaPkAmJ1XqIoxeICbyD3i"
-else
-  
 end
 
 $qb_oauth_consumer = OAuth::Consumer.new(QB_KEY, QB_SECRET, {

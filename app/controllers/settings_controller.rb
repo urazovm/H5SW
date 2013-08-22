@@ -64,7 +64,7 @@ class SettingsController < ApplicationController
     #with quickbook customer values
     @customers.each do |customer|
       if !current_login.customers.exists?(:quickbook_customer_id => customer.id.to_i)
-        current_login.customers.create(:account => "1243652", :company_name => customer.name, :address1 => customer.addresses.first.line1, :address2 => customer.addresses.first.line2, :city => customer.addresses.first.city, :state => customer.addresses.first.country_sub_division_code, :zip => customer.addresses.first.postal_code, :phone => customer.phones.first.free_form_number, :website => customer.web_site.uri, :quickbook_customer_id => customer.id)
+        current_login.customers.create(:account => " ", :company_name => customer.name, :address1 => customer.addresses.present? ? customer.addresses.first.line1 : "", :address2 => customer.addresses.present? ? customer.addresses.first.line2 : "", :city => customer.addresses.present? ? customer.addresses.first.city : "", :state => customer.addresses.present? ? customer.addresses.first.country_sub_division_code : "", :zip => customer.addresses.present? ? customer.addresses.first.postal_code : "", :phone => customer.phones.present? ? customer.phones.first.free_form_number : "", :website => customer.web_site.present? ? customer.web_site.uri : "", :quickbook_customer_id => customer.id)
       end
     end
   end
@@ -84,7 +84,7 @@ class SettingsController < ApplicationController
     #with quickbook customer values
     @items.each do |item|
       if !current_login.items.exists?(:name => item.name)
-        current_login.items.create(:name => item.name, :description => item.desc, :unit_price => "", :itemtype => "")
+        current_login.items.create(:name => item.name, :description => item.desc, :unit_price => item, :itemtype => "")
       end
     end
   end
