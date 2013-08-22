@@ -25,6 +25,7 @@ class ItemsController < ApplicationController
 
   def autocomplete_items
     @not_names = params[:not_list].split(',').join("','")
+    quickbook_items(@item)
     @items = Item.where("name ILIKE '%#{params[:name].to_s.downcase}%' and name NOT IN ('#{@not_names}')" )
     respond_to do |format|
       format.js
@@ -47,5 +48,17 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+  
+  def quickbook_items(item)
+    #push data to quickbook
+    oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, current_login.access_token, current_login.access_secret)
+    
+    #creating items in quickbooks
+    item_service = Quickeebooks::Online::Service::Item.new
+    item_service.access_token = oauth_client
+    item_service.realm_id = current_login.realm_id
+    item_service.list
+    @items = @items.entries
   end
 end
