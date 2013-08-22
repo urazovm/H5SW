@@ -6,8 +6,8 @@ class CustomersController < ApplicationController
   # GET /customers
   def index
     @customers = current_login.customers.search(params[:search]).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
+    #@customers = current_login.customers.paginate :per_page => 10, :page => params[:page], :joins => :contacts, :conditions => ['customers.company_name ILIKE ? OR customers.types ILIKE ? OR contacts.name ILIKE ? OR contacts.email ILIKE?',"%#{params[:search]}%", "%#{params[:search]}%","%#{params[:search]}%", "%#{params[:search]}%" ], :order => 'customers.id'
   end
-
   # GET /customers/1
   def show
     @customer = Customer.find(params[:id])

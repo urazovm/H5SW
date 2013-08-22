@@ -22,9 +22,8 @@ class Customer < ActiveRecord::Base
   
    def self.search(search)
     if search
-      Customer.where('company_name ILIKE? OR types ILIKE?', "%#{search}%","%#{search}%")
-      #Customer.where('company_name ILIKE? OR types ILIKE?', "%#{search}%","%#{search}%").joins("left join contacts on contacts.id = customers.contact_id").where('contacts.name ILIKE? OR contacts.email ILIKE?',"%#{search}%","%#{search}%")
-    else
+      Customer.joins("left join contacts on contacts.id = customers.contact_id").where("customers.company_name ILIKE? OR customers.types ILIKE? OR contacts.name ILIKE? OR contacts.email ILIKE?", "%#{search}%", "%#{search}%","%#{search}%", "%#{search}%")
+     else
       scoped
     end
   end 
