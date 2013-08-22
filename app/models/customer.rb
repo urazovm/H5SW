@@ -17,7 +17,7 @@ class Customer < ActiveRecord::Base
   validates :website, :format => URI::regexp(%w(http https))
   validates :company_name, :uniqueness => {:scope => :company_id, :message => "already exists, try with another name"}
 
-  validates :account, :uniqueness => true
+  #validates :account, :uniqueness => true
   before_save :make_phone
   
    def self.search(search)

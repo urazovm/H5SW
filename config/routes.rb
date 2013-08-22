@@ -42,6 +42,7 @@ SMO::Application.routes.draw do
       match :oauth_callback
       match :dis_quickbooks
       match :bluedot
+      get   :sync_customer_data
     end
   end
 
