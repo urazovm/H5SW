@@ -1,3 +1,13 @@
+<style>
+  .notice{
+    color: green;
+    background: #F1F1F1;
+    box-shadow: 2px 2px 2px 2px #999;
+    padding: 10px;
+    margin-left:20px;
+    font-weight: bold;
+}
+</style>
 <%= render :partial => "layouts/tabs_for_settings" %>
 <% if !current_login.access_token.present? && !current_login.access_secret.present? && !current_login.realm_id.present? %>
 <!-- somewhere in your document include the Javascript -->
@@ -11,5 +21,20 @@
 <!-- this will display a button that the user clicks to start the flow -->
 <ipp:connectToIntuit></ipp:connectToIntuit>
 <% else %>
-<%= button_to "Disconnect from Quickbooks", {:controller => "settings", :action => "dis_quickbooks"} %>
+<%= button_to "Disconnect from Quickbooks", {:controller => "settings", :action => "dis_quickbooks"} , :class => "btn btn-small btn-primary"%>
+
+<%= link_to_function "Sync customer now", "sync_customer_data();", :class => "btn btn-small btn-primary", :style => "width:156px", :id => "sync_customer" %>
+<span class="notice">Import all new customers created on quickbooks.</span>
 <% end %>
+
+<script>
+  function sync_customer_data(){
+    document.getElementById("sync_customer").innerHTML = "Synchronizing...."
+    $.ajax({
+        url: '/settings/sync_customer_data',
+        type: 'GET',
+        dataType: 'script',
+        success: function(data){}
+    });
+  }
+</script>
