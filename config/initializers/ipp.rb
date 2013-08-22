@@ -1,7 +1,7 @@
 require 'oauth'
 
 if Rails.env == "development"
-  QB_KEY =  "qyprdC06VQm8watUYMKISPYZwVC4tH"
+  QB_KEY = "qyprdC06VQm8watUYMKISPYZwVC4tH"
   QB_SECRET = "4a1uCsm6nBoPHcH7EEsoGepTLZmmE8kloJqmp4Xa"
 else
   QB_KEY = "qyprdOhQDFbwUwTtYzvlBoYNN83HiZ"
