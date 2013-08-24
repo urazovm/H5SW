@@ -149,7 +149,7 @@ class ApplicationController < ActionController::Base
   # Create payment_notification after 20 days passed and 30 days passed
   # Create trial_period_expired? redirecting to expire notification page after trial expiration
   def expired_on
-    ((current_company.created_at + 30.days).to_date - Date.today).round if current_company.present?
+    ((current_company.created_at + 75.days).to_date - Date.today).round if current_company.present?
   end
 
   def payment_notification
