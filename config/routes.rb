@@ -1,6 +1,7 @@
 SMO::Application.routes.draw do  
   get "settings/index"
 
+  resources :trial_expires
   resources :quickbooks
 
   resources :customs do
@@ -37,13 +38,16 @@ SMO::Application.routes.draw do
 
   resources :settings do
     collection do 
-      get :accounting
+      get   :accounting
       match :authenticate
       match :oauth_callback
       match :dis_quickbooks
       match :bluedot
       get   :sync_customer_data
       get   :sync_items
+      get   :sync_employees
+      get   :sync_vendors
+      get   :sync_salse_person
     end
   end
 

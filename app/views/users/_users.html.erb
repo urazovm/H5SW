@@ -17,7 +17,7 @@
         <td><%= user.accounting_name %></td>
         <td><%= role.present? ? role.roll : "" %></td>
         <td>
-          <%= link_to "Edit", edit_user_path(user), :remote => true, :class => "btn btn-mini btn-primary" %> |
+          <%= link_to "Edit", edit_user_path(user), :remote => true, :class => "btn btn-mini btn-primary" %>
           <%= link_to "Delete", user, :method => :delete, :data => { :confirm => 'Are you sure?' }, :remote => true, :class => "btn btn-mini btn-danger" %>
         </td>
       </tr>

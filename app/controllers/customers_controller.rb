@@ -36,7 +36,7 @@ class CustomersController < ApplicationController
     @phone3 = params[:customer][:phone3]
     @phone4 = params[:customer][:phone4]
     if @customer.save
-      push_to_quickbook(@customer)
+      #push_to_quickbook(@customer)
       flash[:notice] = "Customer was successfully created."
       redirect_to customers_path
     else
@@ -100,10 +100,10 @@ class CustomersController < ApplicationController
 
     phone1 = Quickeebooks::Online::Model::Phone.new
     phone1.device_type = "Primary"
-    phone1.free_form_number = @customer.phone
+    phone1.free_form_number = (@customer.phone.present? ? @customer.phone : "-")
     phone2 = Quickeebooks::Online::Model::Phone.new
     phone2.device_type = "Mobile"
-    phone2.free_form_number = @customer.phone 
+    phone2.free_form_number = (@customer.phone.present? ? @customer.phone : "-")
     customer.phones = [phone1, phone2]
 
     website = Quickeebooks::Online::Model::WebSite.new
@@ -123,6 +123,8 @@ class CustomersController < ApplicationController
     @customer.update_attributes(:quickbook_customer_id => quickbook_customer_id)
   end
 
+
+  
   def update_to_quickbooks(customers)
     #push data to quickbook
     oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, current_login.access_token, current_login.access_secret)
@@ -133,11 +135,11 @@ class CustomersController < ApplicationController
     customer_service.realm_id = current_login.realm_id
     customer_service.list
 
-#    filter customer with old customer_name
-#    filters = []
-#    filters << Quickeebooks::Online::Service::Filter.new(:text, :field => 'name', :value => params[:customer_name])
-#    customer = customer_service.list(filters)
-#    customer = customer.entries.first
+    #    filter customer with old customer_name
+    #    filters = []
+    #    filters << Quickeebooks::Online::Service::Filter.new(:text, :field => 'name', :value => params[:customer_name])
+    #    customer = customer_service.list(filters)
+    #    customer = customer.entries.first
 
     customer = customer_service.fetch_by_id(@customer.quickbook_customer_id)
 
@@ -145,14 +147,36 @@ class CustomersController < ApplicationController
     customer.name = @customer.company_name
     
     #update addresses
-    customer.addresses.first.line1 = @customer.address1
-    customer.addresses.first.line2 = @customer.address2
-    customer.addresses.first.city = @customer.city
-    customer.addresses.first.country_sub_division_code = @customer.state
-    customer.addresses.first.postal_code = @customer.zip
+    unless customer.addresses.present?
+      address = Quickeebooks::Online::Model::Address.new
+      address.line1 = @customer.address1
+      address.line2 = @customer.address2
+      address.city = @customer.city
+      address.country_sub_division_code = @customer.state
+      address.postal_code = @customer.zip
+      customer.addresses = [address]
+    else
+      customer.addresses.first.line1 = @customer.address1
+      customer.addresses.first.line2 = @customer.address2
+      customer.addresses.first.city = @customer.city
+      customer.addresses.first.country_sub_division_code = @customer.state
+      customer.addresses.first.postal_code = @customer.zip
+    end
 
     #update phones
-    customer.phones.first.free_form_number = customer.phones.second.free_form_number = @customer.phone
+    # phones fields is empty create contact else update
+    unless customer.phones.present?
+      phone1 = Quickeebooks::Online::Model::Phone.new
+      phone1.device_type = "Primary"
+      phone1.free_form_number = (@customer.phone.present? ? @customer.phone : "-")
+      phone2 = Quickeebooks::Online::Model::Phone.new
+      phone2.device_type = "Mobile"
+      phone2.free_form_number = (@customer.phone.present? ? @customer.phone : "-")
+      customer.phones = [phone1, phone2]
+    else
+      customer.phones.first.free_form_number = @customer.phone
+      customer.phones.second.free_form_number = @customer.phone
+    end
 
     #update website uri
     customer.web_site.uri = @customer.website

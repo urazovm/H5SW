@@ -17,7 +17,7 @@ Item.create(:itemtype => "Service", :qty => 1, :number => "104", :name => "Trave
 Item.create(:itemtype => "Service", :qty => 1, :number => "105", :name => "Part Time", :description => "Service item for part time", :unit_cost => 610, :unit_price => 600)
 
 #create Tabs
-Tab.create(:name => "Customer Tab 1", :tab_type => "Customer", :position => 1)
-Tab.create(:name => "Customer Tab 2", :tab_type => "Customer", :position => 2)
-Tab.create(:name => "Job Tab 1", :tab_type => "Job", :position => 3)
-Tab.create(:name => "Job Tab 2", :tab_type => "Job", :position => 4)
+#Tab.create(:name => "Customer Tab 1", :tab_type => "Customer", :position => 1)
+#Tab.create(:name => "Customer Tab 2", :tab_type => "Customer", :position => 2)
+#Tab.create(:name => "Job Tab 1", :tab_type => "Job", :position => 3)
+#Tab.create(:name => "Job Tab 2", :tab_type => "Job", :position => 4)

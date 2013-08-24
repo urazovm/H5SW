@@ -21,7 +21,7 @@
     <tr>
       <td><%=  f.label :roll,"Role" %></td>
       <td>
-        <%= f.select :roll, options_for_select([["Admin", "Admin"], ["Tech", "Tech"], ["Sales", "Sales"], ["Subcontractor", "Subcontractor"], ["Office", "Office"], ["Customer", "Customer"]],:selected => @role.roll) %>
+        <%= f.select :roll, options_for_select([["Admin", "Admin"], ["Tech", "Tech"], ["Sales", "Sales"], ["Subcontractor", "Subcontractor"], ["Office", "Office"], ["Customer", "Customer"]], :selected => @role.roll) %>
       </td>
     </tr>
 

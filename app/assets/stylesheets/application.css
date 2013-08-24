@@ -299,3 +299,42 @@ tr.odd{
     width :30px;
     height :15px;
 }
+
+
+
+
+
+
+/* create warning div for trial period message */
+.trial-warning{
+    border: 1px solid;
+    margin: 10px 0px;
+    padding:15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font: bold 13px Arial;
+    text-align: center;
+}
+.trial-remaining-days{
+    font: bold 19px Arial;
+    box-shadow:  1px 1px 4px 1px;
+    -moz-box-shadow:  1px 1px 4px 1px;
+    -webkit-box-shadow:  1px 1px 4px 1px;
+    border-radius: 999px;
+    padding: 5px;
+}
+.warning {
+    color: #9F6000 !important;
+    /*border: 1px solid #9F6000;*/
+    /*color: #CD0000 !important;*/
+    background-color: #FEEFB3;
+    background-image: url('warning.png');
+}
+.error {
+    color: #D8000C;
+    background-color: #FFBABA;
+    background-image: url('error.png');
+}
+/* end warning div for trial period message */

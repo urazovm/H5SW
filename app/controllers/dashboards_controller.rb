@@ -1,5 +1,5 @@
 class DashboardsController < ApplicationController
-  
+  before_filter :trial_period_expired?
   before_filter :is_login?
   
   def index

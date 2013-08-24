@@ -43,6 +43,15 @@
     </div>
     <div class="container" style="padding-bottom:50px;">
       <br/> <br/> <br/>
+      <% if signed_in? %>
+        <% unless params[:controller] == "trial_expires" %>
+          <div class="trial-warning warning">
+            Your SMO trial period will expire on <span class="trial-remaining-days"><%= (expired_on < 10) ? "0#{expired_on}" : expired_on %></span> days. Enjoy your free trial.
+            <%= link_to_function "Suscribe Now", "alert('comming soon'); return false;", :class => "btn btn-small btn-success" ,:style => "margin-left:20px;" %>
+          </div>
+        <% end   %>
+      <% end %>
+
       <% if notice %>
         <div class="alert alert-info" style="margin-top: 0px;">
           <a class="close" data-dismiss="alert">×</a>

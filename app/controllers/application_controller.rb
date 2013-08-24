@@ -3,7 +3,9 @@ class ApplicationController < ActionController::Base
 
   helper :all
   helper_method :search_by_session
-
+  helper_method :expired_on
+  helper_method :current_login
+  
   def after_sign_in_path_for(resource_or_scope)
     root_path
   end
@@ -140,117 +142,138 @@ class ApplicationController < ActionController::Base
       @json = []
     end
   end
-end
 
-# accessing the role set for each user
-def current_login
-  current_company ? current_company : current_user.company
-end
 
-def access_role?
-  if current_user
-    @user_role = Role.find(current_user.role_id)
-    @user_role ? @role_name = @user_role.roll : ""
-    @error_message = "You don't have permission to access this page!"
+  # Actions for trial period
+  # Create expired_on action for keeping track of how many days remaining in trial period
+  # Create payment_notification after 20 days passed and 30 days passed
+  # Create trial_period_expired? redirecting to expire notification page after trial expiration
+  def expired_on
+    ((current_company.created_at + 30.days).to_date - Date.today).round if current_company.present?
+  end
+
+  def payment_notification
+    # send current_company email for subscription
+  end
+
+  def trial_period_expired?
+    if expired_on <= 0
+      redirect_to trial_expires_path
+    end
+  end
+  # end of Actions for trial period
+
+
+  # accessing the role set for each user
+  def current_login
+    current_company ? current_company : current_user.company
+  end
+
+  def access_role?
+    if current_user
+      @user_role = Role.find(current_user.role_id)
+      @user_role ? @role_name = @user_role.roll : ""
+      @error_message = "You don't have permission to access this page!"
     
-    if @user_role
-      if @role_name == "Admin"
-      else
+      if @user_role
+        if @role_name == "Admin"
+        else
         
-        #customer role
-        @customer_role =  @user_role.customer
-        if @customer_role == "All"
-        elsif @customer_role == "None"
-          if params[:controller] == "customers"
-            flash[:alert] = @error_message
-            redirect_to dashboards_index_path
+          #customer role
+          @customer_role =  @user_role.customer
+          if @customer_role == "All"
+          elsif @customer_role == "None"
+            if params[:controller] == "customers"
+              flash[:alert] = @error_message
+              redirect_to dashboards_index_path
+            end
+          elsif @customer_role == "Read-Only"
+            if params[:controller] == "customers" && (params[:action] == "edit" || params[:action] == "new")
+              flash[:alert] = @error_message
+              redirect_to customers_path
+            end
+          elsif @customer_role == "Add/Read"
+            if params[:controller] == "customers" && params[:action] == "edit"
+              flash[:alert] = @error_message
+              redirect_to customers_path
+            end
           end
-        elsif @customer_role == "Read-Only"
-          if params[:controller] == "customers" && (params[:action] == "edit" || params[:action] == "new")
-            flash[:alert] = @error_message
-            redirect_to customers_path
-          end
-        elsif @customer_role == "Add/Read"
-          if params[:controller] == "customers" && params[:action] == "edit"
-            flash[:alert] = @error_message
-            redirect_to customers_path
-          end
-        end
 
-        #jobs role
-        @job_role =  @user_role.jobs
-        if @job_role == "All"
-        elsif @job_role == "None"
-          if params[:controller] == "jobs"
-            flash[:alert] = @error_message
-            redirect_to dashboards_index_path
+          #jobs role
+          @job_role =  @user_role.jobs
+          if @job_role == "All"
+          elsif @job_role == "None"
+            if params[:controller] == "jobs"
+              flash[:alert] = @error_message
+              redirect_to dashboards_index_path
+            end
+          elsif @job_role == "Read-Only"
+            if params[:controller] == "jobs" && (params[:action] == "edit" || params[:action] == "new")
+              flash[:alert] = @error_message
+              redirect_to jobs_path
+            end
+          elsif @job_role == "Add/Read"
+            if params[:controller] == "jobs" && params[:action] == "edit"
+              flash[:alert] = @error_message
+              redirect_to jobs_path
+            end
           end
-        elsif @job_role == "Read-Only"
-          if params[:controller] == "jobs" && (params[:action] == "edit" || params[:action] == "new")
-            flash[:alert] = @error_message
-            redirect_to jobs_path
-          end
-        elsif @job_role == "Add/Read"
-          if params[:controller] == "jobs" && params[:action] == "edit"
-            flash[:alert] = @error_message
-            redirect_to jobs_path
-          end
-        end
 
-        #jobtimes role
-        @jobtime_role = @user_role.jobtimes
-        if @jobtime_role == "Read-Write"
-        elsif @jobtime_role == "None"
-          if params[:controller] == "jobtimes"
-            flash[:alert] = @error_message
-            redirect_to dashboards_index_page
+          #jobtimes role
+          @jobtime_role = @user_role.jobtimes
+          if @jobtime_role == "Read-Write"
+          elsif @jobtime_role == "None"
+            if params[:controller] == "jobtimes"
+              flash[:alert] = @error_message
+              redirect_to dashboards_index_page
+            end
+          elsif @jobtime_role == "Read-Only"
+            if params[:controller] == "jobtimes" && params[:action] == "new"
+              flash[:alert] = @error_message
+              redirect_to jobtimes_path
+            end
           end
-        elsif @jobtime_role == "Read-Only"
-          if params[:controller] == "jobtimes" && params[:action] == "new"
-            flash[:alert] = @error_message
-            redirect_to jobtimes_path
-          end
-        end
 
-        #contacts role
-        @contact_role =  @user_role.contacts
-        if @contact_role == "All"
-        elsif @contact_role == "None"
-          if params[:controller] == "contacts"
-            flash[:alert] = @error_message
-            redirect_to dashboards_index_path
+          #contacts role
+          @contact_role =  @user_role.contacts
+          if @contact_role == "All"
+          elsif @contact_role == "None"
+            if params[:controller] == "contacts"
+              flash[:alert] = @error_message
+              redirect_to dashboards_index_path
+            end
+          elsif @contact_role == "Read-Only"
+            if params[:controller] == "contacts" && (params[:action] == "edit" || params[:action] == "new")
+              flash[:alert] = @error_message
+              redirect_to contacts_path
+            end
+          elsif @contact_role == "Add/Read"
+            if params[:controller] == "contacts" && params[:action] == "edit"
+              flash[:alert] = @error_message
+              redirect_to contacts_path
+            end
           end
-        elsif @contact_role == "Read-Only"
-          if params[:controller] == "contacts" && (params[:action] == "edit" || params[:action] == "new")
-            flash[:alert] = @error_message
-            redirect_to contacts_path
-          end
-        elsif @contact_role == "Add/Read"
-          if params[:controller] == "contacts" && params[:action] == "edit"
-            flash[:alert] = @error_message
-            redirect_to contacts_path
-          end
-        end
 
 
-        #settings_admin role
+          #settings_admin role
 
-        @settings_role =  @user_role.settings_admin
-        if @settings_role == "All"
-        elsif @settings_role == "None"
-          if params[:controller] == "users" || params[:controller] == "roles" || (params[:controller] == "customs" && params[:action] == "new") || (params[:controller] == "jobtimes" && params[:action] == "new")
-            flash[:alert] = @error_message
-            redirect_to dashboards_index_path
-          end
-        elsif @settings_role == "Read-Only"
-          if params[:controller] == "users"
-            flash[:alert] = @error_message
-            redirect_to dashboards_index_path
-          end
-        elsif @settings_role == "Add/Read"
-          if params[:controller] == "users"
-            flash[:alert] = @error_message
-            redirect_to dashboards_index_path
+          @settings_role =  @user_role.settings_admin
+          if @settings_role == "All"
+          elsif @settings_role == "None"
+            if params[:controller] == "users" || params[:controller] == "roles" || (params[:controller] == "customs" && params[:action] == "new") || (params[:controller] == "jobtimes" && params[:action] == "new")
+              flash[:alert] = @error_message
+              redirect_to dashboards_index_path
+            end
+          elsif @settings_role == "Read-Only"
+            if params[:controller] == "users"
+              flash[:alert] = @error_message
+              redirect_to dashboards_index_path
+            end
+          elsif @settings_role == "Add/Read"
+            if params[:controller] == "users"
+              flash[:alert] = @error_message
+              redirect_to dashboards_index_path
+            end
           end
         end
       end
