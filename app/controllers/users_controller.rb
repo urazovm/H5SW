@@ -47,7 +47,15 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    already_smo_user = true
+    unless @user.smo_user.present?
+      already_smo_user = false
+    end
     if @user.update_attributes(params[:user])
+      unless already_smo_user == true
+        @user.update_attributes(:confirmation_token => nil,:confirmed_at => Time.now,:reset_password_token => (0...16).map{(65+rand(26)).chr}.join,:reset_password_sent_at => Time.now)
+        CompanyMailer.user_link(@user, current_login).deliver
+      end
       render
     else
       render :action => "edit"

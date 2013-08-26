@@ -175,10 +175,10 @@ class SettingsController < ApplicationController
     # check for existing value
     @employees.each do |employee|
       unless current_company.users.exists?(:name => employee.name, :role_id => @role_id)
-        email = (employee.email.present? ? employee.email.address : "#{SecureRandom.urlsafe_base64 + "@gmail.com"}")
-        current_company.users.create(:password => "qawsed!@#", :password_confirmation => "qawsed!@#", :role_id => @role_id, :name => employee.name,
-          :accounting_name => employee.name, :email => email, :smo_user => true, :language => "English",
-          :company_id => current_company.id, :time_zone => "Hawaii", :accounting_type => "Employee")
+        #email = (employee.email.present? ? employee.email.address : "#{SecureRandom.urlsafe_base64 + "@gmail.com"}")
+        email = employee.email.present? ? employee.email.address : "-"
+        @user = current_company.users.new(:password => "qawsed!@#", :password_confirmation => "qawsed!@#", :role_id => @role_id, :name => employee.name, :accounting_name => employee.name, :email => email, :smo_user => false, :language => "English", :company_id => current_company.id, :time_zone => "Hawaii", :accounting_type => "Employee")
+        @user.save(:validate => false)
       end
     end
   end
@@ -201,8 +201,9 @@ class SettingsController < ApplicationController
     # check for existing value
     @vendors.each do |vendor|
       unless current_login.users.exists?(:name => vendor.name, :role_id => @role_id)
-        email = (vendor.email.present? ? vendor.email.address : "#{SecureRandom.urlsafe_base64 + "@gmail.com"}") # if email present
-        @user = current_login.users.new(:password => "qawsed!@#", :password_confirmation => "qawsed!@#", :role_id => @role_id, :name => vendor.name, :accounting_name => vendor.name, :email => email, :smo_user => true, :language => "English", :company_id => current_login.id, :time_zone => "Hawaii", :accounting_type => "Vendor")
+        #email = (vendor.email.present? ? vendor.email.address : "#{SecureRandom.urlsafe_base64 + "@gmail.com"}") # if email present
+        email = vendor.email.present? ? vendor.email.address : "-"
+        @user = current_login.users.new(:password => "qawsed!@#", :password_confirmation => "qawsed!@#", :role_id => @role_id, :name => vendor.name, :accounting_name => vendor.name, :email => email, :smo_user => false, :language => "English", :company_id => current_login.id, :time_zone => "Hawaii", :accounting_type => "Vendor")
         @user.save(:validate => false)
       end
     end
@@ -228,8 +229,8 @@ class SettingsController < ApplicationController
     @sales_persons.each do |sales_person|
       unless current_login.users.exists?(:name => sales_person.name, :role_id => @role_id)
         email = (sales_person.email.present? ? sales_person.email.address : "#{SecureRandom.urlsafe_base64 + "@gmail.com"}")
-        current_login.users.create(:password => "qawsed!@#", :password_confirmation => "qawsed!@#", :role_id => @role_id, :name => sales_person.name,
-          :accounting_name => sales_person.name, :email => email, :smo_user => true, :language => "English",
+        current_login.users.new(:password => "qawsed!@#", :password_confirmation => "qawsed!@#", :role_id => @role_id, :name => sales_person.name,
+          :accounting_name => sales_person.name, :email => email, :smo_user => false, :language => "English",
           :company_id => current_login.id, :time_zone => "Hawaii", :accounting_type => "Customer")
       end
     end
