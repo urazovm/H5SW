@@ -35,11 +35,19 @@ class CustomersController < ApplicationController
     @phone2 = params[:customer][:phone2]
     @phone3 = params[:customer][:phone3]
     @phone4 = params[:customer][:phone4]
-    if @customer.save
-      
-      push_to_quickbook(@customer)
+    unless params[:customer][:website].present? || params[:customer][:website] != ""
+      params[:customer][:website] = "http://"
+    end
 
-      flash[:notice] = "Customer was successfully created."
+    if @customer.save
+      if current_company.present? && @customer.types != "Prospect"
+        push_to_quickbook(@customer) # push if not prospect customer
+        flash[:notice] = "Customer was successfully created in SMO and pushed to Quickbook."
+      else
+        flash[:notice] = "Customer was successfully created in SMO."
+      end
+
+      
       redirect_to customers_path
     else
       render :action => "new"
@@ -56,9 +64,13 @@ class CustomersController < ApplicationController
 
     if @customer.update_attributes(params[:customer])
       
-      update_to_quickbooks(@customer)   #update in quickbooks also
+      if current_company.present? && @customer.types != "Prospect"
+        update_to_quickbooks(@customer)   #update if not prospect customer
+        flash[:notice] = "Customer was successfully updated in SMO and Quickbook."
+      else
+        flash[:notice] = "Customer was successfully updated in SMO"
+      end
 
-      flash[:notice] = "Customer was successfully updated."
       redirect_to customers_path
     else
       render :action => "edit"
@@ -79,12 +91,12 @@ class CustomersController < ApplicationController
   #push into quickbook
   def push_to_quickbook(customers)
     #push data to quickbook
-    oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, current_login.access_token, current_login.access_secret)
+    oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, current_company.access_token, current_company.access_secret)
 
     #creating customer in quickbooks
     customer_service = Quickeebooks::Online::Service::Customer.new
     customer_service.access_token = oauth_client
-    customer_service.realm_id = current_login.realm_id
+    customer_service.realm_id = current_company.realm_id
     customer_service.list
 
     customer = Quickeebooks::Online::Model::Customer.new
@@ -118,7 +130,7 @@ class CustomersController < ApplicationController
     filters = []
     filters << Quickeebooks::Online::Service::Filter.new(:text, :field => 'name', :value => customer.name)
     customer = customer_service.list(filters)
-    @customer = current_login.customers.find(@customer.id)
+    @customer = current_company.customers.find(@customer.id)
     quickbook_customer_id = customer.entries.first.id
 
     #update quickbook_customer_id field in customer table
@@ -129,72 +141,58 @@ class CustomersController < ApplicationController
   
   def update_to_quickbooks(customers)
     #push data to quickbook
-    oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, current_login.access_token, current_login.access_secret)
+    oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, current_company.access_token, current_company.access_secret)
 
     #creating customer in quickbooks
     customer_service = Quickeebooks::Online::Service::Customer.new
     customer_service.access_token = oauth_client
-    customer_service.realm_id = current_login.realm_id
+    customer_service.realm_id = current_company.realm_id
     customer_service.list
 
-    #    filter customer with old customer_name
-    #    filters = []
-    #    filters << Quickeebooks::Online::Service::Filter.new(:text, :field => 'name', :value => params[:customer_name])
-    #    customer = customer_service.list(filters)
-    #    customer = customer.entries.first
+    unless @customer.quickbook_customer_id.present? || @customer.quickbook_customer_id != nil
+      push_to_quickbook(@customer)
+    else
+      customer = customer_service.fetch_by_id(@customer.quickbook_customer_id)
 
-    customer = customer_service.fetch_by_id(@customer.quickbook_customer_id)
-
-    #if customer doesnot present..create new customer with these datas
-    customer_present = true
-    unless customer.present?
-      customer_present = false
-      customer = Quickeebooks::Online::Model::Customer.new
-    end
-
-    # update old values to new value here
-    customer.name = @customer.company_name
+      # update old values to new value here
+      customer.name = @customer.company_name
     
-    #update addresses
-    unless customer.addresses.present?
-      address = Quickeebooks::Online::Model::Address.new
-      address.line1 = @customer.address1
-      address.line2 = @customer.address2
-      address.city = @customer.city
-      address.country_sub_division_code = @customer.state
-      address.postal_code = @customer.zip
-      customer.addresses = [address]
-    else
-      customer.addresses.first.line1 = @customer.address1
-      customer.addresses.first.line2 = @customer.address2
-      customer.addresses.first.city = @customer.city
-      customer.addresses.first.country_sub_division_code = @customer.state
-      customer.addresses.first.postal_code = @customer.zip
-    end
+      #update addresses
+      unless customer.addresses.present?
+        address = Quickeebooks::Online::Model::Address.new
+        address.line1 = @customer.address1
+        address.line2 = @customer.address2
+        address.city = @customer.city
+        address.country_sub_division_code = @customer.state
+        address.postal_code = @customer.zip
+        customer.addresses = [address]
+      else
+        customer.addresses.first.line1 = @customer.address1
+        customer.addresses.first.line2 = @customer.address2
+        customer.addresses.first.city = @customer.city
+        customer.addresses.first.country_sub_division_code = @customer.state
+        customer.addresses.first.postal_code = @customer.zip
+      end
 
-    #update phones
-    # phones fields is empty create contact else update
-    unless customer.phones.present?
-      phone1 = Quickeebooks::Online::Model::Phone.new
-      phone1.device_type = "Primary"
-      phone1.free_form_number = (@customer.phone.present? ? @customer.phone : "-")
-      phone2 = Quickeebooks::Online::Model::Phone.new
-      phone2.device_type = "Mobile"
-      phone2.free_form_number = (@customer.phone.present? ? @customer.phone : "-")
-      customer.phones = [phone1, phone2]
-    else
-      customer.phones.first.free_form_number = @customer.phone
-      customer.phones.second.free_form_number = @customer.phone
-    end
+      #update phones
+      # phones fields is empty create contact else update
+      unless customer.phones.present?
+        phone1 = Quickeebooks::Online::Model::Phone.new
+        phone1.device_type = "Primary"
+        phone1.free_form_number = (@customer.phone.present? ? @customer.phone : "-")
+        phone2 = Quickeebooks::Online::Model::Phone.new
+        phone2.device_type = "Mobile"
+        phone2.free_form_number = (@customer.phone.present? ? @customer.phone : "-")
+        customer.phones = [phone1, phone2]
+      else
+        customer.phones.first.free_form_number = @customer.phone
+        customer.phones.second.free_form_number = @customer.phone
+      end
 
-    #update website uri
-    customer.web_site.uri = @customer.website
+      #update website uri
+      customer.web_site.uri = @customer.website
 
-    # if customer present update otherwise create new customer
-    if customer_present
       customer_service.update(customer)
-    else
-      customer_service.create(customer)
     end
   end
 end

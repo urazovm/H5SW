@@ -38,26 +38,27 @@
   </div>
 
   <div class="field">
-    <%= f.label :city,"city, st, zip"%>
-    <%=f.text_field :city, :style => "width:220px" %>
-
-    <%= f.text_field :state, :style => "width:80px" %>
-
-    <%= f.text_field :zip, :style => "width:80px" %>
+    <span class="span2" > City </span>
+    <span class="span2" > State </span>
+    <span class="span2" > Zip Code </span>
+    <br/>
+      <%=f.text_field :city, :class => "span2", :style => "display:inline" %>
+      <%= f.text_field :state, :class => "span2", :style => "display:inline" %>
+      <%= f.text_field :zip, :class => "span2", :style => "display:inline" %>
   </div>
 
-  <div class="field">
-    <%= label_tag :contact %>
-    <% if current_login.contacts.empty? %>
-      <span style="color: red;">NO CONTACTS</span>
-    <% else %>
+  <%#*<div class="field">%>
+  <%#= label_tag :contact %>
+  <%# if current_login.contacts.empty? %>
+  <%#*<span style="color: red;">NO CONTACTS</span>%>
+  <%# else %>
 
-      <%= f.select :contact_id, options_for_select(current_login.contacts.map{|contact| [contact.name, contact.id]},:selected => @customer.contact_id),{}, :onchange => "GetContact(this)" %>
+  <%#= f.select :contact_id, options_for_select(current_login.contacts.map{|contact| [contact.name, contact.id]},:selected => @customer.contact_id),{}, :onchange => "GetContact(this)" %>
 
-    <% end %>
-    <div id="contact34">
-    </div>
-  </div>
+  <%# end %>
+  <%#*<div id="contact34">%>
+  <%#*</div>%>
+  <%#*</div>%>
 
   <div class="field">
     <%= f.label :account,"Account#" %>
@@ -75,7 +76,7 @@
 
   <div class="field">
     <label>Website <span style='color:green'> &nbsp; &nbsp; must start with (http:// OR https://)</span></label>
-    <%= f.text_field :website %>
+    <%= f.text_field :website, :value => "http://" %>
   </div>
 
   <div class="field">

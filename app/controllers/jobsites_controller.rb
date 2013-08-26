@@ -29,7 +29,7 @@ class JobsitesController < ApplicationController
     @jobsite = Jobsite.new(params[:jobsite])
     
     if @jobsite.save
-      push_to_quickbook(@jobsite)
+      push_jobsite_to_quickbook(@jobsite)
       flash[:notice] = "Jobsite was successfully created."
       redirect_to jobsites_path
     else
@@ -95,7 +95,7 @@ class JobsitesController < ApplicationController
 
 
   #push jobsite into quickbook as job
-  def push_to_quickbook(jobsites)
+  def push_jobsite_to_quickbook(jobsites)
     #push data to quickbook
     oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, current_login.access_token, current_login.access_secret)
 
@@ -107,9 +107,13 @@ class JobsitesController < ApplicationController
     jobsite = Quickeebooks::Online::Model::Job.new
 
     # find quickbook_customer_id
-    qb_id = current_login.find(@jobsite.customer_id)
+    @parent_customer = current_login.customers.find(@jobsite.customer_id)
+    
+    # parent customer information
+    jobsite.customer_id = @parent_customer.quickbook_customer_id
+    jobsite.customer_name = @parent_customer.company_name
+    # end of parent customer information
 
-    @jobsite.customer_id = qb_id.quickbook_customer_id
     jobsite.name = @jobsite.name
 
     address = Quickeebooks::Online::Model::Address.new
@@ -117,9 +121,11 @@ class JobsitesController < ApplicationController
     address.country_sub_division_code = @jobsite.state
     address.postal_code = @jobsite.zip
     jobsite.addresses = [address]
+
+    jobsite_service.create(jobsite)
   end
 
-  def update_to_quickbook(jobsite)
+  def update_jobsite_to_quickbook(jobsite)
 
   end
 end

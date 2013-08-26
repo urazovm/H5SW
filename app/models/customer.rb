@@ -20,10 +20,10 @@ class Customer < ActiveRecord::Base
   #validates :account, :uniqueness => true
   before_save :make_phone
   
-   def self.search(search)
+  def self.search(search)
     if search
       Customer.joins("left join contacts on contacts.id = customers.contact_id").where("customers.company_name ILIKE? OR customers.types ILIKE? OR contacts.name ILIKE? OR contacts.email ILIKE?", "%#{search}%", "%#{search}%","%#{search}%", "%#{search}%")
-     else
+    else
       scoped
     end
   end 
@@ -55,9 +55,10 @@ class Customer < ActiveRecord::Base
  
 
   def gmaps4rails_address
-  "#{self.city}, #{self.state}, #{self.zip}"
+    "#{self.city}, #{self.state}, #{self.zip}"
   end
   def gmaps4rails_infowindow
     "Customer: <br/><b>Name:&nbsp;</b> #{self.company_name}<br /><b>City:&nbsp;</b>#{self.city}<br /><b>State:&nbsp;</b> #{self.state}<br /><b>Zip:&nbsp;</b> #{self.zip}<br /> <b>Phone:&nbsp;</b>#{self.phone}<br />"
   end
+
 end

@@ -149,11 +149,12 @@ class ApplicationController < ActionController::Base
   # Create payment_notification after 20 days passed and 30 days passed
   # Create trial_period_expired? redirecting to expire notification page after trial expiration
   def expired_on
-    ((current_company.created_at + 75.days).to_date - Date.today).round if current_company.present?
+    curr_company = Company.find(current_login.id)
+    ((curr_company.created_at + 75.days).to_date - Date.today).round if curr_company.present?
   end
 
   def payment_notification
-    # send current_company email for subscription
+    # send current_login email for subscription
   end
 
   def trial_period_expired?
@@ -170,6 +171,13 @@ class ApplicationController < ActionController::Base
   end
 
   def access_role?
+    unless current_company.present?
+      if (params[:controller] == "settings" && params[:action] == "accounting")
+        flash[:alert] = "Only company can access this page!"
+        redirect_to users_path
+      end
+    end
+
     if current_user
       @user_role = Role.find(current_user.role_id)
       @user_role ? @role_name = @user_role.roll : ""
