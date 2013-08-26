@@ -29,7 +29,7 @@ class JobsitesController < ApplicationController
     @jobsite = Jobsite.new(params[:jobsite])
     
     if @jobsite.save
-      push_jobsite_to_quickbook(@jobsite)
+      #push_jobsite_to_quickbook(@jobsite)
       flash[:notice] = "Jobsite was successfully created."
       redirect_to jobsites_path
     else
@@ -41,7 +41,7 @@ class JobsitesController < ApplicationController
   def update
     @jobsite = Jobsite.find(params[:id])
     if @jobsite.update_attributes(params[:jobsite])
-      update_to_quickbook(@jobsite)
+      #update_to_quickbook(@jobsite)
       flash[:notice] = "Jobsite was successfully updated."
       redirect_to jobsites_path
     else
