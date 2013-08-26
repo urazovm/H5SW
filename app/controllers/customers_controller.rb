@@ -36,7 +36,9 @@ class CustomersController < ApplicationController
     @phone3 = params[:customer][:phone3]
     @phone4 = params[:customer][:phone4]
     if @customer.save
-      #push_to_quickbook(@customer)
+      
+      push_to_quickbook(@customer)
+
       flash[:notice] = "Customer was successfully created."
       redirect_to customers_path
     else
@@ -143,6 +145,13 @@ class CustomersController < ApplicationController
 
     customer = customer_service.fetch_by_id(@customer.quickbook_customer_id)
 
+    #if customer doesnot present..create new customer with these datas
+    customer_present = true
+    unless customer.present?
+      customer_present = false
+      customer = Quickeebooks::Online::Model::Customer.new
+    end
+
     # update old values to new value here
     customer.name = @customer.company_name
     
@@ -181,6 +190,11 @@ class CustomersController < ApplicationController
     #update website uri
     customer.web_site.uri = @customer.website
 
-    customer_service.update(customer)
+    # if customer present update otherwise create new customer
+    if customer_present
+      customer_service.update(customer)
+    else
+      customer_service.create(customer)
+    end
   end
 end

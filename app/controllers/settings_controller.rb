@@ -85,9 +85,6 @@ class SettingsController < ApplicationController
     #load all the customers created in quickbooks
     @items =	item_service.list.entries
 
-    #check the condition for each customer either they exists in our application or not
-    #if any of the customer doesnot exists in our application then create new customer
-    #with quickbook customer values
     @items.each do |item|
       if !current_login.items.exists?(:name => item.name)
         current_login.items.create(:name => item.name, :description => item.desc, :unit_price => item.unit_price.present? ? item.unit_price.amount : 0, :unit_cost => 0, :itemtype => "-", :qty => 1, :number => "-")
@@ -143,8 +140,6 @@ class SettingsController < ApplicationController
     @vendors.each do |vendor|
       unless current_login.users.exists?(:name => vendor.name, :role_id => @role_id)
         email = (vendor.email.present? ? vendor.email.address : "#{SecureRandom.urlsafe_base64 + "@gmail.com"}") # if email present
-        puts "vvvvvvvvvvvvvvvvv"
-        puts email
         @user = current_login.users.new(:password => "qawsed!@#", :password_confirmation => "qawsed!@#", :role_id => @role_id, :name => vendor.name, :accounting_name => vendor.name, :email => email, :smo_user => true, :language => "English", :company_id => current_login.id, :time_zone => "Hawaii", :accounting_type => "Vendor")
         @user.save(:validate => false)
       end
