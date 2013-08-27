@@ -25,5 +25,4 @@ class Jobsite < ActiveRecord::Base
   def gmaps4rails_infowindow
     "Jobsite: <br/><b>Name:&nbsp;</b> #{self.name}<br /><b>City:&nbsp;</b>#{self.city}<br /><b>State:&nbsp;</b> #{self.state}<br /><b>Zip:&nbsp;</b> #{self.zip}<br />"
   end
-
 end

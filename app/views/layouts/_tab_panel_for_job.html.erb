@@ -31,9 +31,5 @@
       <%= link_to "Custom Fields", new_tab_customs_path(:type=> "Job"), :title => "Create tabs for job" %>
     <% end %>
   </li>
-
-  <li class = <%= params[:controller] == "job_histories" ? 'active' : '' %> >
-    <%= link_to_function "Job History", "alert('coming soon!'); return false;", :title => "Job history page" %>
-  </li>
 </ul>
 

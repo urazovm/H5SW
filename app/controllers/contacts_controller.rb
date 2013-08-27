@@ -3,6 +3,7 @@ class ContactsController < ApplicationController
   before_filter :is_login?
   before_filter :get_contacts, :only => ["create", "edit", "update"]
   before_filter :access_role?
+  before_filter :session_types
   # GET /contacts
   def index
    @contacts = search_by_session(current_login.contacts.search(params[:search])).order("created_at desc").paginate(:per_page => 10, :page => params[:page])

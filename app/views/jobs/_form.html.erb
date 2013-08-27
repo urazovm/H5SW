@@ -43,7 +43,7 @@
     <% if current_login.contacts.empty? %>
       <span style="color: red;">NO CONTACTS</span>
     <% else %>
-      <%= f.select :contact_id, options_for_select(current_login.contacts.map{|contact| [contact.name, contact.id]},:selected => @job.contact_id),{},:onchange => "GetContact(this)" %>
+      <%= f.select :contact_id, options_for_select(search_by_session(current_login.contacts).map{|contact| [contact.name, contact.id]},:selected => @job.contact_id),{},:onchange => "GetContact(this)" %>
     <% end %>
     <div id="contact34">
     </div>
