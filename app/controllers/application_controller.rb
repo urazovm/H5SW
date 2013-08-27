@@ -266,19 +266,8 @@ class ApplicationController < ActionController::Base
           #settings_admin role
 
           @settings_role =  @user_role.settings_admin
-          if @settings_role == "All"
-          elsif @settings_role == "None"
-            if params[:controller] == "users" || params[:controller] == "roles" || (params[:controller] == "customs" && params[:action] == "new") || (params[:controller] == "jobtimes" && params[:action] == "new")
-              flash[:alert] = @error_message
-              redirect_to dashboards_index_path
-            end
-          elsif @settings_role == "Read-Only"
-            if params[:controller] == "users"
-              flash[:alert] = @error_message
-              redirect_to dashboards_index_path
-            end
-          elsif @settings_role == "Add/Read"
-            if params[:controller] == "users"
+          unless @settings_role == "All"
+            if params[:controller] == "users" || params[:controller] == "roles" || (params[:controller] == "customs" && params[:action] == "new") || (params[:controller] == "jobtimes" && params[:action] == "new") || params[:controller] == "settings"
               flash[:alert] = @error_message
               redirect_to dashboards_index_path
             end

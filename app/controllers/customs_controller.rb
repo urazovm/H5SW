@@ -201,7 +201,6 @@ class CustomsController < ApplicationController
     DropdownValue.create(:custom_id => params[:custom_id], :company_id => current_login.id, :drop_value => params[:drop_value])
     @custom = Custom.find(params[:custom_id])
   end
-  # end CRUD table field
   
   def edit_table
     @dropdown_value = current_login.dropdown_values.find(params[:id])
@@ -222,5 +221,5 @@ class CustomsController < ApplicationController
     respond_to do |format|
       format.js
     end
-   end
+  end
 end
