@@ -396,3 +396,26 @@ function reload_with_new_param(param, value){
     }
     window.location.href = base_url + (new_params == 0 ? "?"+param+"="+value : new_params)
 }
+
+
+function inplace_edit_itemtype(id){
+    $.ajax({
+        url:'/inventories/'+id+'/edit?type=itemtype',
+        type:'GET'
+    });
+}
+
+function cancel_update_itemtype(id,itemtype){
+    $("#itemtype_"+id).html('<div onclick="inplace_edit_itemtype('+id+')"><span style ="color :blue; background-color:#EEEEEE; padding: 1px 5px; ">'+itemtype+'</span></div>')
+}
+
+function inplace_edit_number(id){
+    $.ajax({
+        url:'/inventories/'+id+'/edit?type=number',
+        type:'GET'
+    });
+}
+
+function cancel_update_number(id,number){
+    $("#number_"+id).html('<div onclick="inplace_edit_number('+id+')"><span style ="color :blue; background-color:#EEEEEE; padding: 1px 5px; ">'+number+'</span></div>')
+}
