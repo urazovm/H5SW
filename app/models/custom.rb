@@ -5,7 +5,7 @@ class Custom < ActiveRecord::Base
   belongs_to :tab
 
   validates :name, :presence => true
-  validates :name, :uniqueness => {:scope => [:company_id, :cus_type, :tab_id], :message => "Custom field is already created"}
+  #validates :name, :uniqueness => {:scope => [:company_id, :cus_type, :tab_id], :message => "Custom field is already created"}
   
   has_many :dropdown_values, :dependent => :destroy
 end
