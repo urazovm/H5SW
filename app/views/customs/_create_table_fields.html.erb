@@ -1,4 +1,3 @@
-
 <% values = current_login.dropdown_values.where("custom_id=?",custom.id).order("created_at") %>
 <style>
   input.small_row{
@@ -15,36 +14,58 @@
     cursor: pointer;
   }
 </style>
-<script>
-  $(document).ready(function() {
-    $("tr.bold_me:first").css("font-weight", "bold");
+  <script>
+    $(document).ready(function() {
+      $("tr.bold_me:first").css("font-weight", "bold");
 
-    $(".bold_me").mouseover(function() {
-      //$(this).find("a.edit_link").show();
-      $(this).find("a.delete_link").show();
-    });
+      $(".bold_me").mouseover(function() {
+        //$(this).find("a.edit_link").show();
+        $(this).find("a.delete_link").show();
+      });
 
-    $(".bold_me").mouseout(function() {
-      //$(this).find("a.edit_link").hide();
-      $(this).find("a.delete_link").hide();
+      $(".bold_me").mouseout(function() {
+        //$(this).find("a.edit_link").hide();
+        $(this).find("a.delete_link").hide();
+      });
     });
-  });
-</script>
+  </script>
+
 <table class ="table-striped">
   <% values.each do |value| %>
     <tr class="bold_me" onclick="edit_row_values(<%= value.id %>)" id="tr_<%= value.id %>">
       <% value.drop_value.split(',').each do |row| %>
         <td><%= row %></td>
       <% end %>
-      <td style="width:50px;">
-        <%= link_to "Delete", delete_table_custom_path(value),:remote => true, :confirm => "Are you sure to delete?", :method => :delete, :class => "delete_link btn btn-mini btn-primary" , :style => "color:white; display:none; margin-left:0px"%>
-      </td>
+
+        <td style="width:50px;">
+          <%#= link_to "Delete", delete_table_custom_path(value),:remote => true, :confirm => "Are you sure to delete?", :method => :delete, :class => "delete_link btn btn-mini btn-primary" , :style => "color:white; display:none; margin-left:0px"%>
+        </td>
+
       <td>
         <%= link_to_function "Edit", "edit_row_values(#{value.id})", :class => "edit_link btn btn-mini btn-primary", :style => "color:white; display:none;"  %>
-      </td>      
+      </td>
     </tr>
-  <% end %>  
+  <% end %>
   <tr id="display_table_fields">
     <%= render :partial => '/customs/table_fields', :locals => {:custom => custom} %>
   </tr>
 </table>
+
+<script>
+  function edit_row_values(value_id) {
+    $.ajax({
+      url: '/customs/edit_table',
+      data: {
+        id: value_id
+      },
+      type: 'GET',
+      dataType: 'script',
+      success: function(data) {
+      }
+    });
+  }
+
+  $(document).ready(function(){
+    $("tr.bold_me:first").css("font-weight", "bold");
+  })
+</script>

@@ -6,3 +6,11 @@ class DashboardsController < ApplicationController
     @json = Jobsite.where(:customer_id => current_login.customers.collect(&:id)).all.to_gmaps4rails
   end
 end
+
+
+#
+#if Jobsite.where(:customer_id => current_login.customers.collect(&:id)).present?
+#  @json = Jobsite.where(:customer_id => current_login.customers.collect(&:id)).all.to_gmaps4rails
+#else
+#  @json = Jobsite.where(:name => "Default Map").to_gmaps4rails
+#end
