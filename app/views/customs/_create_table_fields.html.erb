@@ -31,24 +31,37 @@
   </script>
 
 <table class ="table-striped">
-  <% values.each do |value| %>
-    <tr class="bold_me" onclick="edit_row_values(<%= value.id %>)" id="tr_<%= value.id %>">
-      <% value.drop_value.split(',').each do |row| %>
-        <td><%= row %></td>
-      <% end %>
+  <% if params[:controller]=="customs" && params[:action]=="new" %>
+    <% value = current_login.dropdown_values.where("custom_id=?",custom.id).order("created_at").first %>
+      <tr class="bold_me" onclick="edit_row_values(<%= value.id %>)" id="tr_<%= value.id %>">
+        <% value.drop_value.split(',').each do |row| %>
+          <td><%= row %></td>
+        <% end %>
+      </tr>
+  <% else %>
+    <% values = current_login.dropdown_values.where("custom_id=?",custom.id).order("created_at") %>
+    <% values.each do |value| %>
+      <tr class="bold_me"
+          <% first_value = current_login.dropdown_values.where("custom_id=?",custom.id).order("created_at").first %>
+          onclick="edit_row_values(<%= (value.id == first_value.id) ? '' : value.id %>)"
+          id="tr_<%= value.id %>">
+        <% value.drop_value.split(',').each do |row| %>
+          <td><%= row %></td>
+        <% end %>
 
         <td style="width:50px;">
-          <%#= link_to "Delete", delete_table_custom_path(value),:remote => true, :confirm => "Are you sure to delete?", :method => :delete, :class => "delete_link btn btn-mini btn-primary" , :style => "color:white; display:none; margin-left:0px"%>
+    <%#= link_to "Delete", delete_table_custom_path(value),:remote => true, :confirm => "Are you sure to delete?", :method => :delete, :class => "delete_link btn btn-mini btn-primary" , :style => "color:white; display:none; margin-left:0px"%>
         </td>
 
-      <td>
-        <%= link_to_function "Edit", "edit_row_values(#{value.id})", :class => "edit_link btn btn-mini btn-primary", :style => "color:white; display:none;"  %>
-      </td>
+        <td>
+          <%= link_to_function "Edit", "edit_row_values(#{value.id})", :class => "edit_link btn btn-mini btn-primary", :style => "color:white; display:none;"  %>
+        </td>
+      </tr>
+    <% end %>
+    <tr id="display_table_fields">
+      <%= render :partial => '/customs/table_fields', :locals => {:custom => custom} %>
     </tr>
   <% end %>
-  <tr id="display_table_fields">
-    <%= render :partial => '/customs/table_fields', :locals => {:custom => custom} %>
-  </tr>
 </table>
 
 <script>

@@ -1,5 +1,5 @@
 class Custom < ActiveRecord::Base
-  attr_accessible :field, :name, :company_id, :cus_type, :tab_id, :position, :status
+  attr_accessible :field, :name, :company_id, :cus_type, :tab_id, :position, :status, :customer_id, :jobsite_id, :job_id
 
   belongs_to :company
   belongs_to :tab

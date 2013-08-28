@@ -1,3 +1,6 @@
+
+<%= render "/layouts/customer_with_action" %>
+
 <table style="background: #F1F1F1">
   <%= form_for(@custom,  :url => customs_path(:tab => @tab.id, :type => @tab.tab_type)) do |f| %>
 
@@ -20,10 +23,32 @@
     <tr style="background: #666; color: #FFF;">
       <td colspan="3">Select Customer/Job from the select field and create fields for it..</td>
     </tr>
+    <tr>
+      <td>
+        &nbsp;
+      </td>
+    </tr>
 
     <tr>
-      <td colspan="3">&nbsp;</td>
+      <td colspan="3">
+        <% if @tab.tab_type=="Job" && session[:job_id]==nil %>
+          <span  class="alert alert-error">Please select Job from job page before continuing.</span>
+        <% elsif !@customer.present? %>
+          <span  class="alert alert-error">Please select customer and jobsite from customer and jobsite dropdown list</span>
+        <% end %>
+
+      </td>
     </tr>
+
+
+    <%= f.hidden_field :customer_id, :value => session[:customer_id] %>
+    <%= f.hidden_field :jobsite_id, :value => session[:jobsite_id] %>
+    <% if @tab.tab_type == "Job" %>
+      <%= f.hidden_field :job_id, :value => session[:job_id] %>
+    <% end %>
+
+
+  <%# find job id if tab type is job %>
 
     <tr style="text-align:left;">
       <th>Change Your Custom Tab Label</th>
@@ -72,46 +97,46 @@
           <%= text_area_tag "drop_down_value1", nil, :placeholder => "Enter your legend here..."%>
         </span>
 
-        <style>
-          input.small_row{
-            margin: 0;
-            padding: 5px;
-            width: 60px;
-          }
-          input.mini_row{
-            margin: 0;
-            padding: 5px;
-            width: 20px;
-          }
-          .bold_me{
-            cursor: pointer;
-          }
-        </style>
-        <script>
-          $("tr.bold_me:first").css("font-weight", "bold");
-        </script>
-        <table id="table123" style="display:none; width:100%" >
-          <tr>
-            <td><%= text_field_tag :field_1, nil, :class => "small_row", :placeholder => "value" %></td>
-            <td><%= text_field_tag :field_2, nil, :class => "small_row", :placeholder => "value" %></td>
-            <td><%= text_field_tag :field_3, nil, :class => "mini_row", :placeholder => "value" %></td>
-            <td><%= text_field_tag :field_4, nil, :class => "mini_row", :placeholder => "value" %></td>
-            <td><%= text_field_tag :field_5, nil, :class => "mini_row", :placeholder => "value" %></td>
-            <td><%= text_field_tag :field_6, nil, :class => "mini_row", :placeholder => "value" %></td>
-            <td><%= text_field_tag :field_7, nil, :class => "mini_row", :placeholder => "value" %></td>
-            <td><%= text_field_tag :field_8, nil, :class => "mini_row", :placeholder => "value" %></td>
-            <td><%= text_field_tag :field_9, nil, :class => "mini_row", :placeholder => "value" %></td>
-            <td><%= text_field_tag :field_10, nil, :class => "mini_row", :placeholder => "value" %></td>
-            <td><%= text_field_tag :field_11, nil, :class => "small_row", :placeholder => "value" %></td>
-          </tr>
-        </table>
-        <div class="alert alert-info" id="value_label">NOTE: Use commas(,) to seperate multiple values. E.g: USA, Canada, Japan, Koria, China</div>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3"><%= f.submit :save, :style => "width: 80px; height: 37px"%> </td>
-    </tr>
-  <% end %>
+    <style>
+      input.small_row{
+        margin: 0;
+        padding: 5px;
+        width: 60px;
+      }
+      input.mini_row{
+        margin: 0;
+        padding: 5px;
+        width: 20px;
+      }
+      .bold_me{
+        cursor: pointer;
+      }
+    </style>
+    <script>
+      $("tr.bold_me:first").css("font-weight", "bold");
+    </script>
+    <table id="table123" style="display:none; width:100%" >
+      <tr>
+        <td><%= text_field_tag :field_1, nil, :class => "small_row", :placeholder => "value" %></td>
+        <td><%= text_field_tag :field_2, nil, :class => "small_row", :placeholder => "value" %></td>
+        <td><%= text_field_tag :field_3, nil, :class => "mini_row", :placeholder => "value" %></td>
+        <td><%= text_field_tag :field_4, nil, :class => "mini_row", :placeholder => "value" %></td>
+        <td><%= text_field_tag :field_5, nil, :class => "mini_row", :placeholder => "value" %></td>
+        <td><%= text_field_tag :field_6, nil, :class => "mini_row", :placeholder => "value" %></td>
+        <td><%= text_field_tag :field_7, nil, :class => "mini_row", :placeholder => "value" %></td>
+        <td><%= text_field_tag :field_8, nil, :class => "mini_row", :placeholder => "value" %></td>
+        <td><%= text_field_tag :field_9, nil, :class => "mini_row", :placeholder => "value" %></td>
+        <td><%= text_field_tag :field_10, nil, :class => "mini_row", :placeholder => "value" %></td>
+        <td><%= text_field_tag :field_11, nil, :class => "small_row", :placeholder => "value" %></td>
+      </tr>
+    </table>
+    <div class="alert alert-info" id="value_label">NOTE: Use commas(,) to seperate multiple values. E.g: USA, Canada, Japan, Koria, China</div>
+  </td>
+  </tr>
+  <tr>
+    <td colspan="3"><%= f.submit :save, :style => "width: 80px; height: 37px"%> </td>
+  </tr>
+<% end %>
 </table>
 
 <div id="display_values" style="margin-top: 10px;">
