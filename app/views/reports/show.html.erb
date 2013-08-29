@@ -61,17 +61,20 @@
       <p style="font-weight: bold; font-size: 20px;">Items List</p>
       <table  class="table table-striped">
         <tr>
+          <th>Type</th>
           <th>Item Name</th>
-          <th>Description</th>
-          <th>Unit Price</th>
           <th>Quantity</th>
+          <th>Description</th>
+          <th>Number</th>
+          
         </tr>
         <% inventory.each do |inventory| %>
           <tr>
+            <td><%= inventory.itemtype %></td>
             <td><%= inventory.name %></td>
-            <td><%= inventory.description %></td>
-            <td><%= inventory.unit_price %></td>
             <td><%= inventory.qty %></td>
+            <td><%= inventory.description %></td>
+            <td><%= inventory.number %></td>
           </tr>
         <% end %>
       </table>
@@ -86,12 +89,18 @@
       <table  class ="table table-striped">
         <tr>
           <th>Type</th>
-          <th>User</th>
+          <th>Date</th>
+          <th>Quantity</th>
+          <th>who</th>
+          <th>Service</th>
         </tr>
         <% jobtime.each do |jobtime| %>
           <tr>
             <td><%= jobtime.timetype %></td>
+            <td><%= jobtime.start_time %></td>
+            <td><%= jobtime.qty %></td>
             <td><%= jobtime.user %></td>
+            <td><%= jobtime.service != nil ? Item.find(jobtime.service).name : '' %></td>
           </tr>
         <% end %>
       </table>
