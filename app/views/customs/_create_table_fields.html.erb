@@ -14,38 +14,42 @@
     cursor: pointer;
   }
 </style>
-  <script>
-    $(document).ready(function() {
-      $("tr.bold_me:first").css("font-weight", "bold");
+<script>
+  $(document).ready(function() {
+    $("tr.bold_me:first").css("font-weight", "bold");
 
-      $(".bold_me").mouseover(function() {
-        //$(this).find("a.edit_link").show();
-        $(this).find("a.delete_link").show();
-      });
-
-      $(".bold_me").mouseout(function() {
-        //$(this).find("a.edit_link").hide();
-        $(this).find("a.delete_link").hide();
-      });
+    $(".bold_me").mouseover(function() {
+      //$(this).find("a.edit_link").show();
+      $(this).find("a.delete_link").show();
     });
-  </script>
+
+    $(".bold_me").mouseout(function() {
+      //$(this).find("a.edit_link").hide();
+      $(this).find("a.delete_link").hide();
+    });
+  });
+</script>
 
 <table class ="table-striped">
-  <% if params[:controller]=="customs" && params[:action]=="new" %>
+  <% if params[:controller]=="customs" && (params[:action]=="new" || params[:action]=="edit_table_heading" || params[:action] == "update_heading") %>
     <% value = current_login.dropdown_values.where("custom_id=?",custom.id).order("created_at").first %>
-      <tr class="bold_me" onclick="edit_row_values(<%= value.id %>)" id="tr_<%= value.id %>">
-        <% value.drop_value.split(',').each do |row| %>
-          <td><%= row %></td>
-        <% end %>
-      </tr>
+    <tr class="bold_me" onclick="edit_table_heading(<%= value.id %>)" id="tr_<%= value.id %>">
+      <% value.drop_value.split(',').each do |row| %>
+        <td><%= row %></td>
+      <% end %>
+      <td colspan="2"></td>
+    </tr>
+    <tr id="display_table_fields">
+      <%= render :partial => '/customs/update_table_heading', :locals => {:custom => custom} %>
+    </tr>
   <% else %>
     <% values = current_login.dropdown_values.where("custom_id=?",custom.id).order("created_at") %>
     <% values.each do |value| %>
       <tr class="bold_me"
-          <% first_value = current_login.dropdown_values.where("custom_id=?",custom.id).order("created_at").first %>
+      <% first_value = current_login.dropdown_values.where("custom_id=?",custom.id).order("created_at").first %>
           onclick="edit_row_values(<%= (value.id == first_value.id) ? '' : value.id %>)"
           id="tr_<%= value.id %>">
-        <% value.drop_value.split(',').each do |row| %>
+            <% value.drop_value.split(',').each do |row| %>
           <td><%= row %></td>
         <% end %>
 
@@ -65,6 +69,19 @@
 </table>
 
 <script>
+  function edit_table_heading(value_id) {
+    $.ajax({
+      url: '/customs/edit_table_heading',
+      data: {
+        id: value_id
+      },
+      type: 'GET',
+      dataType: 'script',
+      success: function(data) {
+      }
+    });
+  }
+
   function edit_row_values(value_id) {
     $.ajax({
       url: '/customs/edit_table',

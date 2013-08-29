@@ -25,8 +25,29 @@ class JobtimesController < ApplicationController
     @minutes = params[:minutes]
     @seconds = params[:seconds]
 
-    @quantity = @hours.to_s+':'+@minutes.to_s+':'+@seconds.to_s
+    #calculate qty
+    @qty = @hours.to_f + @minutes.to_f/60 + @seconds.to_f/(60*60)
+    
+    # find service item
+    @item = Item.find(@service)
+
+    #calculate quantity
+    @quantity = @hours.to_s + ':' + @minutes.to_s + ':' + @seconds.to_s
+
+
     @jobtime = Jobtime.new(:start_time => @start_time, :end_time => @end_time,:qty => @quantity,:company_id => current_login.id,:job_id => session[:job_id],:jobsite_id => session[:jobsite_id],:customer_id => session[:customer_id],:user => current_login.name, :timetype => "Actual Time", :service => @service)
+
+    # calculate cost and save
+    @jobtime.cost = @item.unit_cost * @qty.to_f
+
+    #calculate price and save
+    if(@jobtime.billable.present?)
+      @jobtime.price = @item.unit_price * @qty.to_f
+    else
+      @jobtime.price = 0
+    end
+
+
     if @jobtime.save(:validate => false)
       respond_to do |format|
         format.js
@@ -39,18 +60,18 @@ class JobtimesController < ApplicationController
   def jobtime_shedule
     @jobtime = Jobtime.new(params[:jobtime])
 
-    @qty = @jobtime.qty.to_i.hours
+    @qty = @jobtime.qty
     @item = Item.find(@jobtime.service)
 
     #calculate end_time
-    @jobtime.end_time = @jobtime.start_time+@qty
+    @jobtime.end_time = @jobtime.start_time + @jobtime.qty.to_i.hours
 
     #calculate cost
-    @jobtime.cost = @item.unit_cost * @qty
+    @jobtime.cost = @item.unit_cost * @qty.to_f
 
     #calculate price
     if(@jobtime.billable.present?)
-      @jobtime.price = @item.unit_price * @qty
+      @jobtime.price = @item.unit_price * @qty.to_f
     else
       @jobtime.price = 0
     end

@@ -214,7 +214,20 @@ class CustomsController < ApplicationController
     render
   end
 
+  def edit_table_heading
+    @dropdown_value = current_login.dropdown_values.find(params[:id])
+    @values = @dropdown_value.drop_value.split(",")
+    render
+  end
+
   def update_table
+    @dropdown_value = current_login.dropdown_values.find(params[:id])
+    @dropdown_value.update_attribute(:drop_value, params[:drop_value])
+    @custom = Custom.find(@dropdown_value.custom_id)
+    render
+  end
+
+  def update_heading
     @dropdown_value = current_login.dropdown_values.find(params[:id])
     @dropdown_value.update_attribute(:drop_value, params[:drop_value])
     @custom = Custom.find(@dropdown_value.custom_id)

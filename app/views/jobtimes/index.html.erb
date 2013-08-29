@@ -14,7 +14,7 @@
     <th>Qty</th>
     <th>Who</th>
     <th>Service</th>
-    <th><!--Sub Total--></th>
+    <%#*<th> Cost | Price </th>%>
   </tr>
 
   <% @jobtimes.each do |jobtime| %>
@@ -25,11 +25,7 @@
       <td><%= jobtime.user %></td>
       <td><%= jobtime.service != nil ? Item.find(jobtime.service).name : '' %></td>
       <td>
-        <% @item_price = (jobtime.service != nil ? Item.find(jobtime.service).unit_price.to_f : 0) %>
-        <% @hours = jobtime.qty.split(":")[0] %>
-        <% @minutes = jobtime.qty.split(":")[1] %>
-        <% @seconds = jobtime.qty.split(":")[2] %>
-        <%  (@item_price.to_f * @hours.to_f) + (@item_price.to_f * (@minutes.to_f/60)) + (@item_price.to_f * (@seconds.to_f/(60*60))) %>
+        <%#= "#{jobtime.cost} | #{jobtime.price}" %>
       </td>
     </tr>
   <% end %>

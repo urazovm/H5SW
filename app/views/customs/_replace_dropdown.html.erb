@@ -29,7 +29,7 @@
   ''
 <% end %>
 
-<% unless params[:controller]=="customs" && (params[:action]=="index" || params[:action]=="get_dropdown_values" || params[:action]=="update_dropdown_values") %>
+<% unless params[:controller]=="customs" && (params[:action]=="index" || params[:action]=="get_dropdown_values" || params[:action]=="update_dropdown_values" || params[:action]=="edit_dropdown" || params[:action]=="update_dropdown") %>
   <span>
     <%= link_to "Delete", custom, :remote => true, :confirm => "Are you sure to delete?", :method => :delete, :class => "btn btn-mini btn-primary" , :style => "color:white;"%>&nbsp;
     <%= link_to_function "Hide", "status_false('#{custom.id}');", :class => "btn btn-mini btn-primary" , :style => "color:white;"%>
