@@ -24,4 +24,8 @@ class Job < ActiveRecord::Base
       scoped
     end
   end
+  
+   def self.total_on(date)
+    where("date(updated_at) = ?",date)
+  end
 end

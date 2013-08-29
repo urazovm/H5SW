@@ -1,4 +1,4 @@
-
+<%= render :partial => 'layouts/tab_panel_for_dashboards' %>
 <%= stylesheet_link_tag "gmaps4rails_1" %>
 
 <table div ="gmap">
@@ -11,7 +11,6 @@
     <%= gmaps(:map_options => {:detect_location => true, :center_on_user => true, :auto_zoom => false, :zoom => 12, :auto_adjust => true}, :markers => {:data => @json} ) %>
   <% end %>
 </table>
-
 <script type="text/javascript" charset="utf-8">
   // display map of current location if no jobsites are present
   $(document).ready(function(){
@@ -24,3 +23,25 @@
     }
   });
 </script>
+
+<div id="jobs_chart" style="width: 340px; height: 200px;"></div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+  new Highcharts.Chart({
+    chart: { renderTo: 'jobs_chart' },
+    title: { text: 'Open Jobs' },
+    xAxis: { type: 'datetime' },
+    yAxis: {
+      title: { text: 'open jobs'}
+    },
+    series: [{
+      pointInterval: <%= 1.day * 1000 %>,
+      pointStart: <%= 3.weeks.ago.at_midnight.to_i * 1000 %>,
+      data: [1, 2, 5, 7, 3]
+    }]
+  });
+});
+</script>
+
+

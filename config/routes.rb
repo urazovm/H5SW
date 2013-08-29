@@ -3,6 +3,7 @@ SMO::Application.routes.draw do
 
   resources :trial_expires
   resources :quickbooks
+  resources :reports
 
   resources :customs do
     collection do

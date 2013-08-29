@@ -12,7 +12,7 @@
     <tr>
       <td>
         <%= f.hidden_field :documentable_type, :value => params[:type] %>
-        <%= f.hidden_field :documentable_id, :value => session[:customer_id] %>
+        <%= f.hidden_field :documentable_id, :value => params[:type]=="Job" ? session[:job_id]: session[:customer_id] %>
         <%= f.hidden_field :jobsite_id, :value => session[:jobsite_id] %>
       </td>
 

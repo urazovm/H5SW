@@ -1,6 +1,6 @@
 <%= form_for(@note, :url => notes_path(:type => params[:type]), :remote => true) do |f| %>
   <table width="100%">
-    <%= f.hidden_field :notable_id, :value => session[:customer_id] %>
+    <%= f.hidden_field :notable_id, :value =>  params[:type]=="Job" ? session[:job_id] : session[:customer_id] %>
     <%= f.hidden_field :notable_type, :value => params[:type] %>
     <%= f.hidden_field :jobsite_id, :value => session[:jobsite_id] %>
     <tr style="background:#666; color: #FFF; font-weight: bold;">
@@ -10,7 +10,7 @@
       <td>
         <%= f.select :note_type, [["Site Notes", "Site Notes"],["Service Request", "Service Request"], ["Service Performed", "Service Performed"], ["Private", "Private"], ["Customer", "Customer"], ["System Notes", "System Notes"]],:selected => @note.note_type%>
         <%= f.text_area :description, :style => "width:350px;", :rows => 1 %>
-        <%= f.submit "Add Note", :onclick => "
+        <%= f.submit "Add Note", :class => "btn btn-primary",:onclick => "
                 var error = document.getElementById('error');
                 var note_type = document.getElementById('note_note_type');
                 var notable_type = document.getElementById('note_notable_id');

@@ -338,3 +338,32 @@ tr.odd{
     background-image: url('error.png');
 }
 /* end warning div for trial period message */
+
+/* #tableitems{
+    width :200px;
+  border: 1px solid black;
+}
+#tabletime{
+    width :200px;
+    border :1px solid black;
+}
+*/
+#customer{
+    margin: auto;
+    text-align: center;
+    font-size :16px;
+    width :250px;
+    border-top-style:dotted;
+    border-right-style:solid;
+    border-bottom-style:dotted;
+    border-left-style:solid
+}
+
+#jobsites{
+    width:200px; 
+    border: black;
+    text-align: center;
+    font-size:14px;
+    margin :auto;
+    border-style: solid;
+}
