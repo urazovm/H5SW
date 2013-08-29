@@ -39,6 +39,10 @@ class NotesController < ApplicationController
   end
 
   def get_notes
-    @notes = search_by_session_type("note",current_login.notes, params[:type].to_s).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
+    if params[:type]=='Customer'
+      @notes = search_by_session_type("note", current_login.notes, params[:type].to_s).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
+    else
+      @notes = current_login.notes.where("notable_id=?", session[:job_id]).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
+    end
   end
 end

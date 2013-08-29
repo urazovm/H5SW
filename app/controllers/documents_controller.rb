@@ -6,7 +6,11 @@ class DocumentsController < ApplicationController
   
   def index
     @document = current_login.documents.new()
+    if params[:type]=="Customer"
     @documents = search_by_session_type("document",current_login.documents.search(params[:search]),params[:type]).paginate(:per_page => 10, :page => params[:page])
+    else
+    @documents = current_login.documents.where("documentable_id=?", session[:job_id]).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
+    end
   end
 
   def create
@@ -29,8 +33,12 @@ class DocumentsController < ApplicationController
     end
   end
   
-  def get_documents    
+  def get_documents  
+    if params[:type]=="Customer"
     @documents = search_by_session_type("document", current_login.documents, params[:type].to_s).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
+  else
+    @documents = current_login.documents.where("documentable_id=?", session[:job_id]).order("created_at desc").paginate(:per_page => 10, :page => params[:page])
+    end
   end
 
 end
