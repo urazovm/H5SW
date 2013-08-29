@@ -21,9 +21,9 @@
 <br/>
 
 <div>
+  <% if current_login.notes.exists?(:notable_id => params[:id], :note_type => 'Service Request') %>
   <p style="font-weight: bold; font-size: 20px;">Notes</p>
-  <% if current_login.notes.exists?(:notable_id => session[:job_id], :note_type => 'Service Request') %>
-    <% note = Note.where(:note_type => 'Service Request').find_all_by_notable_id(session[:job_id]) %>
+    <% note = current_login.notes.where("notable_id = ? AND note_type =?", params[:id], 'Service Request') %>
     <table class ="table table-striped">
       <tr>
 
@@ -38,8 +38,8 @@
   <% end %>
 
 
-  <% if  current_login.notes.exists?(:notable_id => session[:job_id], :note_type => 'Service Performed') %>
-    <% note = Note.where(:note_type => 'Service Performed').find_all_by_notable_id(session[:job_id]) %>
+  <% if  current_login.notes.exists?(:notable_id => params[:id], :note_type => 'Service Performed') %>
+    <% note = current_login.notes.where("notable_id = ? AND note_type =?", params[:id], 'Service Performed') %>
     <table class ="table table-striped">
       <tr>
         <th>Service Performed Notes</th>
