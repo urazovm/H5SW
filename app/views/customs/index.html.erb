@@ -11,6 +11,12 @@
 
 <%= render '/layouts/customer_with_action' %>
 
+<p>
+  <span style = "color:#0044cc; font-weight: bold;">
+    Job # : <%= session[:job_id] != nil ? session[:job_id] : "Please select a job" %>
+  </span>
+</p>
+
 <% if params[:type] == "Job" %>
   <%= render '/layouts/tab_panel_for_job' %>
 <% else %>
@@ -38,24 +44,7 @@
         <%= label_tag custom.name, nil, :id=> "label#{custom.id}" %>
       </span>
       <div id="custom_field_updation_<%= custom.id %>">
-        <% @value = DropdownValue.find_by_custom_id_and_company_id(custom.id, current_login.id) %>
-        <% if custom.field == "Text Box" %>
-          <%= text_field_tag "textField", @value.drop_value %>
-        <% elsif custom.field == "Dropdown List" %>
-          <% dropvalue = DropdownValue.find_by_custom_id_and_company_id(custom.id, current_login.id).drop_value.split(',').each %>
-          <%= select_tag "dropdownField", options_for_select(dropvalue.each do |drop|[drop] end), :style => "width: 436px" %>
-        <% elsif custom.field == "Calendar" %>
-          <%= text_field_tag "calendar", nil, :value => @value ? @value.drop_value : "", :class => 'data' %>&nbsp;
-          <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer;", :id => "calendar_icon", :class => "datepicker"%>
-        <% elsif custom.field == "Legend" %>
-          <pre><%= @value.drop_value %></pre>
-        <% elsif custom.field == "Table" %>
-          <div id="create_table_fields">
-            <%= render :partial => 'create_table_fields', :locals => {:custom => custom} %>
-          </div>
-        <% else %>
-
-        <% end %>
+        <%= render :partial => 'customs/replace_dropdown',:locals => {:custom => custom} %>
       </div>
     </li>
   <% end %>

@@ -1,5 +1,5 @@
 <ul class = "nav nav-tabs" id="job_tabs">
-  <li class = <%= params[:controller] == "jobs" && (params[:action] == "new" || params[:action] == "edit" )? 'active' : '' %> >
+  <li class = <%= params[:controller] == "jobs" && (params[:action] == "new" || params[:action] == "edit")? 'active' : '' %> >
     <% if session[:job_id] %>
       <%= link_to "Job", edit_job_path(session[:job_id]), :title => "Job edit page" %>
     <% else %>

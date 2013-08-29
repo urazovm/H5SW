@@ -13,7 +13,10 @@
   <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer;", :id => "calendar_icon", :class => "datepicker"%>
 
 <% elsif custom.field == "Legend" %>
-  <pre onclick="javascript:show_edit_form(<%= custom.id %>, <%= @value.id %>)"><%= @value.drop_value %></pre>
+  <pre
+    <% unless params[:controller]=="customs" && (params[:action]=="index") %>onclick="javascript:show_edit_form(<%= custom.id %>, <%= @value.id %>)"<% end %> >
+      <%= @value.drop_value %>
+  </pre>
   <br/>
 
 <% elsif custom.field == "Table" %>
@@ -26,45 +29,60 @@
   ''
 <% end %>
 
-<span>
-  <%= link_to "Delete", custom, :remote => true, :confirm => "Are you sure to delete?", :method => :delete, :class => "btn btn-mini btn-primary" , :style => "color:white;"%>&nbsp;
-  <%= link_to_function "Hide", "status_false('#{custom.id}');", :class => "btn btn-mini btn-primary" , :style => "color:white;"%>
-</span>
+<% unless params[:controller]=="customs" && (params[:action]=="index" || params[:action]=="get_dropdown_values" || params[:action]=="update_dropdown_values") %>
+  <span>
+    <%= link_to "Delete", custom, :remote => true, :confirm => "Are you sure to delete?", :method => :delete, :class => "btn btn-mini btn-primary" , :style => "color:white;"%>&nbsp;
+    <%= link_to_function "Hide", "status_false('#{custom.id}');", :class => "btn btn-mini btn-primary" , :style => "color:white;"%>
+  </span>
+<% end %>
 
 <script>
-    $(document).ready(function() {
-      /* Activating Best In Place */
-      $('.datepicker').datepicker()
-              .on('changeDate', function(e) {
-        var y = e.date.getFullYear(),
-                _m = e.date.getMonth() + 1,
-                m = (_m > 9 ? _m : '0' + _m),
-                _d = e.date.getDate(),
-                d = (_d > 9 ? _d : '0' + _d);
-        $(this).prev('input.data').val(y + '-' + m + '-' + d);
-      });
+  $(document).ready(function() {
+    /* Activating Best In Place */
+    $('.datepicker').datepicker()
+    .on('changeDate', function(e) {
+      var y = e.date.getFullYear(),
+      _m = e.date.getMonth() + 1,
+      m = (_m > 9 ? _m : '0' + _m),
+      _d = e.date.getDate(),
+      d = (_d > 9 ? _d : '0' + _d);
+      $(this).prev('input.data').val(y + '-' + m + '-' + d);
     });
+  });
 
-    function update_dropdown_values(id) {
-      $.ajax({
-        url: "/customs/edit_dropdown",
-        data: {
-          cus_id: id
-        },
-        type: 'GET',
-        dataType: 'script',
-        success: function(data) {
-        }
-      });
-    }
+  function update_dropdown_values(id) {
+    $.ajax({
+      url: "/customs/edit_dropdown",
+      data: {
+        cus_id: id
+      },
+      type: 'GET',
+      dataType: 'script',
+      success: function(data) {
+      }
+    });
+  }
 
-    function status_false(id) {
-      $.ajax({
-        url: '/customs/' + id + '/update_status/',
-        type: 'PUT',
-        dataType: 'script',
-        success: function(data) {
-        }
-      });
-    }
+  function status_false(id) {
+    $.ajax({
+      url: '/customs/' + id + '/update_status/',
+      type: 'PUT',
+      dataType: 'script',
+      success: function(data) {
+      }
+    });
+  }
+
+  function show_edit_form(custom_id,value_id){
+    $.ajax({
+      url:'/customs/get_dropdown_values',
+      data:{
+        custom_id:custom_id,
+        dropdown_id:value_id
+      },
+      type:'GET',
+      dataType:'script',
+      success:function(data){}
+    });
+  }
 </script>

@@ -2,7 +2,9 @@ class CustomsController < ApplicationController
   before_filter :is_login?
   before_filter :access_role?
   before_filter :display_custom, :only => ["new", "create"]
-  
+
+  before_filter :find_customer_information
+
   def index
     if params[:type].present? && params[:type] =="Job"
       @default_tab = (params[:tab] ? params[:tab] : current_login.tabs.find_by_tab_type("Job").id)
@@ -11,7 +13,11 @@ class CustomsController < ApplicationController
     end
 
     @tabs = current_login.tabs.where("tab_type=?", params[:type]).order("created_at asc")
-    @customs = Custom.where("tab_id=? and company_id=? and status=?", @default_tab.to_i, current_login.id, true).order('position asc')
+    if params[:type]=="Job"
+      @customs = search_by_session(current_login.customs).where("tab_id=? and job_id =? and status=?", @default_tab.to_i, session[:job_id], true).order('position asc')
+    else
+      @customs = search_by_session(current_login.customs).where("tab_id=? and status=?", @default_tab.to_i, true).order('position asc')
+    end
   end
 
   def display_this_in_new_and_create
@@ -24,14 +30,14 @@ class CustomsController < ApplicationController
     @custom = current_login.customs.new
   end
 
-  
-  def create 
+
+  def create
     display_this_in_new_and_create
     #all the parameters from new form
     @custom = current_login.customs.new(params[:custom])
 
     #all the custom fields matching this condition
-    @customs = Custom.where("company_id =? and tab_id =? and status=?", current_login.id, @custom.tab, true)
+    @customs = search_by_session(current_login.customs).where("tab_id =? and status=?", @custom.tab, true)
 
     #set the position of the custom element
     if !@customs.empty?
@@ -43,29 +49,29 @@ class CustomsController < ApplicationController
 
     #save the custom element
     if @custom.save
-      
+
       #update tab name
       @change_tab_name = current_login.tabs.find(params[:tab])
       @change_tab_name.update_attributes(:name => params[:tab_name])
-      
+
       #save values for textbox, dropdown or calendar
       if params[:custom][:field] == "Legend"
         dropdown_value = params[:drop_down_value1]
       elsif params[:custom][:field] == "Table"
-        check_for_empty_params        
-        dropdown_value = [params[:field_1], params[:field_2], params[:field_3],params[:field_4], params[:field_5], params[:field_6],params[:field_7], params[:field_8], params[:field_9],params[:field_10], params[:field_11]].join(", ")        
+        check_for_empty_params
+        dropdown_value = [params[:field_1], params[:field_2], params[:field_3],params[:field_4], params[:field_5], params[:field_6],params[:field_7], params[:field_8], params[:field_9],params[:field_10], params[:field_11]].join(", ")
       else
         dropdown_value = params[:drop_down_value]
       end
       DropdownValue.create(:custom_id => @custom.id, :company_id => @custom.company_id, :drop_value => dropdown_value)
-      
+
       flash[:notice] = "Custom field created successfully."
       redirect_to new_custom_path(:tab => @tab.id, :type => @tab.tab_type)
     else
       render 'new'
     end
   end
-  
+
   def check_for_empty_params
     params[:field_1] = params[:field_1]=="" ? "-" : params[:field_1]
     params[:field_2] = params[:field_2]=="" ? "-" : params[:field_2]
@@ -79,8 +85,8 @@ class CustomsController < ApplicationController
     params[:field_10] = params[:field_10]=="" ? "-" : params[:field_10]
     params[:field_11] = params[:field_11]=="" ? "-" : params[:field_11]
   end
-  
-  
+
+
   # edit your label
   def edit
     @custom = Custom.find(params[:id])
@@ -103,7 +109,7 @@ class CustomsController < ApplicationController
     render
   end
 
-  # update textfield, or calendar values  
+  # update textfield, or calendar values
   def update_dropdown_values
     @custom = Custom.find(params[:dropdown_value][:custom_id])
     @drop_downvalue = current_login.dropdown_values.find(params[:id])
@@ -139,7 +145,7 @@ class CustomsController < ApplicationController
   #end of updation of update dropdown values
 
   def display_custom
-    @customs = Custom.where("tab_id=? AND company_id=? AND status=?", params[:tab].to_i, current_login.id, true).order('position asc')
+    @customs = search_by_session(current_login.customs).where("tab_id=? AND status=?", params[:tab].to_i, true).order('position asc')
   end
 
   # update the position of the custom fields
@@ -147,12 +153,12 @@ class CustomsController < ApplicationController
     @custom = Custom.find(params[:id])
     if params[:pos_1] != params[:pos_2]
       if params[:pos_1] > params[:pos_2]
-        @find_customs = Custom.where("tab_id=? and company_id=? and position BETWEEN ? and ? and position != ? AND status=?", params[:tab].to_i, current_login.id, params[:pos_2],params[:pos_1],params[:pos_1], true)
+        @find_customs = search_by_session(current_login.customs).where("tab_id=? and position BETWEEN ? and ? and position != ? AND status=?", params[:tab].to_i, params[:pos_2],params[:pos_1],params[:pos_1], true)
         @find_customs.each do |cus|
           cus.update_attribute(:position,cus.position+1)
         end
       elsif params[:pos_1] < params[:pos_2]
-        @find_customs = Custom.where("tab_id=? and company_id=? and position BETWEEN ? and ? and position != ? AND status=?", params[:tab].to_i, current_login.id, params[:pos_1],params[:pos_2],params[:pos_1], true)
+        @find_customs = search_by_session(current_login.customs).where("tab_id=? and position BETWEEN ? and ? and position != ? AND status=?", params[:tab].to_i, params[:pos_1],params[:pos_2],params[:pos_1], true)
         @find_customs.each do |cus|
           cus.update_attribute(:position,cus.position-1)
         end
@@ -193,33 +199,39 @@ class CustomsController < ApplicationController
     @tab.update_attribute(:name, params[:updated_name])
   end
   # end of the action for creating tabs
-  
-  
-  
+
+
+
   # CRUD table field
   def create_table_fields
     DropdownValue.create(:custom_id => params[:custom_id], :company_id => current_login.id, :drop_value => params[:drop_value])
     @custom = Custom.find(params[:custom_id])
   end
-  
+
   def edit_table
     @dropdown_value = current_login.dropdown_values.find(params[:id])
     @values = @dropdown_value.drop_value.split(",")
     render
   end
-  
+
   def update_table
     @dropdown_value = current_login.dropdown_values.find(params[:id])
     @dropdown_value.update_attribute(:drop_value, params[:drop_value])
     @custom = Custom.find(@dropdown_value.custom_id)
     render
   end
-  
+
   def delete_table
     @dropdown_value = current_login.dropdown_values.find(params[:id])
     @dropdown_value.destroy
     respond_to do |format|
       format.js
+    end
+  end
+
+  def find_customer_information
+    if session[:customer_id].present? && session[:customer_id] != "All" && session[:customer_id] != "None"
+      @customer = current_login.customers.find(session[:customer_id])
     end
   end
 end

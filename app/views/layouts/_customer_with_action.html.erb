@@ -11,8 +11,7 @@
 
   <%= f.select :actions, options_for_select([["Actions", ""], ["Add Customer", new_customer_path],
       ["Add Job Site", new_jobsite_path] ,["Add Job", new_job_path] , ["Add Note", notes_path(:type => "Customer")], ["Add Contact", new_contact_path],
-      ["Add Document", documents_path(:type => "Customer")]])
-%>
+      ["Add Document", documents_path(:type => "Customer")]]) %>
 
 
   <br />
