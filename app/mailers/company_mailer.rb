@@ -13,4 +13,11 @@ class CompanyMailer < ActionMailer::Base
     @company = company
     mail(:to => @user.email,:subject => "Company #{@company.name} created you")
   end
+  
+  def send_job_report(company,job)
+    @company = company
+    @date_and_time = Time.now
+    @job = job
+    mail(:to => @company.email, :subject => "Job Report")
+  end
 end
