@@ -11,6 +11,6 @@ class CompanyMailer < ActionMailer::Base
   def user_link(user,company)
     @user = user
     @company = company
-    mail(:to => @user.email,:subject => "Company #{@company.name} created you")
+    mail(:to => @user.email, :subject => "Company #{@company.name} created you")
   end
 end

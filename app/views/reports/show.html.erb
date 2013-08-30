@@ -22,7 +22,7 @@
 
 <div>
   <% if current_login.notes.exists?(:notable_id => params[:id], :note_type => 'Service Request') %>
-  <p style="font-weight: bold; font-size: 20px;">Notes</p>
+    <p style="font-weight: bold; font-size: 20px;">Notes</p>
     <% note = current_login.notes.where("notable_id = ? AND note_type =?", params[:id], 'Service Request') %>
     <table class ="table table-striped">
       <tr>
@@ -106,3 +106,14 @@
   <% end %>
 </div>  
 
+<div style="width:100%">
+  <%= link_to "Print","#", :class => "btn btn-small btn-primary" %>
+  <%= link_to "Send Email","#", :class => "btn btn-small btn-primary" %>
+  <%= link_to_function "Send To Quickbook","send_to_quickbook();", :class => "btn btn-small btn-primary" %>
+</div>
+
+<script>
+  function send_to_quickbook(){
+    
+  }
+</script>

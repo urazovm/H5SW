@@ -149,10 +149,10 @@ class SettingsController < ApplicationController
 
     @items.each do |item|
       if !current_company.items.exists?(:name => item.name)
-        current_company.items.create(:name => item.name, :description => item.desc, :unit_price => item.unit_price.present? ? item.unit_price.amount : 0, :unit_cost => 0, :itemtype => "-", :qty => 1, :number => "-")
+        current_company.items.create(:quickbook_item_id => item.id, :name => item.name, :description => item.desc, :unit_price => item.unit_price.present? ? item.unit_price.amount : 0, :unit_cost => 0, :itemtype => "-", :qty => 1, :number => "-")
       else
         @item = current_company.items.find_by_name(item.name)
-        @item.update_attributes(:name => item.name, :description => item.desc, :unit_price => item.unit_price.present? ? item.unit_price.amount : 0, :unit_cost => 0, :itemtype => "-", :qty => 1, :number => "-")
+        @item.update_attributes(:quickbook_item_id => item.id, :name => item.name, :description => item.desc, :unit_price => item.unit_price.present? ? item.unit_price.amount : 0, :unit_cost => 0, :itemtype => "-", :qty => 1, :number => "-")
       end
     end
   end
