@@ -5,9 +5,6 @@
   <% if Jobsite.where(:customer_id => current_login.customers.collect(&:id)).present?  %>
     <%= gmaps4rails(@json) %>
   <% else %>
-    <span class="alert-error" style="padding:0 5px; width:100%;">
-      You have no jobsites created yet. Please create jobsites to view their locations
-    </span>
     <%= gmaps(:map_options => {:detect_location => true, :center_on_user => true, :auto_zoom => false, :zoom => 12, :auto_adjust => true}, :markers => {:data => @json} ) %>
   <% end %>
 </table>
