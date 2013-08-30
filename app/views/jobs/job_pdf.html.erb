@@ -1,69 +1,64 @@
-<span style = "color:#0044cc; font-weight: bold;"> 
-  Job # : <%= @job.id  %>
-</span>
+<div>
+  <span style="font-size :18px; font-weight:bold;">Customer</span><br/>
+  <% @job.customer_id ? customer = Customer.find(@job.customer_id) : '' %>
+  <%=  customer.company_name  %><br/>
+  <%=  customer.city %>,
+  <%=  customer.state  %>,
+  <%=  customer.zip %>
+</div><br/>
 
-<div class="field">
-  <%= label_tag :reference_no %><br />
-  <%=  @job.reference_no %>
+<div>
+  <span style="font-size :18px; font-weight:bold;">Job details</span><br/>
+  
+  <table class ="table-hover">
+    <tr>
+      <td>Job Number</td>
+      <td><%= @job.id %></td>
+    </tr>
+    
+    <tr>
+      <td>Reference Number</td>
+      <td><%= @job.reference_no %></td>
+    </tr>
+    
+    <tr>
+      <td>Due_date</td>
+      <td><%= @job.due_date %></td>
+    </tr>
+    
+    <tr>
+      <td>Class Type</td>
+      <td><%= @job.class_type %></td>
+    </tr>
+    
+    <tr>
+      <td>Assigned_To</td>
+      <td><%= @job.assigned_to %></td>
+    </tr>
+    
+    <tr>
+      <td>Status</td>
+      <td><%= @job.status %></td>
+    </tr>
+    
+    <tr>
+      <td>Sales_person</td>
+      <td><%= @job.sales_person %></td>
+    </tr>
+    
+    <tr>
+      <td>contact</td>
+      <td><%= @job.job_contact %></td>
+    </tr>
+    
+  </table>
 </div>
-<br />
 
-<div class="field">
-  <%= label_tag :due_date %><br />
-  <%= @job.due_date %>
+<div style="float:right;">
+  <table>
+    <tr><%= @job.name %></tr>
+    <tr>Signature</tr>
+    <tr> <%= image_tag(@job.signature) %></tr>
+  </table>
 </div>
-<br />
 
-<div class="field">
-  <%= label_tag :class_type %><br />
-  <%= @job.class_type %>
-</div>
-<br />
-
-<div class="field">
-  <%= label_tag :assigned_to %><br />
-  <%= @job.assigned_to %>
-</div>
-<br />
-
-<div class="field">
-  <%= label_tag :status %><br />
-  <%= @job.status %><br />
-</div>
-<br />
-
-<div class="field">
-  <%= label_tag :select_contact %><br />
-  <div id="contact34">
-    <% if !@job.contact_id.nil? %>
-      <%= Contact.find_by_id(@job.contact_id).name %>
-    <% else %>
-      <%= "Email@gmail.com" %>
-    <% end %>
-  </div>
-</div>
-<br />
-
-<div class="field"><br />
-  <%= label_tag :sales_person %><br />
-  <%= @job.sales_person %><br />
-</div>
-<br />
-
-<div class="field"><br />
-  <%= label_tag :summary %><br />
-  <%= @job.summary %><br />
-</div>
-<br />
-
-<div class="field"><br />
-  <%= label_tag :sub_total %><br />
-  <%= @job.sub_total %>
-</div>
-<br />
-
-<div class="field">
-  <%= label_tag :add_items %><br />
-  <%= @job.add_items %><br />
-</div>
-<br />

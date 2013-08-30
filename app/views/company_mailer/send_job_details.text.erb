@@ -1,16 +1,11 @@
-Welcome, <%= @company.name %>, Job details are:
-Job # : <%= @job_number  %>
-Reference No : <%= @job.reference_no %>
-Due Date : <%= @job.due_date %>
-Class Type : <%= @job.class_type %>
-Assigned To : <%= @job.assigned_to %>
-Status : <%= @job.status %>
-Contact : <% if !@job.contact_id.nil? %>
-      <%= Contact.find_by_id(@job.contact_id).name %>
-    <% else %>
-      <%= "Email@gmail.com" %>
-    <% end %>
-Sales Person : <%= @job.sales_person %>
-Summary : <%= @job.summary %>
-Sub Total : <%= @job.sub_total %>
-Add Item : <%= @job.add_items %>
+Welcome, <%= @company.name %>, 
+    Job details are:
+    Job # : <%= @job.id  %>
+    Reference No : <%= @job.reference_no %>
+    Due Date : <%= @job.due_date %>
+    Class Type : <%= @job.class_type %>
+    Assigned To : <%= @job.assigned_to %>
+    Status : <%= @job.status %>
+    Contact : <%= @job.job_contact %>
+    Sales Person : <%= @job.sales_person %>
+    Summary : <%= @job.summary %>
