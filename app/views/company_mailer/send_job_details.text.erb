@@ -6,6 +6,10 @@ Welcome, <%= @company.name %>,
     Class Type : <%= @job.class_type %>
     Assigned To : <%= @job.assigned_to %>
     Status : <%= @job.status %>
-    Contact : <%= @job.job_contact %>
+    
+    <% if @job.contact_id.present? %>
+      Primary Contact : <%= Contact.find(@job.contact_id).name %>
+    <% end %>
+
     Sales Person : <%= @job.sales_person %>
     Summary : <%= @job.summary %>

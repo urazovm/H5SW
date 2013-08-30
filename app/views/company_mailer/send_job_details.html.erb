@@ -1,20 +1,74 @@
-<!DOCTYPE HTML>
-<html>
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-  </head>
-  <body>
-    Welcome, <%= @company.name %>, 
-    <span style="font-weight:bold;font-size:20px;float:center">Job details are:</span>
-    
-    Job # : <%= @job.id  %>
-    Reference No : <%= @job.reference_no %>
-    Due Date : <%= @job.due_date %>
-    Class Type : <%= @job.class_type %>
-    Assigned To : <%= @job.assigned_to %>
-    Status : <%= @job.status %>
-    Contact : <%= @job.job_contact %>
-    Sales Person : <%= @job.sales_person %>
-    Summary : <%= @job.summary %>
-  </body>
-</html>
+<div>
+  <span style="font-size :18px; font-weight:bold;">Customer</span><br/>
+  <% @job.customer_id ? customer = Customer.find(@job.customer_id) : '' %>
+  <%=  customer.company_name  %><br/>
+  <%=  customer.city %>,
+  <%=  customer.state  %>,
+  <%=  customer.zip %>
+</div><br/>
+
+<div>
+  <span style="font-size :18px; font-weight:bold; border-bottom: 1px solid #CCC;">Job details</span><br/>
+
+  <table class ="table table-hover">
+    <tr>
+      <td>Job Number</td>
+      <td><%= @job.id %></td>
+    </tr>
+
+    <tr>
+      <td>Reference Number</td>
+      <td><%= @job.reference_no %></td>
+    </tr>
+
+    <tr>
+      <td>Due_date</td>
+      <td><%= @job.due_date %></td>
+    </tr>
+
+    <tr>
+      <td>Class Type</td>
+      <td><%= @job.class_type %></td>
+    </tr>
+
+    <tr>
+      <td>Assigned_To</td>
+      <td><%= @job.assigned_to %></td>
+    </tr>
+
+    <tr>
+      <td>Status</td>
+      <td><%= @job.status %></td>
+    </tr>
+
+    <tr>
+      <td>Sales_person</td>
+      <td><%= @job.sales_person %></td>
+    </tr>
+    <% if @job.contact_id.present? %>
+      <tr>
+        <td>Primary Contact</td>
+        <td><%= Contact.find(@job.contact_id).name %></td>
+      </tr>
+    <% end %>
+
+      <tr>
+        <td>
+          &nbsp;
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><%= image_tag @job.signature, :width => "130px" %></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>
+          <%= @job.name %>
+        </td>
+      </tr>
+
+  </table>
+</div>
+

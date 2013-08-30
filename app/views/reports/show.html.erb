@@ -106,7 +106,7 @@
   <% end %>
 </div>  
 
-<div style="width:100%">
+<div style="width:100%; text-align: right;">
   <%= link_to_function "Print", :class => "btn btn-small btn-primary", :method => :post, :onclick => "print(#{@job.id});"%>
   <%= link_to_function "Email",:class => "btn btn-small btn-primary", :method => :post, :onclick => "mail(#{@job.id});" %>
   <%= link_to_function "Send To Quickbook","send_to_quickbook();", :class => "btn btn-small btn-primary" %>
