@@ -6,8 +6,10 @@ SMO::Application.routes.draw do
   resources :reports do
     member do
     post :send_mail
-    post :job_report
-    end
+    get :job_report
+    post :print
+     end
+    
   end
   resources :customs do
     collection do

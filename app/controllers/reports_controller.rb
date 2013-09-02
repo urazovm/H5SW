@@ -101,11 +101,15 @@ class ReportsController < ApplicationController
     end
   end
   
-  def job_report
-    @job = Job.find(params[:id])
-    render :pdf => "reports/job_report.html.erb"
-    respond_to do |format|
-      format.js
-    end
-  end
+	  def job_report
+		 
+	  end
+
+	  def print
+         @job = Job.find(params[:id])
+		 render :pdf => "reports/print.html.erb"
+		 respond_to do |format|
+		 format.js
+	  end
+	 end
 end

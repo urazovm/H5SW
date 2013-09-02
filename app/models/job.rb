@@ -26,6 +26,14 @@ class Job < ActiveRecord::Base
   end
   
    def self.total_on(date)
-    where("date(updated_at) = ?",date).sum(:sub_total)
+    where("status='open' AND date(created_at) = ?",date).count
   end
+
+   def self.closed_jobs(date)
+	where("status='closed' AND date(updated_at) = ?",date).count
+   end
+
+	def self.open_jobs(date)
+	  where("status='open' AND date(created_at) = ?",date).count
+    end
 end

@@ -74,13 +74,13 @@ ActiveRecord::Schema.define(:version => 20130828103749) do
     t.string   "account"
     t.string   "phone"
     t.string   "action"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.integer  "contact_id"
     t.integer  "jobsite_id"
     t.float    "latitude"
     t.float    "longitude"
-    t.boolean  "gmaps"
+    t.boolean  "gmaps",                 :default => false
     t.integer  "quickbook_customer_id"
   end
 
@@ -155,11 +155,6 @@ ActiveRecord::Schema.define(:version => 20130828103749) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "job_times", :force => true do |t|
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "jobs", :force => true do |t|
     t.string   "reference_no",                                     :default => "",  :null => false
     t.datetime "due_date"
@@ -193,11 +188,11 @@ ActiveRecord::Schema.define(:version => 20130828103749) do
     t.string   "state"
     t.string   "zip"
     t.integer  "customer_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.float    "latitude"
     t.float    "longitude"
-    t.boolean  "gmaps"
+    t.boolean  "gmaps",       :default => false
   end
 
   create_table "jobtimes", :force => true do |t|

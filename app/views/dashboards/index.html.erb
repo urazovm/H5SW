@@ -20,10 +20,10 @@
   $(function () {
   new Highcharts.Chart({
     chart: { renderTo: 'jobs_chart' },
-    title: { text: 'Closed Jobs' },
+    title: { text: 'Open Jobs' },
     xAxis: { type: 'datetime' },
     yAxis: {
-      title: { text: ''}
+      title: { text: 'number of open_jobs'}
     },
     series: [{
       pointInterval: <%= 1.day * 1000 %>,
@@ -53,24 +53,24 @@
   </tr>
   
   <tr>
-    <td><div id="openjobs_chart" style="width: 340px; height: 200px;"></div></td>
     <td><div id="closedjobs_chart" style="width: 340px; height: 200px;"></div></td>
+	<td><div id="openjobs_chart" style="width: 340px; height: 200px;"></div></td>
   </tr>
 </table>
 
 <script type="text/javascript" charset="utf-8">
   $(function () {
   new Highcharts.Chart({
-    chart: { renderTo: 'openjobs_chart' },
-    title: { text: 'Open Jobs' },
+    chart: { renderTo: 'closedjobs_chart' },
+    title: { text: 'Closed Jobs' },
     xAxis: { type: 'datetime' },
     yAxis: {
-      title: { text: 'open jobs'}
+      title: { text: 'number of closed_jobs'}
     },
-    series: [{
+     series: [{
       pointInterval: <%= 1.day * 1000 %>,
       pointStart: <%= 3.weeks.ago.at_midnight.to_i * 1000 %>,
-      data: [1, 2, 5, 7, 3]
+      data: <%=  (3.weeks.ago.to_date..Date.today).map { |date| Job.closed_jobs(date).to_f}.inspect %>
     }]
   });
 });
@@ -79,16 +79,16 @@
 <script type="text/javascript" charset="utf-8">
   $(function () {
   new Highcharts.Chart({
-    chart: { renderTo: 'closedjobs_chart' },
+    chart: { renderTo: 'openjobs_chart' },
     title: { text: 'Open Jobs' },
     xAxis: { type: 'datetime' },
     yAxis: {
-      title: { text: 'open jobs'}
+      title: { text: 'open_jobs by day'}
     },
     series: [{
       pointInterval: <%= 1.day * 1000 %>,
       pointStart: <%= 3.weeks.ago.at_midnight.to_i * 1000 %>,
-      data: [1, 2, 5, 7, 3]
+      data: <%=  (3.weeks.ago.to_date..Date.today).map { |date| Job.open_jobs(date).to_f}.inspect %>
     }]
   });
 });
