@@ -24,9 +24,9 @@
       <td><%= jobtime.qty %></td>
       <td><%= jobtime.user %></td>
       <td><%= jobtime.service != nil ? Item.find(jobtime.service).name : '' %></td>
-      <td>
-        <%#= "#{jobtime.cost} | #{jobtime.price}" %>
-      </td>
+      <%#=<td>
+         "#{jobtime.cost} | #{jobtime.price}" 
+      </td>%>
     </tr>
   <% end %>
   

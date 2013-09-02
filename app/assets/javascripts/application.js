@@ -419,3 +419,16 @@ function inplace_edit_number(id){
 function cancel_update_number(id,number){
     $("#number_"+id).html('<div onclick="inplace_edit_number('+id+')"><span style ="color :blue; background-color:#EEEEEE; padding: 1px 5px; ">'+number+'</span></div>')
 }
+
+function mail(id) {
+    $.ajax({
+      url: '/reports/'+id+'/send_mail',
+      data: {
+        id: id
+      },
+      type: 'POST',
+      dataType: 'script',
+      success: function(data) {
+      }
+    });
+  }

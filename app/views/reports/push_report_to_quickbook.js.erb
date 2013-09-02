@@ -1,0 +1,5 @@
+<% if current_login.inventories.exists?(:job_id => @job.id) || current_login.jobtimes.exists?(:job_id => @job.id) %>
+  alert("Report is pushed to quickbook invoice. Please make sure of it");
+<% else %>
+  alert("At least one item is required to generate invoice. Please create items for this job");
+<% end %>

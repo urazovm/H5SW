@@ -4,9 +4,12 @@ SMO::Application.routes.draw do
   resources :trial_expires
   resources :quickbooks
   resources :reports do
+    collection do
+      get :push_report_to_quickbook
+    end
     member do
-    post :send_mail
-    post :job_report
+      post :send_mail
+      post :job_report
     end
   end
   resources :customs do

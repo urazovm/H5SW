@@ -109,26 +109,23 @@
 <div style="width:100%; text-align: right;">
   <%= link_to_function "Print", :class => "btn btn-small btn-primary", :method => :post, :onclick => "print(#{@job.id});"%>
   <%= link_to_function "Email",:class => "btn btn-small btn-primary", :method => :post, :onclick => "mail(#{@job.id});" %>
-  <%= link_to_function "Send To Quickbook","send_to_quickbook();", :class => "btn btn-small btn-primary" %>
+  <%= link_to_function "Push To Quickbook Invoice","send_to_quickbook(#{params[:id]});", :class => "btn btn-small btn-primary" %>
 </div>
 
 <script>
-  function send_to_quickbook(){
-
-  }
-    
-  function mail(id) {
+  function send_to_quickbook(id){
     $.ajax({
-      url: '/reports/'+id+'/send_mail',
+      url: '/reports/push_report_to_quickbook',
       data: {
         id: id
       },
-      type: 'POST',
+      type: 'GET',
       dataType: 'script',
-      success: function(data) {
-      }
+      success: function(data){}
     });
   }
+    
+  
   
   function print(id) {
     $.ajax({
@@ -141,5 +138,5 @@
       success: function(data) {
       }
     });
-    
+  }
 </script>
