@@ -113,7 +113,6 @@
 </div>
 
 <script>
-
   function send_to_quickbook(id){
     $.ajax({
       url: '/reports/push_report_to_quickbook',
@@ -126,19 +125,18 @@
       }
     });  
   }
-    
-  
-  
+</script>
+
+<script>
   function print(id) {
     $.ajax({
       url: '/reports/' +id+'/job_report',
       data: {
         id: id
       },
-      type: 'POST',
+      type: 'GET',
       dataType: 'script',
       success: function(data) {
       }
     });
-  
 </script>
