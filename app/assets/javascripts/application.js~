@@ -431,8 +431,5 @@ function mail(id) {
       success: function(data) {
       }
     });
-
   }
 
-
-  

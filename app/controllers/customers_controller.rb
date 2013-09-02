@@ -40,13 +40,18 @@ class CustomersController < ApplicationController
     end
 
     if @customer.save
+      # check whether SMO is connected with QBO or not
       if current_company.present? && @customer.types != "Prospect"
-        push_to_quickbook(@customer) # push if not prospect customer
-        flash[:notice] = "Customer was successfully created in SMO and pushed to Quickbook."
+        if current_company.access_token.present? && current_company.access_secret.present? && current_company.realm_id.present?
+          push_to_quickbook(@customer) # push if not prospect customer
+          flash[:notice] = "Customer was successfully created in SMO and pushed to Quickbook."
+        else
+          flash[:alert] = "Warning: You are not connected with quickbook."
+          flash[:notice] = "Customer was successfully created in SMO."
+        end
       else
         flash[:notice] = "Customer was successfully created in SMO."
       end
-
       
       redirect_to customers_path
     else
@@ -63,10 +68,14 @@ class CustomersController < ApplicationController
     @phone4 = params[:customer][:phone4]
 
     if @customer.update_attributes(params[:customer])
-      
       if current_company.present? && @customer.types != "Prospect"
-        update_to_quickbooks(@customer)   #update if not prospect customer
-        flash[:notice] = "Customer was successfully updated in SMO and Quickbook."
+        if current_company.access_token.present? && current_company.access_secret.present? && current_company.realm_id.present?
+          update_to_quickbooks(@customer)   #update if not prospect customer
+          flash[:notice] = "Customer was successfully updated in SMO and Quickbook."
+        else
+          flash[:alert] = "Warning: You are not connected with quickbook"
+          flash[:notice] = "Customer was successfully updated in SMO"
+        end
       else
         flash[:notice] = "Customer was successfully updated in SMO"
       end
@@ -97,7 +106,7 @@ class CustomersController < ApplicationController
     customer_service = Quickeebooks::Online::Service::Customer.new
     customer_service.access_token = oauth_client
     customer_service.realm_id = current_company.realm_id
-    customer_service.list
+    # customer_service.list
 
     customer = Quickeebooks::Online::Model::Customer.new
 

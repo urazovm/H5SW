@@ -18,7 +18,6 @@ class ReportsController < ApplicationController
     customer_service.access_token = oauth_client
     customer_service.realm_id = current_login.realm_id
 
-
     @job = current_login.jobs.find(params[:id])
     @customer = current_login.customers.find(@job.customer_id)
 
@@ -28,67 +27,71 @@ class ReportsController < ApplicationController
     meta_data = Quickeebooks::Online::Model::MetaData.new
     meta_data.create_time = @job.created_at
     meta_data.last_updated_time = @job.updated_at
-
     invoice.meta_data = meta_data
 
     # create header parts
     header = Quickeebooks::Online::Model::InvoiceHeader.new
     header.msg = @job.summary
-    #header.status = ""         # default 'pending' for open jobs and 'closed' for closed and invoiced job
-
     # find the customer in quickbook
     customer = customer_service.fetch_by_id(@customer.quickbook_customer_id)
     if customer.present?
       header.customer_id = customer.id
       header.customer_name = customer.name
     end
+    
     # header.sub_total_amount = @job.sub_total
     header.to_be_printed = true
     header.to_be_emailed = true
     header.bill_email = current_login.email
     header.due_date = @job.due_date
-
     invoice.header = header
 
-    # Line Item: If these line items already in quickbooks then fetch them otherwise create them
-    if current_login.inventories.exists?(:job_id => @job.id) || current_login.jobtimes.exists(:job_id => @job.id)
-
-      line_items = Quickeebooks::Online::Model::InvoiceLineItem.new
-
+    if current_login.inventories.exists?(:job_id => @job.id) || current_login.jobtimes.exists?(:job_id => @job.id)
       @items = current_login.inventories.where("job_id = ?", @job.id)
       if @items.present?
         @items.each do |item|
-          line_items.desc = item.description
-          #    line_items.amount = item.unit_price
-          #        line_items.item_id = item.quickbook_item_id
-          line_items.unit_price = item.unit_price
-          line_items.quantity = item.qty.to_f
+          line_item = Quickeebooks::Online::Model::InvoiceLineItem.new
+          if item.description.present?
+            line_item.desc = item.description
+          else
+            line_item.desc = item.name
+          end
+          # line_items.item_id = Item.find(@job.item_id).quickbook_item_id
+          line_item.unit_price = item.unit_price
+          line_item.quantity = item.qty.to_f
+          line_item.amount = (item.unit_price.to_f * item.qty.to_f)     # unit_price * qty
+
+          # push each line items in invoice line_items
+          invoice.line_items << line_item
         end
       end
 
       @items = current_login.jobtimes.where("job_id =?", @job.id)
       if @items.present?
         @items.each do |item|
-          #line_items.desc = item.description
-          #    line_items.amount = item.unit_price
-          #        line_items.item_id = item.quickbook_item_id
-
-          #calculate qty
+          line_item = Quickeebooks::Online::Model::InvoiceLineItem.new
+          
           hrs = item.qty.split(":")[0]
           min = item.qty.split(":")[1]
           sec = item.qty.split(":")[2]
           
           qty = hrs.to_f + min.to_f/60 + sec.to_f/3600
-          line_items.quantity = qty
-          line_items.unit_price = item.price.to_f/qty
+          line_item.quantity = qty
+          line_item.unit_price = item.price.to_f/qty
+
+          # display service item name in description
+          service_item = Item.find(item.service)
+          line_item.desc = service_item.name
+
+          if item.billable == true
+            line_item.amount = item.price
+          end
+
+          invoice.line_items << line_item
         end
       end
 
-      invoice.line_items = [line_items]
-      # create invoice
       invoice_service.create(invoice)
-    else
-      # display error message that atleast one line items required
     end
   end
   
