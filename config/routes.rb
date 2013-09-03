@@ -11,7 +11,7 @@ SMO::Application.routes.draw do
     member do
     post :send_mail
     get :job_report
-     end    
+    end    
   end
   resources :customs do
     collection do
