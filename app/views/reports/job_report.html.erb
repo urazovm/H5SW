@@ -1,0 +1,150 @@
+<div id ="job_report">
+
+<div id="company">
+<%= @job.company.name %><br/>
+<%= @job.company.email %>
+</div>
+  
+<div style="float:right;">
+  <span style="font-weight:bold; font-size:18px;float:right;">Invoice</span><br/>
+    <table style="width:300px;">
+      <tr>
+        <th>Date</th>
+        <th>Invoice.No</th>
+      </tr>
+      
+      <tr>
+        <td><%= Date.today %></td>
+        <td></td>
+      </tr>
+      
+      <tr>
+        <th style="border:none;"></th>
+        <th>Due Date</th>
+      </tr>
+      
+      <tr>
+        <td style="border:none;"></td>
+        <td><%= @job.due_date %></td>
+      </tr>
+    </table>
+</div><br/>
+  
+  <div id="billto">
+    <table>
+      <tr><th style="background-color:grey;"><span style="font-weight: bold; font-size:14px;text-align:left;">Bill To</span></th></tr>
+      <tr>
+        <td><%= @job.customer.company_name %>,<br/>
+            <%= @job.customer.address1 %>,<br/>
+            <%= @job.customer.address2 %>,<br/>
+            <%= @job.customer.city %>,<%= @job.customer.state %>,<%= @job.customer.zip %>
+        </td>
+      </tr>
+    </table>
+  </div><br/>
+  
+
+<div style="float:right;">
+  <table>
+    <tr>
+      <th>Amount Due</th>
+      <th>Enclosed</th>
+    </tr>
+    
+    <tr>
+      <td></td>
+      <td>&nbsp;</td>
+    </tr>
+  </table><br/>
+</div><br/><br/>
+
+<div>
+  <table id="totals" style="width:100%;">
+      <tr>
+        <th style="background-color:grey;">Activity</th>
+        <th style="background-color:grey">Amount</th>
+      </tr>
+  <% Inventory.exists?(:job_id => @job.id) ? inventory = Inventory.find_all_by_job_id(@job.id) : ""  %>
+  <% if inventory.present? %>
+    
+      <% inventory.each do |inventory| %>
+      <tr>
+        <td><%= inventory.description %></td>
+        <td class="inv"><%= inventory.unit_price.to_f * inventory.qty.to_f %></td>
+      </tr>
+      <% end %>
+      <%  else %>
+      <% end %>
+
+      <% Jobtime.exists?(:job_id => @job.id) ? jobtime = Jobtime.find_all_by_job_id(@job.id) : "" %>
+        <% if jobtime.present? %>
+      
+
+      <% jobtime.each do |jobtime| %>
+      <tr>
+        <td><%= jobtime.timetype %></td>
+        <td class="inv"><%= jobtime.price %></td>
+      </tr>
+      <% end %>
+      <% else %>
+      <% end %>
+  </table><br/>
+</div>
+
+<div>
+  <% Note.exists?(:notable_id => @job.id) ? note = Note.where(:note_type => 'Service Request').find_all_by_notable_id(@job.id) : "" %>
+  <% if note.present? %>
+  <p style="font-weight: bold; font-size: 20px;">Notes</p>
+    <table style="width:300px;">
+      <tr>
+        <th>Service Request Notes</th>
+      </tr>
+      <% note.each do |note| %>
+        <tr>
+          <td>* <%= note.description %></td>
+        </tr>
+      <% end %>
+    </table><br/>
+  <% else %>
+  <% end %>
+  
+    <% Note.exists?(:notable_id => @job.id) ? note = Note.where(:note_type => 'Service Request').find_all_by_notable_id(@job.id) : "" %>
+    <% if note.present? %>
+    <table style="width:300px;">
+      <tr>
+        <th>Service Performed Notes</th>
+      </tr>
+        <% note.each do |note| %>
+        <tr>
+          <td>* <%= note.description %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+  <% end %>
+  </table>
+</div>
+</div>
+
+<style>
+  table
+    {
+    border-collapse:collapse;
+    }
+  td, th, table{
+    border: 1px solid black;
+  }
+</style>
+ 
+ <script type="text/javascript">
+  var tds = document.getElementById('totals').getElementsByTagName('td');
+  var sum = 0;
+  for(var i = 0; i < tds.length; i ++) {    
+    if(tds[i].className == 'inv') {
+      sum += isNaN(tds[i].innerHTML) ? 0 : parseFloat(tds[i].innerHTML);
+    }
+  }
+  document.getElementById('totals').innerHTML += '<tr style="background-color:grey;font-weight:bold;"><td>Total</td><td>$' + sum + '</td></tr>';
+ </script>
+
+

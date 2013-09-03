@@ -10,53 +10,51 @@
 <div>
   <span style="font-size :18px; font-weight:bold; border-bottom: 1px solid #CCC;">Job details</span><br/>
 
-  <table class ="table table-hover">
+  <table style="border-collapse:collapse;border:1px solid;width:500px;">
     <tr>
-      <td>Job Number</td>
-      <td><%= @job.id %></td>
+      <td style="border:1px solid black;">Job Number</td>
+      <td style="border:1px solid black;"><%= @job.id %></td>
     </tr>
 
     <tr>
-      <td>Reference Number</td>
-      <td><%= @job.reference_no %></td>
+      <td style="border:1px solid black;">Reference Number</td>
+      <td style="border:1px solid black;"><%= @job.reference_no %></td>
     </tr>
 
     <tr>
-      <td>Due_date</td>
-      <td><%= @job.due_date %></td>
+      <td style="border:1px solid black;">Due_date</td>
+      <td style="border:1px solid black;"><%= @job.due_date %></td>
     </tr>
 
     <tr>
-      <td>Class Type</td>
-      <td><%= @job.class_type %></td>
+      <td style="border:1px solid black;">Class Type</td>
+      <td style="border:1px solid black;"><%= @job.class_type %></td>
     </tr>
 
     <tr>
-      <td>Assigned_To</td>
-      <td><%= @job.assigned_to %></td>
+      <td style="border:1px solid black;">Assigned_To</td>
+      <td style="border:1px solid black;"><%= @job.assigned_to %></td>
     </tr>
 
     <tr>
-      <td>Status</td>
-      <td><%= @job.status %></td>
+      <td style="border:1px solid black;">Status</td>
+      <td style="border:1px solid black;"><%= @job.status %></td>
     </tr>
 
     <tr>
-      <td>Sales_person</td>
-      <td><%= @job.sales_person %></td>
+      <td style="border:1px solid black;">Sales_person</td>
+      <td style="border:1px solid black;"><%= @job.sales_person %></td>
     </tr>
     <% if @job.contact_id.present? %>
       <tr>
-        <td>Primary Contact</td>
-        <td><%= Contact.find(@job.contact_id).name %></td>
+        <td style="border:1px solid black;">Primary Contact</td>
+        <td style="border:1px solid black;"><%= Contact.find(@job.contact_id).name %></td>
       </tr>
     <% end %>
 
-      <tr>
-        <td>
-          &nbsp;
-        </td>
-      </tr>
+  </table>
+  
+  <table>
       <tr>
         <td>&nbsp;</td>
         <td><%= image_tag @job.signature, :width => "130px" %></td>
@@ -68,7 +66,6 @@
           <%= @job.name %>
         </td>
       </tr>
-
   </table>
 </div>
 
