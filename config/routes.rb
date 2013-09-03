@@ -7,11 +7,11 @@ SMO::Application.routes.draw do
     collection do
       get :push_report_to_quickbook
     end
+
     member do
-      post  :send_mail
-      get   :job_report
-      get   :print
-    end
+    post :send_mail
+    get :job_report
+    end    
   end
   resources :customs do
     collection do

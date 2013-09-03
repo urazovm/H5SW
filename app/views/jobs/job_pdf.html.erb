@@ -51,24 +51,20 @@
         <td><%= current_login.contacts.find(@job.contact_id).name %></td>
       </tr>
     <% end %>
-
-      <tr>
-        <td>
-          &nbsp;
-        </td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td><%= image_tag @job.signature, :width => "130px" %></td>
-      </tr>
-
-      <tr>
-        <td></td>
-        <td>
-          <%= @job.name %>
-        </td>
-      </tr>
-
-  </table>
+</table><br/>
 </div>
 
+<div style="float:right;width:500px;">
+  <%= image_tag @job.signature, :width => "130px" %><br/>
+  <%= @job.name %>
+</div>
+
+<style>
+  table
+    {
+    border-collapse:collapse;
+    }
+  td, th, table{
+    border: 1px solid black;
+  }
+</style>

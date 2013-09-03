@@ -367,3 +367,24 @@ tr.odd{
     margin :auto;
     border-style: solid;
 }
+
+#job_report{
+    boredr-style :solid;
+    width :100%;
+}
+
+#company{
+    text-align :center;
+    float :left;
+    font-size :18px;
+    font-weight :bold;
+}
+
+#invoice{
+    float :right;
+    margin :auto;
+}
+
+#billto{
+    float :right;
+}

@@ -433,6 +433,3 @@ function mail(id) {
     });
 
   }
-
-
-  

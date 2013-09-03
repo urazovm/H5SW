@@ -25,15 +25,15 @@ class Job < ActiveRecord::Base
     end
   end
   
-   def self.total_on(date)
+  def self.total_on(date)
     where("status='open' AND date(created_at) = ?",date).count
   end
 
-   def self.closed_jobs(date)
-	where("status='closed' AND date(updated_at) = ?",date).count
-   end
+  def self.closed_jobs(date)
+    where("status='closed' AND date(updated_at) = ?",date).count
+  end
 
 	def self.open_jobs(date)
-	  where("status='open' AND date(created_at) = ?",date).count
-    end
+    @job = Date.today-date
+  end
 end
