@@ -11,12 +11,6 @@
 
 <%= render '/layouts/customer_with_action' %>
 
-<p>
-  <span style = "color:#0044cc; font-weight: bold;">
-    Job # : <%= session[:job_id] != nil ? session[:job_id] : "Please select a job" %>
-  </span>
-</p>
-
 <% if params[:type] == "Job" %>
   <%= render '/layouts/tab_panel_for_job' %>
 <% else %>

@@ -49,12 +49,14 @@
 </ul>
 
 <script>
-  function show_edit_form(custom_id,value_id){
+  function show_edit_form(custom_id,value_id, tb_type){
     $.ajax({
       url:'/customs/get_dropdown_values',
       data:{
         custom_id:custom_id,
-        dropdown_id:value_id
+        dropdown_id:value_id,
+        tab:<%= params[:tab] %>,
+        type:tb_type
       },
       type:'GET',
       dataType:'script',

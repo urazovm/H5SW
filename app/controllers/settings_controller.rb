@@ -46,6 +46,12 @@ class SettingsController < ApplicationController
   end
   
   def bluedot
+    oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, current_company.access_token, current_company.access_secret)
+    company_service = Quickeebooks::Online::Service::CompanyMetaData.new
+    company_service.access_token = oauth_client
+    company_service.realm_id = current_company.realm_id
+
+    @company = company_service
     
   end
 

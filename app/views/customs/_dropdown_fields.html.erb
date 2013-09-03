@@ -1,6 +1,14 @@
 <% @value = current_login.dropdown_values.find_by_custom_id(params[:custom_id]) %>
-<%= form_for @drop_downvalue,:url => update_dropdown_values_custom_path(@drop_downvalue),:method => 'PUT',:remote => true do |f| %>
+<%= form_for @drop_downvalue, :url => update_dropdown_values_custom_path(@drop_downvalue, :tab => params[:tab], :type => params[:type]), :method => 'POST',:remote => true do |f| %>
+
   <%= f.hidden_field :custom_id,:value => @custom.id %>
+
+  <% if params[:type] == "Job" %>
+    <%= f.hidden_field :job_id, :value => session[:job_id] %>
+  <% end %>
+  <%= f.hidden_field :customer_id, :value => session[:customer_id] %>
+  <%= f.hidden_field :jobsite_id, :value => session[:jobsite_id] %>
+
   <% if custom.field == "Text Box" %>
     <%= f.text_field "drop_value" %>
   <% elsif custom.field == "Dropdown List" %>
@@ -16,7 +24,8 @@
   <% else %>
     ''
   <% end %>
-  <%= f.submit 'update',:class => 'btn btn-small btn-primary' %>
+  <%= f.submit 'Save', :class => 'btn btn-small btn-primary', :onclick => "dfdfdf" %>
+  <%#= link_to_function 'update', 'update_dropdown_values()', :class => 'btn btn-mini btn-primary', :style => "color:white;" %>
   <%= link_to_function 'cancel', 'cancel_update_dropdown()',:class => 'btn btn-mini btn-primary', :style => "color:white;" %>
 <% end %>
 
@@ -28,12 +37,12 @@
   $(document).ready(function() {
     /* Activating Best In Place */
     $('.datepicker').datepicker()
-            .on('changeDate', function(e) {
+    .on('changeDate', function(e) {
       var y = e.date.getFullYear(),
-              _m = e.date.getMonth() + 1,
-              m = (_m > 9 ? _m : '0' + _m),
-              _d = e.date.getDate(),
-              d = (_d > 9 ? _d : '0' + _d);
+      _m = e.date.getMonth() + 1,
+      m = (_m > 9 ? _m : '0' + _m),
+      _d = e.date.getDate(),
+      d = (_d > 9 ? _d : '0' + _d);
       $(this).prev('input.data').val(y + '-' + m + '-' + d);
     });
   });

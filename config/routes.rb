@@ -28,7 +28,7 @@ SMO::Application.routes.draw do
 
     member do
       put :update_tab
-      put :update_dropdown_values
+      match :update_dropdown_values
       put :update_dropdown
       put :update_status
       put :update_table

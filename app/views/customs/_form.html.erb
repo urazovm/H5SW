@@ -1,6 +1,4 @@
 
-<%= render "/layouts/customer_with_action" %>
-
 <table style="background: #F1F1F1">
   <%= form_for(@custom,  :url => customs_path(:tab => @tab.id, :type => @tab.tab_type)) do |f| %>
 
@@ -21,32 +19,13 @@
     <%= f.hidden_field :company_id, :value => current_login.id %>
 
     <tr style="background: #666; color: #FFF;">
-      <td colspan="3">Select Customer/Job from the select field and create fields for it..</td>
+      <td colspan="3">Create a custom fields..</td>
     </tr>
     <tr>
       <td>
         &nbsp;
       </td>
     </tr>
-
-    <tr>
-      <td colspan="3">
-        <% if @tab.tab_type=="Job" && session[:job_id]==nil %>
-          <span  class="alert alert-error">Please select Job from job page before continuing.</span>
-        <% elsif !@customer.present? %>
-          <span  class="alert alert-error">Please select customer and jobsite from customer and jobsite dropdown list</span>
-        <% end %>
-
-      </td>
-    </tr>
-
-
-    <%= f.hidden_field :customer_id, :value => session[:customer_id] %>
-    <%= f.hidden_field :jobsite_id, :value => session[:jobsite_id] %>
-    <% if @tab.tab_type == "Job" %>
-      <%= f.hidden_field :job_id, :value => session[:job_id] %>
-    <% end %>
-
 
   <%# find job id if tab type is job %>
 

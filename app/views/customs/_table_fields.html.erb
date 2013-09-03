@@ -31,7 +31,8 @@
       url: '/customs/create_table_fields',
       data: {
         custom_id: custom_id,
-        drop_value: fields
+        drop_value: fields,
+        tab:<%= params[:tab] %>
       },
       type: 'POST',
       dataType: 'script',
@@ -52,7 +53,8 @@
     $.ajax({
       url: '/customs/' + id + '/update_table',
       data: {
-        drop_value: fields
+        drop_value: fields,
+        tab:<%= params[:tab] %>
       },
       type: 'PUT',
       dataType: 'script',

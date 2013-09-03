@@ -13,11 +13,12 @@ class CustomsController < ApplicationController
     end
 
     @tabs = current_login.tabs.where("tab_type=?", params[:type]).order("created_at asc")
-    if params[:type]=="Job"
-      @customs = search_by_session(current_login.customs).where("tab_id=? and job_id =? and status=?", @default_tab.to_i, session[:job_id], true).order('position asc')
-    else
-      @customs = search_by_session(current_login.customs).where("tab_id=? and status=?", @default_tab.to_i, true).order('position asc')
-    end
+    @customs = current_login.customs.where("tab_id=? AND status=?", @default_tab.to_i, true).order('position asc')
+    #    if params[:type]=="Job"
+    #      @customs = search_by_session(current_login.customs).where("tab_id=? and job_id =? and status=?", @default_tab.to_i, session[:job_id], true).order('position asc')
+    #    else
+    #      @customs = search_by_session(current_login.customs).where("tab_id=? and status=?", @default_tab.to_i, true).order('position asc')
+    #    end
   end
 
   def display_this_in_new_and_create
@@ -37,7 +38,7 @@ class CustomsController < ApplicationController
     @custom = current_login.customs.new(params[:custom])
 
     #all the custom fields matching this condition
-    @customs = search_by_session(current_login.customs).where("tab_id =? and status=?", @custom.tab, true)
+    @customs = current_login.customs.where("tab_id=? AND status=?", @default_tab.to_i, true).order('position asc')
 
     #set the position of the custom element
     if !@customs.empty?
@@ -106,14 +107,37 @@ class CustomsController < ApplicationController
   def get_dropdown_values
     @custom = Custom.find(params[:custom_id])
     @drop_downvalue = current_login.dropdown_values.find(params[:dropdown_id])
+    
     render
   end
 
   # update textfield, or calendar values
   def update_dropdown_values
     @custom = Custom.find(params[:dropdown_value][:custom_id])
-    @drop_downvalue = current_login.dropdown_values.find(params[:id])
-    @drop_downvalue.update_attributes(params[:dropdown_value])
+    
+    if params[:type] == "Job"
+      if DropdownValue.exists?(:id => params[:id], :job_id => session[:job_id], :company_id => current_login.id)
+        # update value for this job
+        @drop_downvalue = current_login.dropdown_values.find(:id => params[:id], :job_id => session[:job_id])
+        @drop_downvalue.update_attributes(params[:dropdown_value])
+      else
+        # create new value for this job
+        @drop_downvalue = current_login.dropdown_values.new(params[:dropdown_value])
+        @drop_downvalue.save
+      end
+    else
+      puts session[:customer_id]
+      if DropdownValue.exists?(:id => params[:id], :customer_id => session[:customer_id], :company_id => current_login.id)
+        # update value for this customer and jobsite
+        @drop_downvalue = current_login.dropdown_values.find(:id => params[:id], :job_id => session[:job_id])
+        @drop_downvalue.update_attributes(params[:dropdown_value])
+      else
+        # create value for this customer and jobsite
+        @drop_downvalue = current_login.dropdown_values.new(params[:dropdown_value])
+        @drop_downvalue.save
+      end
+    end
+
     render
   end
 
@@ -145,7 +169,7 @@ class CustomsController < ApplicationController
   #end of updation of update dropdown values
 
   def display_custom
-    @customs = search_by_session(current_login.customs).where("tab_id=? AND status=?", params[:tab].to_i, true).order('position asc')
+    @customs = current_login.customs.where("tab_id=? AND status=?", params[:tab].to_i, true).order('position asc')
   end
 
   # update the position of the custom fields

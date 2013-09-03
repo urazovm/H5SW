@@ -73,7 +73,8 @@
     $.ajax({
       url: '/customs/edit_table_heading',
       data: {
-        id: value_id
+        id: value_id,
+        tab:<%= params[:tab] %>
       },
       type: 'GET',
       dataType: 'script',
@@ -86,7 +87,8 @@
     $.ajax({
       url: '/customs/edit_table',
       data: {
-        id: value_id
+        id: value_id,
+        tab:<%= params[:tab] %>
       },
       type: 'GET',
       dataType: 'script',

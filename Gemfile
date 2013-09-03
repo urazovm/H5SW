@@ -13,7 +13,7 @@ gem "remotipart", "~> 1.0.2"
 gem "dynamic_form"
 gem 'rails3-jquery-autocomplete'
 gem 'gmaps4rails'
-gem "quickeebooks"
+gem "quickeebooks", "0.1.20"
 
 #gems used for bootstrap-datepicker-rails
 gem 'rails-asset-jqueryui'

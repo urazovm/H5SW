@@ -156,7 +156,7 @@ class CustomersController < ApplicationController
     customer_service = Quickeebooks::Online::Service::Customer.new
     customer_service.access_token = oauth_client
     customer_service.realm_id = current_company.realm_id
-    customer_service.list
+#    customer_service.list
 
     unless @customer.quickbook_customer_id.present? || @customer.quickbook_customer_id != nil
       push_to_quickbook(@customer)
