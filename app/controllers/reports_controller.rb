@@ -23,30 +23,31 @@ class ReportsController < ApplicationController
 
     invoice = Quickeebooks::Online::Model::Invoice.new
 
-    # created_at and updated_at
-    meta_data = Quickeebooks::Online::Model::MetaData.new
-    meta_data.create_time = @job.created_at
-    meta_data.last_updated_time = @job.updated_at
-    invoice.meta_data = meta_data
-
-    # create header parts
-    header = Quickeebooks::Online::Model::InvoiceHeader.new
-    header.msg = @job.summary
-    # find the customer in quickbook
-    customer = customer_service.fetch_by_id(@customer.quickbook_customer_id)
-    if customer.present?
-      header.customer_id = customer.id
-      header.customer_name = customer.name
-    end
-    
-    # header.sub_total_amount = @job.sub_total
-    header.to_be_printed = true
-    header.to_be_emailed = true
-    header.bill_email = current_login.email
-    header.due_date = @job.due_date
-    invoice.header = header
-
     if current_login.inventories.exists?(:job_id => @job.id) || current_login.jobtimes.exists?(:job_id => @job.id)
+
+      # created_at and updated_at
+      meta_data = Quickeebooks::Online::Model::MetaData.new
+      meta_data.create_time = @job.created_at
+      meta_data.last_updated_time = @job.updated_at
+      invoice.meta_data = meta_data
+
+      # create header parts
+      header = Quickeebooks::Online::Model::InvoiceHeader.new
+      header.msg = @job.summary
+      # find the customer in quickbook
+      customer = customer_service.fetch_by_id(@customer.quickbook_customer_id)
+      if customer.present?
+        header.customer_id = customer.id
+        header.customer_name = customer.name
+      end
+    
+      # header.sub_total_amount = @job.sub_total
+      header.to_be_printed = true
+      header.to_be_emailed = true
+      header.bill_email = current_login.email
+      header.due_date = @job.due_date
+      invoice.header = header
+
       @items = current_login.inventories.where("job_id = ?", @job.id)
       if @items.present?
         @items.each do |item|

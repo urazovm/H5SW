@@ -99,12 +99,12 @@ class JobsitesController < ApplicationController
     #push data to quickbook
     oauth_client = OAuth::AccessToken.new($qb_oauth_consumer, current_login.access_token, current_login.access_secret)
 
-    jobsite_service = Quickeebooks::Windows::Service::Job.new(oauth_client, current_login.realm_id)
+    jobsite_service = Quickeebooks::Online::Service::Job.new
     jobsite_service.access_token = oauth_client
     jobsite_service.realm_id = current_login.realm_id
     #jobsite_service.list
     
-    jobsite = Quickeebooks::Windows::Model::Job.new
+    jobsite = Quickeebooks::Online::Model::Job.new
 
     # find quickbook_customer_id
     @parent_customer = current_login.customers.find(@jobsite.customer_id)

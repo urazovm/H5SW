@@ -14,7 +14,7 @@ class Customer < ActiveRecord::Base
 
 
   validates :company_name,:city, :state, :zip, :presence => true
-  validates :website, :format => URI::regexp(%w(http https))
+  #validates :website, :format => URI::regexp(%w(http https))
   validates :company_name, :uniqueness => {:scope => :company_id, :message => "already exists, try with another name"}
 
   #validates :account, :uniqueness => true
