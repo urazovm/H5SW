@@ -20,7 +20,7 @@ class InventoriesController < ApplicationController
   def create
     @inventory = Inventory.new(params[:inventory])
     @inventory.company_id = current_login.id
-
+    
     if @inventory.save
       flash[:notice]= "Item was successfully created "
       redirect_to inventories_path
