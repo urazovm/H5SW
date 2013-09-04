@@ -48,6 +48,15 @@ class CustomsController < ApplicationController
       @custom.position = 1
     end
 
+    if params[:custom][:field] == "Legend"
+      dropdown_value = params[:drop_down_value1]
+    elsif params[:custom][:field] == "Table"
+      check_for_empty_params
+      @custom.drop_value = [params[:field_1], params[:field_2], params[:field_3],params[:field_4], params[:field_5], params[:field_6],params[:field_7], params[:field_8], params[:field_9],params[:field_10], params[:field_11]].join(", ")
+    else
+      @custom.drop_value = params[:drop_down_value]
+    end
+
     #save the custom element
     if @custom.save
 
@@ -56,15 +65,9 @@ class CustomsController < ApplicationController
       @change_tab_name.update_attributes(:name => params[:tab_name])
 
       #save values for textbox, dropdown or calendar
-      if params[:custom][:field] == "Legend"
-        dropdown_value = params[:drop_down_value1]
-      elsif params[:custom][:field] == "Table"
-        check_for_empty_params
-        dropdown_value = [params[:field_1], params[:field_2], params[:field_3],params[:field_4], params[:field_5], params[:field_6],params[:field_7], params[:field_8], params[:field_9],params[:field_10], params[:field_11]].join(", ")
-      else
-        dropdown_value = params[:drop_down_value]
+      unless params[:custom][:field] == "Table"
+        DropdownValue.create(:custom_id => @custom.id, :company_id => @custom.company_id, :drop_value => dropdown_value)
       end
-      DropdownValue.create(:custom_id => @custom.id, :company_id => @custom.company_id, :drop_value => dropdown_value)
 
       flash[:notice] = "Custom field created successfully."
       redirect_to new_custom_path(:tab => @tab.id, :type => @tab.tab_type)
@@ -106,19 +109,24 @@ class CustomsController < ApplicationController
 
   def get_dropdown_values
     @custom = Custom.find(params[:custom_id])
-    @drop_downvalue = current_login.dropdown_values.find(params[:dropdown_id])
-    
+    @drop_downvalue = current_login.dropdown_values.find(params[:dropdown_id])   
     render
   end
 
   # update textfield, or calendar values
+  
   def update_dropdown_values
     @custom = Custom.find(params[:dropdown_value][:custom_id])
     
+    puts session[:customer_id]
+    puts session[:jobsite_id]
+    puts session[:job_id]
+    puts "================================="
+
     if params[:type] == "Job"
-      if DropdownValue.exists?(:id => params[:id], :job_id => session[:job_id], :company_id => current_login.id)
+      if DropdownValue.exists?(:custom_id => params[:custom_id], :job_id => session[:job_id], :company_id => current_login.id)
         # update value for this job
-        @drop_downvalue = current_login.dropdown_values.find(:id => params[:id], :job_id => session[:job_id])
+        @drop_downvalue = current_login.dropdown_values.find_by_custom_id_and_job_id(params[:custom_id], session[:job_id])
         @drop_downvalue.update_attributes(params[:dropdown_value])
       else
         # create new value for this job
@@ -126,15 +134,29 @@ class CustomsController < ApplicationController
         @drop_downvalue.save
       end
     else
-      puts session[:customer_id]
-      if DropdownValue.exists?(:id => params[:id], :customer_id => session[:customer_id], :company_id => current_login.id)
-        # update value for this customer and jobsite
-        @drop_downvalue = current_login.dropdown_values.find(:id => params[:id], :job_id => session[:job_id])
-        @drop_downvalue.update_attributes(params[:dropdown_value])
+      if session[:jobsite_id].present? && session[:jobsite_id] != 0 && session[:jobsite_id] != "All" && session[:jobsite_id] != "None"
+
+        # update jobsite and customer both
+        if DropdownValue.exists?(:custom_id => params[:custom_id], :customer_id => session[:customer_id], :company_id => current_login.id, :jobsite_id => session[:jobsite_id])
+          # update value for this customer and jobsite
+          @drop_downvalue = current_login.dropdown_values.find_by_custom_id_and_customer_id_and_jobsite_id(params[:custom_id], session[:customer_id], session[:jobsite_id])
+          @drop_downvalue.update_attributes(params[:dropdown_value])
+        else
+          # create value for this customer and jobsite
+          @drop_downvalue = current_login.dropdown_values.new(params[:dropdown_value])
+          @drop_downvalue.save
+        end
       else
-        # create value for this customer and jobsite
-        @drop_downvalue = current_login.dropdown_values.new(params[:dropdown_value])
-        @drop_downvalue.save
+        # update customer only
+        if DropdownValue.exists?(:custom_id => params[:custom_id], :customer_id => session[:customer_id], :company_id => current_login.id)
+          # update value for this customer and jobsite
+          @drop_downvalue = current_login.dropdown_values.find_by_custom_id_and_customer_id_and_jobsite_id(params[:custom_id], session[:customer_id],0)
+          @drop_downvalue.update_attributes(params[:dropdown_value])
+        else
+          # create value for this customer and jobsite
+          @drop_downvalue = current_login.dropdown_values.new(params[:dropdown_value])
+          @drop_downvalue.save
+        end
       end
     end
 
@@ -158,16 +180,87 @@ class CustomsController < ApplicationController
   def edit_dropdown
     @custom_id = params[:cus_id]
     @custom = Custom.find(params[:cus_id])
-    @dropdown_values =  DropdownValue.find_by_custom_id_and_company_id(params[:cus_id], current_login.id).drop_value
+    @dropdown_values =  current_login.customs.find(params[:cus_id]).drop_value
   end
 
   def update_dropdown
     @custom = Custom.find(params[:id])
-    @dropdown_value = DropdownValue.find_by_custom_id_and_company_id(params[:id], current_login.id)
+    @dropdown_value = current_login.customs.find(params[:id])
     @dropdown_value.update_attribute(:drop_value, params[:dropdown_value])
+  end
+
+
+
+
+
+
+
+
+
+
+  def update_customer_selection
+    @custom = current_login.customs.find(params[:id])
+    
+    if params[:type] == "Job"
+      if DropdownValue.exists?(:custom_id => params[:custom_id], :job_id => session[:job_id], :company_id => current_login.id)
+        # update value for this job
+        @drop_downvalue = current_login.dropdown_values.find_by_custom_id_and_job_id(params[:id], session[:job_id])
+        @drop_downvalue.update_attributes(params[:dropdown_value])
+      else
+        # create new value for this job
+        @drop_downvalue = current_login.dropdown_values.new(params[:dropdown_value])
+        @drop_downvalue.custom_id = params[:id]
+        @drop_downvalue.job_id = session[:job_id]
+        @drop_downvalue.customer_id = session[:customer_id]
+        @drop_downvalue.jobsite_id = session[:jobsite_id]
+        @drop_downvalue.save
+      end
+    else
+      if session[:jobsite_id].present? && session[:jobsite_id] != 0 && session[:jobsite_id] != "All" && session[:jobsite_id] != "None"
+        # update jobsite and customer both
+        if DropdownValue.exists?(:custom_id => params[:custom_id], :customer_id => session[:customer_id], :company_id => current_login.id, :jobsite_id => session[:jobsite_id])
+          # update value for this customer and jobsite
+          @drop_downvalue = current_login.dropdown_values.find_by_custom_id_and_customer_id_and_jobsite_id(params[:custom_id], session[:customer_id], session[:jobsite_id])
+          @drop_downvalue.update_attributes(params[:dropdown_value])
+        else
+          # create value for this customer and jobsite
+          @drop_downvalue = current_login.dropdown_values.new(params[:dropdown_value])
+          @drop_downvalue.custom_id = params[:id]
+          @drop_downvalue.customer_id = session[:customer_id]
+          @drop_downvalue.jobsite_id = session[:jobsite_id]
+          @drop_downvalue.save
+        end
+      else
+        # update customer only
+        if DropdownValue.exists?(:custom_id => params[:custom_id], :customer_id => session[:customer_id], :company_id => current_login.id)
+          # update value for this customer and jobsite
+          @drop_downvalue = current_login.dropdown_values.find_by_custom_id_and_customer_id_and_jobsite_id(params[:custom_id], session[:customer_id], 0)
+          @drop_downvalue.update_attributes(params[:dropdown_value])
+
+        else
+          # create value for this customer and jobsite
+          @drop_downvalue = current_login.dropdown_values.new(params[:dropdown_value])
+          @drop_downvalue.custom_id = params[:id]
+          @drop_downvalue.customer_id = session[:customer_id]
+          @drop_downvalue.jobsite_id = session[:jobsite_id]
+          @drop_downvalue.save
+        end
+      end
+    end
   end
   #end of updation of update dropdown values
 
+
+
+
+
+
+
+
+
+
+
+  
   def display_custom
     @customs = current_login.customs.where("tab_id=? AND status=?", params[:tab].to_i, true).order('position asc')
   end
@@ -228,7 +321,16 @@ class CustomsController < ApplicationController
 
   # CRUD table field
   def create_table_fields
-    DropdownValue.create(:custom_id => params[:custom_id], :company_id => current_login.id, :drop_value => params[:drop_value])
+    if params[:type] == "Job"
+      DropdownValue.create(:custom_id => params[:custom_id], :company_id => current_login.id, :drop_value => params[:drop_value], :customer_id => session[:customer_id], :jobsite_id => session[:jobsite_id], :job_id => session[:job_id])
+    else
+      if session[:jobsite_id].present? && session[:jobsite_id] != nil && session[:jobsite_id] != "All" && session[:jobsite_id] != "None"
+        DropdownValue.create(:custom_id => params[:custom_id], :company_id => current_login.id, :drop_value => params[:drop_value], :customer_id => session[:customer_id], :jobsite_id => session[:jobsite_id])
+      else
+        DropdownValue.create(:custom_id => params[:custom_id], :company_id => current_login.id, :drop_value => params[:drop_value], :customer_id => session[:customer_id])
+      end
+    end
+    
     @custom = Custom.find(params[:custom_id])
   end
 
@@ -239,7 +341,7 @@ class CustomsController < ApplicationController
   end
 
   def edit_table_heading
-    @dropdown_value = current_login.dropdown_values.find(params[:id])
+    @dropdown_value = current_login.customs.find(params[:id])
     @values = @dropdown_value.drop_value.split(",")
     render
   end
@@ -252,9 +354,9 @@ class CustomsController < ApplicationController
   end
 
   def update_heading
-    @dropdown_value = current_login.dropdown_values.find(params[:id])
+    @dropdown_value = current_login.customs.find(params[:id])
     @dropdown_value.update_attribute(:drop_value, params[:drop_value])
-    @custom = Custom.find(@dropdown_value.custom_id)
+    @custom = Custom.find(@dropdown_value.id)
     render
   end
 

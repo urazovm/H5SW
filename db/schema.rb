@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130903095423) do
+ActiveRecord::Schema.define(:version => 20130904090800) do
 
   create_table "companies", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(:version => 20130903095423) do
     t.integer  "position"
     t.integer  "tab_id"
     t.boolean  "status",     :default => true
+    t.string   "drop_value"
   end
 
   create_table "documents", :force => true do |t|

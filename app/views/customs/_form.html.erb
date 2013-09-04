@@ -67,7 +67,7 @@
 
     <tr id="add_drop_down_values">
       <td id="append_text" colspan="3">
-        <%= f.label "Enter value for custom field" %>
+        <%= f.label "Enter value for custom field", :id => "hide_label" %>
         <span id="text">
           <%= text_field_tag "drop_down_value", nil, :placeholder => "Dropdown Values e.g: value 1, value 2, value 3, ......", :class => 'data' %>
           <%= image_tag "calendar.png", :style => "width: 32px; height: 32px; cursor:pointer; display:none;", :id => "calendar_icon1", :class => "datepicker" %>
@@ -122,6 +122,10 @@
   <%= render :partial => 'customs', :locals => {:customs => @customs} %>
 </div>
 
+
+
+
+
 <script>
   function update_tab() {
     var tab = $("#tab_name").val();
@@ -150,6 +154,8 @@
       $("#textarea").hide();
       $("#text").show();
       $("#table123").hide();
+      $("#drop_down_value").show();
+      $("#hide_label").show();
     }
     if ($("#custom_field").val() == "Text Box") {
       $("#value_label").hide();
@@ -157,13 +163,17 @@
       $("#textarea").hide();
       $("#text").show();
       $("#table123").hide();
+      $("#drop_down_value").hide();
+      $("#hide_label").hide();
     }
     if ($("#custom_field").val() == "Calendar") {
       $("#value_label").hide();
-      $("#calendar_icon1").show();
+      $("#calendar_icon1").hide();
       $("#textarea").hide();
       $("#text").show();
       $("#table123").hide();
+      $("#drop_down_value").hide();
+      $("#hide_label").hide()
     }
     if ($("#custom_field").val() == "Legend") {
       $("#textarea").show();

@@ -34,6 +34,7 @@ SMO::Application.routes.draw do
       put :update_table
       put :update_heading
       delete :delete_table
+      match :update_customer_selection
     end
   end
 
