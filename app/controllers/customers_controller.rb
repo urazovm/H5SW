@@ -1,7 +1,7 @@
 class CustomersController < ApplicationController
   before_filter :is_login?
   before_filter :access_role?
-  #before_filter :gmap_json, :only => ["edit"]
+  before_filter :gmap_json, :only => ["edit"]
 
   # GET /customers
   def index

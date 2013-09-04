@@ -34,6 +34,6 @@ class Job < ActiveRecord::Base
   end
 
 	def self.open_jobs(date)
-    @job = Date.today-date
+   @job = Date.today-date
   end
 end

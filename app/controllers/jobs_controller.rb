@@ -44,8 +44,6 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(params[:job])
     @job.company_id = current_login.id
-    
-
     @note = current_login.notes.new
     @notes = search_by_session_type("note",current_login.notes,"Job").order("created_at desc")
     if @job.save
@@ -81,7 +79,7 @@ class JobsController < ApplicationController
       render :action => "edit"
     end
   end
-
+  
   def destroy
     @job = Job.find(params[:id])
     if @job.destroy
